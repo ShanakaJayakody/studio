@@ -22,21 +22,22 @@ export default function TopBar() {
     let intervalId: NodeJS.Timeout | undefined;
 
     if (examPhase === 'in-progress') {
-      if (timeLeft <= 0 && EXAM_DURATION_SECONDS > 0) { 
-        setTimeLeft(EXAM_DURATION_SECONDS);
-      }
+      // if (timeLeft <= 0 && EXAM_DURATION_SECONDS > 0) { // This condition might be redundant if timeLeft is always reset correctly
+      //   setTimeLeft(EXAM_DURATION_SECONDS);
+      // }
       
       intervalId = setInterval(() => {
         setTimeLeft((prevTime) => {
           if (prevTime <= 1) {
             clearInterval(intervalId!);
+            // Optionally, trigger exam submission or show a message when time is up
             return 0;
           }
           return prevTime - 1;
         });
       }, 1000);
     } else {
-      setTimeLeft(EXAM_DURATION_SECONDS);
+      setTimeLeft(EXAM_DURATION_SECONDS); // Reset timer when not in progress
     }
 
     return () => {
@@ -44,7 +45,7 @@ export default function TopBar() {
         clearInterval(intervalId);
       }
     };
-  }, [examPhase, timeLeft]); // Added timeLeft to dependencies to handle reset correctly
+  }, [examPhase]); // Removed timeLeft from dependency to prevent reset loop if user navigates back
 
   const formatTime = (seconds: number) => {
     const minutes = Math.floor(seconds / 60);
@@ -83,11 +84,10 @@ export default function TopBar() {
           <div>
             <Button
               onClick={() => setIsCalculatorOpen(true)}
-              variant="outline"
               aria-label="Open Calculator"
               className={cn(
-                "border-[hsl(var(--ucat-light-blue-bar-fg))] text-[hsl(var(--ucat-light-blue-bar-fg))]",
-                "hover:bg-accent hover:text-[hsl(var(--accent-foreground))]", // Accent bg is sky blue, accent-foreground is now white
+                "bg-[hsl(var(--ucat-light-blue-bar-bg))] text-[hsl(var(--ucat-light-blue-bar-fg))]", // Match bar bg, white text
+                "hover:bg-accent hover:text-[hsl(var(--accent-foreground))]",
                 "transition-colors duration-200 px-3 py-1 h-8 text-sm"
               )}
             >
@@ -97,15 +97,14 @@ export default function TopBar() {
           <div>
             <Button
               onClick={handleFlagToggle}
-              variant={flagged ? "destructive" : "outline"}
               aria-label={flagged ? "Unflag Question" : "Flag Question"}
               className={cn(
                 "transition-colors duration-200 px-3 py-1 h-8 text-sm",
                 flagged
-                  ? "bg-destructive text-destructive-foreground hover:bg-destructive/90"
+                  ? "bg-destructive text-destructive-foreground hover:bg-destructive/90" // Destructive variant handles its own bg/text
                   : cn(
-                      "border-[hsl(var(--ucat-light-blue-bar-fg))] text-[hsl(var(--ucat-light-blue-bar-fg))]",
-                      "hover:bg-accent hover:text-[hsl(var(--accent-foreground))]" // Accent bg is sky blue, accent-foreground is now white
+                      "bg-[hsl(var(--ucat-light-blue-bar-bg))] text-[hsl(var(--ucat-light-blue-bar-fg))]", // Match bar bg, white text
+                      "hover:bg-accent hover:text-[hsl(var(--accent-foreground))]"
                     )
               )}
             >
