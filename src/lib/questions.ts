@@ -11,18 +11,18 @@ export const DECISION_MAKING_QUESTIONS: Question[] = [
     conclusions: [
       { id: 'dm_q1_s1', text: 'Nobody kept as a pet is a python.' },
       { id: 'dm_q1_s2', text: 'No python is a mammal.' },
-      { id: 'dm_q1_s3', text: 'If an animal has no wings, it cannot be a whiffle.' }, // Whiffle is extraneous
+      { id: 'dm_q1_s3', text: 'If an animal has no wings, it cannot be a whiffle.' },
       { id: 'dm_q1_s4', text: 'An animal that is a mammal cannot be kept as a pet.' },
-      { id: 'dm_q1_s5', text: 'An animal that is not a python cannot be a mammal.' }, // Corrected statement wording as per user
+      { id: 'dm_q1_s5', text: 'An animal that is not a python cannot be a mammal.' },
     ],
     correctAnswer: {
-      'dm_q1_s1': 'yes', // User Key. Logic: Not necessarily. Could be true or false.
-      'dm_q1_s2': 'no',  // User Key. Logic: (No reptile is mammal + All pythons are reptiles) => No python is mammal. This should be YES.
-      'dm_q1_s3': 'no',  // User Key. Logic: Whiffle undefined. Cannot determine.
-      'dm_q1_s4': 'no',  // User Key. Logic: Cannot determine from premises.
-      'dm_q1_s5': 'yes', // User Key. Logic: Not necessarily. Could be a non-reptile mammal.
+      'dm_q1_s1': 'yes',
+      'dm_q1_s2': 'no',
+      'dm_q1_s3': 'no',
+      'dm_q1_s4': 'no',
+      'dm_q1_s5': 'yes',
     },
-    explanation: 'Based on the provided answer key YNNNY. S1: The premises state "Some reptiles are kept as pets" and "All pythons are reptiles". This does not exclude the possibility of a python being kept as a pet. The answer "Yes" implies that the conclusion "Nobody kept as a pet is a python" *does* follow, which is ambiguous. S2: From "No reptile is a mammal" and "All pythons are reptiles", it logically follows that "No python is a mammal". The answer key "No" contradicts this. S3: Whiffles are not mentioned in the premises. S4: The premises do not provide information to support or deny this. S5: If an animal is not a python, it could be another type of reptile (and thus not a mammal), or it could be a mammal. The answer "Yes" (meaning the statement *does* follow) is not strictly deducible. Following the provided key.',
+    explanation: 'Based on the provided answer key YNNNY. S1: Ambiguous based on premises. S2: Logically YES, but key is NO. S3: Whiffles are undefined. S4: Cannot determine. S5: Not strictly deducible. Following provided key.',
   },
   {
     id: 'dm_q2',
@@ -44,7 +44,7 @@ export const DECISION_MAKING_QUESTIONS: Question[] = [
       'dm_q2_s4': 'yes',
       'dm_q2_s5': 'yes',
     },
-    explanation: 'S1: Information about flarn scales is not provided. S2: Information about whether flarns are animals is not provided. S3: Sparrows do not have scales; flarn scale status is unknown, so we cannot conclude either has scales. S4: Whiffles have wings, so an animal without wings cannot be a whiffle. S5: The premise explicitly states "A flarn... is not a sparrow".',
+    explanation: 'S1: Information about flarn scales is not provided. S2: Information about whether flarns are animals is not provided. S3: Sparrows do not have scales; flarn scale status is unknown. S4: Whiffles have wings, so an animal without wings cannot be a whiffle. S5: The premise explicitly states "A flarn... is not a sparrow".',
   },
   {
     id: 'dm_q3',
@@ -60,13 +60,13 @@ export const DECISION_MAKING_QUESTIONS: Question[] = [
       { id: 'dm_q3_s5', text: 'Exactly one-third of all the copies originally stocked were audio-books.' },
     ],
     correctAnswer: {
-      'dm_q3_s1': 'yes', // User key. Logic: H sold. P=2H. A=H+2H=3H. Total=6H. H/6H = 1/6.
-      'dm_q3_s2': 'no',  // User key. Logic: Stock-2H vs Stock-H. Fewer paperbacks left is true if H>0.
-      'dm_q3_s3': 'no',  // User key. Logic: H vs 3H. Hard-covers are less popular. Statement is true.
-      'dm_q3_s4': 'yes', // User key. Logic: New H sales = 2H. P sales = 2H. Equal, not more.
+      'dm_q3_s1': 'yes',
+      'dm_q3_s2': 'no',
+      'dm_q3_s3': 'no',
+      'dm_q3_s4': 'yes',
       'dm_q3_s5': 'yes',
     },
-    explanation: 'Let H be hard-covers sold. Paperbacks P=2H. Audio-books A=H+P = H+2H = 3H. Total sales = H+2H+3H = 6H. S1: Hard-covers sold are H, total sales 6H. So H/6H = 1/6. The user key says YES for "A quarter...". This implies a specific interpretation. S2: If initial stock is S for each type, remaining paperbacks S-2H, remaining hardcovers S-H. S-2H < S-H is true if H>0. User key NO. S3: Hardcovers (H) vs Audiobooks (3H). Hardcovers are less popular than audiobooks. The statement says "Hard-cover copies were less popular...". This is true. User key NO. S4: Next day, H sales = 2 * (original H sales) = 2H. P sales = 2H. Sales would be equal. User key YES. S5: Yes, each type was 1/3 of original stock. Sticking to user-provided YNNYY key.',
+    explanation: 'Let H be hard-covers sold. P=2H. A=3H. Total sales=6H. S1: H/6H = 1/6. User key YES (1/4). S2: Remaining P (S-2H) vs H (S-H). S-2H < S-H if H>0. User key NO. S3: H vs 3H. Hard-covers less popular. Statement TRUE. User key NO. S4: New H sales = 2H. P sales = 2H. Equal, not more. User key YES. S5: Yes, initial stock 1/3 each. Following user YNNYY key.',
   },
   {
     id: 'dm_q4',
@@ -77,18 +77,18 @@ export const DECISION_MAKING_QUESTIONS: Question[] = [
     conclusions: [
       { id: 'dm_q4_s1', text: 'If you took out a purple item, it would be a hat.' },
       { id: 'dm_q4_s2', text: 'As well as purple and black items, the suitcase also contained some yellow items.' },
-      { id: 'dm_q4_s3', text: 'There were no black garments in the suitcase.' }, // User key indicates YES, but black gloves are garments.
+      { id: 'dm_q4_s3', text: 'There were no black garments in the suitcase.' },
       { id: 'dm_q4_s4', text: 'There were more purple garments than green garments in the suitcase.' },
       { id: 'dm_q4_s5', text: 'The only yellow garments were hats.' },
     ],
     correctAnswer: {
       'dm_q4_s1': 'no',
       'dm_q4_s2': 'yes',
-      'dm_q4_s3': 'yes', // User key. Logic: Black gloves are garments, so statement "no black garments" is false.
-      'dm_q4_s4': 'yes', // User key. Logic: "Few" purple hats + "few" purple gloves vs "some" green hats. "Few" < "Some". So more green.
+      'dm_q4_s3': 'yes',
+      'dm_q4_s4': 'yes',
       'dm_q4_s5': 'no',
     },
-    explanation: 'S1: A purple item could be a hat or gloves. S2: Yellow hats are mentioned. S3: Black gloves are present; gloves are garments. So "no black garments" is false. User key says YES. S4: "Few" purple hats + "few" purple gloves vs "some" green hats. Generally "few" < "some", implying more green garments. User key says YES (more purple). S5: Only yellow hats are explicitly mentioned as yellow items, and "nothing else in the suitcase" refers to other types of items. It doesn\'t explicitly exclude other types of yellow garments if they existed, though implies not. Key NO is reasonable. Following user NYYYN.',
+    explanation: 'S1: Purple item could be hat or gloves. S2: Yellow hats mentioned. S3: Black gloves are garments; statement "no black garments" is false. User key YES. S4: "Few" purple vs "some" green. "Few"<"Some", so more green. User key YES (more purple). S5: Only yellow hats explicitly mentioned. Passage doesn\'t exclude other yellow garments, but implies not. Key NO reasonable. Following user NYYYN.',
   },
   {
     id: 'dm_q5',
@@ -97,8 +97,8 @@ export const DECISION_MAKING_QUESTIONS: Question[] = [
     stimulus: 'Premises:\nZephyrs and kites are types of aircraft.\nAll zephyrs are aeros.\nOnly the aeros that fly over the Atlantic carry radar.\nAll aeros are blue.',
     questionText: 'Question 5\nConclusions: For each statement, indicate if it logically follows from the premises.',
     conclusions: [
-      { id: 'dm_q5_s1', text: 'Zephyrs are blue.' }, // User key NO. Logic: Zephyrs -> Aeros -> Blue. Should be YES.
-      { id: 'dm_q5_s2', text: 'All aircraft are aeros.' }, // User key YES. Logic: Kites are aircraft, not stated if aeros. Should be NO.
+      { id: 'dm_q5_s1', text: 'Zephyrs are blue.' },
+      { id: 'dm_q5_s2', text: 'All aircraft are aeros.' },
       { id: 'dm_q5_s3', text: 'Neither zephyrs nor kites fly over the Atlantic.' },
       { id: 'dm_q5_s4', text: 'If an aero carries radar, it must fly over the Atlantic.' },
       { id: 'dm_q5_s5', text: 'Not all blue aeros carry radar.' },
@@ -110,7 +110,7 @@ export const DECISION_MAKING_QUESTIONS: Question[] = [
       'dm_q5_s4': 'yes',
       'dm_q5_s5': 'no',
     },
-    explanation: 'Given NYNYN. S1 (Zephyrs are blue): NO (Zephyrs -> Aeros -> Blue. This should be YES. User key N). S2 (All aircraft are aeros): YES (Kites are aircraft, not stated if aeros. This should be NO. User key Y). S3 (Neither Z nor K fly over Atlantic): NO (Unknown). S4 (Aero with radar -> flies over Atlantic): YES (from "Only the aeros that fly over the Atlantic carry radar"). S5 (Not all blue aeros carry radar): NO (If all aeros are blue, and only Atlantic-flying aeros have radar, it is possible all blue aeros fly Atlantic and have radar, or some don\'t. Not necessarily true that *not all* carry radar. User key N). Using user keys NYNYN despite direct logic contradictions for S1 & S2.',
+    explanation: 'Given NYNYN. S1: Zephyrs->Aeros->Blue. Should be YES. User key N. S2: Kites are aircraft, not stated if aeros. Should be NO. User key Y. S3: Unknown. S4: Correct by premise. S5: Possible all blue aeros fly Atlantic & have radar. Not necessarily true *not all* carry radar. Using user key NYNYN despite logic for S1 & S2.',
   },
   {
     id: 'dm_q6',
@@ -132,7 +132,7 @@ export const DECISION_MAKING_QUESTIONS: Question[] = [
       'dm_q6_s4': 'yes',
       'dm_q6_s5': 'no',
     },
-    explanation: 'S1: No red fruit is mentioned. Peach color is unknown. S2: Green apples are present. S3: Yellow bananas are present. S4: Bananas are stated to be yellow. S5: Peaches are in the bowl; their color is not specified as green or yellow, so not all fruit is necessarily green or yellow.',
+    explanation: 'S1: No red fruit mentioned; peach color unknown. S2: Green apples present. S3: Yellow bananas present. S4: Bananas stated yellow. S5: Peaches present; their color unstated, so not all fruit necessarily green/yellow.',
   },
   {
     id: 'dm_q7',
@@ -147,7 +147,7 @@ export const DECISION_MAKING_QUESTIONS: Question[] = [
       { id: 'dm_q7_o4', text: '176kg' },
     ],
     correctAnswer: 'dm_q7_o2',
-    explanation: 'Let C, A, S be weights. (1) 2C+3A+S=70, (2) C+2A+S=40. Subtract (2) from (1): C+A=30. We need 4C+4A+S = 4(C+A)+S = 4(30)+S = 120+S. From (2), S=40-C-2A. Substitute C=30-A: S=40-(30-A)-2A = 10-A. So, target weight is 120+(10-A)=130-A. Option B (128kg): 120+S=128 => S=8kg. If S=8, A=2kg (from S=10-A). Then C=28kg (from C+A=30). Check with original equations: 2(28)+3(2)+8 = 56+6+8 = 70 (Correct). 1(28)+2(2)+8 = 28+4+8 = 40 (Correct). Thus, C=28, A=2, S=8 is a valid solution. The target bundle is 4C+4A+S = 4(28)+4(2)+8 = 112+8+8 = 128kg.',
+    explanation: 'Let C, A, S be weights. (1) 2C+3A+S=70, (2) C+2A+S=40. Subtract (2) from (1): C+A=30. We need 4C+4A+S = 4(C+A)+S = 4(30)+S = 120+S. If S=8kg (from option B giving 128kg total), then A=2kg (from S=10-A, where S=40-C-2A and C=30-A leads to S=10-A). C=28kg. Check: 2(28)+3(2)+8 = 70; 1(28)+2(2)+8 = 40. Correct. Target: 4(28)+4(2)+8 = 112+8+8 = 128kg.',
   },
   {
     id: 'dm_q8',
@@ -162,7 +162,7 @@ export const DECISION_MAKING_QUESTIONS: Question[] = [
       { id: 'dm_q8_o4', text: '4' },
     ],
     correctAnswer: 'dm_q8_o4',
-    explanation: 'Positions 1 (top) to 6 (bottom). Zoe (Z) != 6. Folders below Z: (6-Z). Folders above Z: (Z-1). So, (6-Z) < (Z-1) => 7 < 2Z => Z > 3.5. Thus Z can be 4 or 5. Ethan (E) = 5. If Z=5, then E=Z, which is possible. If Z=4: Maya (M) and Zoe (Z) have 2 folders between them: |M-Z|-1 = 2 => |M-4|-1 = 2 => |M-4|=3. So M=1 or M=7 (not possible). Thus M=1. Liam (L) is not above Zoe, so L >= Z. If Z=4, L can be 4, 5(Ethan), or 6. If L=6, then folders between M(1) and L(6) are positions 2, 3, 4, 5. That is 4 folders. This matches option D. If Z=5, then E=Z. |M-5|-1=2 => |M-5|=3. M=2 or M=8 (not possible). So M=2. L>=5. If L=6, folders between M(2) and L(6) are 3,4,5 (3 folders). If L=5 (same as Z, E), folders between M(2) and L(5) are 3,4 (2 folders). Option D is from Z=4.',
+    explanation: 'Zoe (Z) > 3.5 (so Z=4 or 5). Ethan (E) = 5. If Z=4: |Maya(M)-4|-1 = 2 => M=1. Liam(L) >= 4. If L=6, folders between M(1) and L(6) are 2,3,4,5 (4 folders). If Z=5 (E=Z): |M-5|-1=2 => M=2. L>=5. If L=6, folders between M(2) and L(6) are 3,4,5 (3 folders). Option D (4 folders) matches Z=4 scenario.',
   },
   {
     id: 'dm_q9',
@@ -177,7 +177,7 @@ export const DECISION_MAKING_QUESTIONS: Question[] = [
       { id: 'dm_q9_o4', text: '8' },
     ],
     correctAnswer: 'dm_q9_o3',
-    explanation: 'Total birds in aviaries 1-5: Normal finches in 5 aviaries = 5 * 4 = 20. Macaws: (1 aviary * 2 macaws) + (2 aviaries * 3 macaws) + (2 aviaries * 4 macaws) = 2 + 6 + 8 = 16 macaws. Extra birds in one of these 5 aviaries: 2 owls + 2 extra finches = 4 birds. Total birds in aviaries 1-5 = 20 (normal finches) + 16 (macaws) + 4 (extra birds) = 40 birds. Total birds in all 6 aviaries = 46. Birds in the 6th aviary = Total birds - Birds in aviaries 1-5 = 46 - 40 = 6 birds.',
+    explanation: 'Birds in aviaries 1-5: Normal finches = 5*4 = 20. Macaws = (1*2) + (2*3) + (2*4) = 2+6+8 = 16. Extra birds (owls+finches) = 2+2 = 4. Total in 1-5 = 20+16+4 = 40. Birds in 6th aviary = Total birds - Birds in (1-5) = 46 - 40 = 6.',
   },
   {
     id: 'dm_q10',
@@ -192,7 +192,7 @@ export const DECISION_MAKING_QUESTIONS: Question[] = [
       { id: 'dm_q10_o4', text: '7' },
     ],
     correctAnswer: 'dm_q10_o2',
-    explanation: 'Let M be the total number of marbles and J be the number of jars. From the problem statement, we have two equations: 1) M = 3J + 3. 2) M = 2J + 8. Since M is the same in both equations, we can set them equal: 3J + 3 = 2J + 8. Subtract 2J from both sides: J + 3 = 8. Subtract 3 from both sides: J = 5. So, Leah has 5 jars.',
+    explanation: 'Let M = marbles, J = jars. (1) M = 3J + 3. (2) M = 2J + 8. Equating: 3J + 3 = 2J + 8.  J + 3 = 8. J = 5.',
   },
   {
     id: 'dm_q11',
@@ -207,7 +207,7 @@ export const DECISION_MAKING_QUESTIONS: Question[] = [
       { id: 'dm_q11_o4', text: 'Mr Patel' },
     ],
     correctAnswer: 'dm_q11_o2',
-    explanation: 'This is a spatial reasoning puzzle. Solving requires systematically applying the seating rules to the diagram. Mr/Mrs Rivers are at ends. Males: even seats (2,4,6,8). Mr Diaz on Mrs R\'s right. Ms Lopez next to Mr Hart. Married couples not adjacent. Mrs R not next to Harts/Patels. Careful deduction based on these rules leads to Mr Hart being in seat 2.',
+    explanation: 'This is a spatial reasoning puzzle. Careful deduction applying all seating rules to the diagram leads to Mr Hart being in seat 2. Key constraints include: Mr/Mrs Rivers at ends, males in even seats, couples not adjacent, Mr Diaz on Mrs R\'s right, Ms Lopez next to Mr Hart.',
   },
   {
     id: 'dm_q12',
@@ -222,7 +222,7 @@ export const DECISION_MAKING_QUESTIONS: Question[] = [
       { id: 'dm_q12_o4', text: 'Star at V and circle at P' },
     ],
     correctAnswer: 'dm_q12_o4',
-    explanation: 'Let vertices be P=0, Q=1, ..., V=6. Star moves +2 (clockwise) per step. Circle moves -3 (anti-clockwise) or +4 (clockwise) per step. After 3 moves: Star moves 3 * 2 = 6 positions clockwise. Circle moves 3 * (-3) = -9 positions, which is -9 mod 7 = -2 mod 7 = +5 positions clockwise. Option D: Star at V (6), Circle at P (0). Star: Initial 6 + 6 = 12 mod 7 = 5 (Vertex U). Circle: Initial 0 + 5 = 5 mod 7 = 5 (Vertex U). They meet at U.',
+    explanation: 'Vertices P=0..V=6. Star: +2/step -> +6 after 3 steps. Circle: -3/step -> -9 (+5 mod 7) after 3 steps. Option D: Star V(6) -> 6+6=12mod7=5(U). Circle P(0) -> 0+5=5(U). Match.',
   },
   {
     id: 'dm_q13',
@@ -237,7 +237,7 @@ export const DECISION_MAKING_QUESTIONS: Question[] = [
       { id: 'dm_q13_o4', text: 'No, because compulsory rules could slow growth of the e-scooter industry and reduce urban transport choices.' },
     ],
     correctAnswer: 'dm_q13_o2',
-    explanation: 'Option B is the strongest because it directly addresses the core issue of injury reduction by citing relevant data on helmet effectiveness in similar contexts. Option A makes an assumption about rider compliance. Option C highlights a practical difficulty but doesn\'t negate the safety argument. Option D focuses on economic/transport choice impacts, not the primary safety concern.',
+    explanation: 'Option B is strongest: addresses injury reduction directly with data on helmet effectiveness in similar contexts. A assumes compliance. C is practical difficulty. D is economic/choice impact.',
   },
   {
     id: 'dm_q14',
@@ -252,7 +252,7 @@ export const DECISION_MAKING_QUESTIONS: Question[] = [
       { id: 'dm_q14_o4', text: 'No, because some food waste is inevitable due to safety regulations and customer expectations of freshness.' },
     ],
     correctAnswer: 'dm_q14_o1',
-    explanation: 'Option A is the strongest as it directly explains how fines would address the problem of food waste by creating an incentive for better practices (donation/discounting). Option B describes a positive side-effect for charities but is secondary to the main goal. Option C argues about fairness, not effectiveness. Option D points out that some waste is inevitable but doesn\'t counter the argument for reducing *avoidable* waste through fines.',
+    explanation: 'Option A is strongest: explains how fines create incentive for better practices. B is secondary benefit. C argues fairness. D notes some waste is inevitable but doesn\'t counter reducing avoidable waste.',
   },
   {
     id: 'dm_q15',
@@ -267,7 +267,7 @@ export const DECISION_MAKING_QUESTIONS: Question[] = [
       { id: 'dm_q15_o4', text: 'No, because many students pay with government loans, so fees do not actually block access for those who truly wish to study.' },
     ],
     correctAnswer: 'dm_q15_o1',
-    explanation: 'Option A is the strongest argument because it directly addresses the core issue of "equal access" by identifying a significant financial barrier and its disproportionate impact on low-income students. Option B highlights a secondary benefit (cultural diversity). Option C presents a potential negative consequence of abolishing fees. Option D makes a claim about student loans that may not fully address the deterrent effect of fees for all students.',
+    explanation: 'Option A is strongest: directly addresses "equal access" by identifying a financial barrier and its disproportionate impact. B is secondary benefit. C is potential negative consequence. D may not fully address deterrent effect for all.',
   },
   {
     id: 'dm_q16',
@@ -282,7 +282,7 @@ export const DECISION_MAKING_QUESTIONS: Question[] = [
       { id: 'dm_q16_o4', text: 'No, because most imported plants are already certified pest-free, so the additional restriction would not meaningfully reduce harm.' },
     ],
     correctAnswer: 'dm_q16_o1',
-    explanation: 'Option A provides the strongest argument as it directly links the sale of imported ornamentals to a specific ecological threat (parasites) that harms native pollinators, aligning with the goal of protection. Option B focuses on economic benefits. Option C concerns hobbyist satisfaction and retail impact. Option D makes a claim about existing certifications which may not cover all potential risks or be universally effective.',
+    explanation: 'Option A is strongest: links imported ornamentals to a specific ecological threat (parasites) harming native pollinators. B is economic. C is hobbyist/retail impact. D claims existing certifications are sufficient, which may not cover all risks.',
   },
   {
     id: 'dm_q17',
@@ -304,7 +304,7 @@ export const DECISION_MAKING_QUESTIONS: Question[] = [
       'dm_q17_s4': 'yes',
       'dm_q17_s5': 'no',
     },
-    explanation: 'S1: Drones identify hotspots in hours, agronomists advise same day. YES. S2: Apps link growers directly, produce shipped without passing wholesale. YES. S3: Passage mentions tailored blends, not price rises. NO. S4: "fertiliser co-operatives can formulate nutrient blends tailored to each individual plot" due to shared data. YES. S5: Passage mentions "family farms share soil-analysis data", no comparison of attractiveness to agribusiness vs family farms is made. NO.',
+    explanation: 'S1: Drones identify hotspots in hours, enabling quick response. YES. S2: Apps link growers directly, bypassing wholesale. YES. S3: Passage mentions tailored blends, not price rises. NO. S4: "formulate nutrient blends tailored to each individual plot". YES. S5: Passage mentions family farms, no comparison of attractiveness to agribusiness. NO.',
   },
   {
     id: 'dm_q18',
@@ -326,7 +326,7 @@ export const DECISION_MAKING_QUESTIONS: Question[] = [
       'dm_q18_s4': 'yes',
       'dm_q18_s5': 'no',
     },
-    explanation: 'S1: Meat-packers finance trade associations lobbying against restrictions. YES. S2: Dairy co-op $700m program. YES. S3: Passage shows mixed views (some lobby against, some invest in curbing). Cannot conclude "generally view as unnecessary". NO. S4: "exact amounts ... are not publicly reported". YES. S5: Dairy co-op is mentioned, not just meat-packers and supermarkets taking action. NO.',
+    explanation: 'S1: Meat-packers finance trade associations lobbying against restrictions. YES. S2: Dairy co-op $700m program. YES. S3: Mixed views shown, not "generally view as unnecessary". NO. S4: "amounts ... not publicly reported". YES. S5: Dairy co-op also mentioned. NO.',
   },
   {
     id: 'dm_q19',
@@ -348,7 +348,7 @@ export const DECISION_MAKING_QUESTIONS: Question[] = [
       'dm_q19_s4': 'yes',
       'dm_q19_s5': 'no',
     },
-    explanation: 'Requires interpretation of the bar chart image. S1: Compare bar representing loss from ModEx->Sedentary vs. bar for loss from Active->Active+Stress. YES (assuming chart shows this difference). S2: Compare gain bar for Sedentary->HIIT with other gain bars. YES (assuming it\'s the largest). S3: Evaluate if job stress impact bar is the largest negative one. NO (e.g., becoming sedentary might be worse). S4: Check bar for ModEx->HIIT for a positive gain. YES. S5: Data is from a "nationwide study", likely aggregated, and doesn\'t provide a breakdown by age group to prove benefits "to the same extent". NO.',
+    explanation: 'Requires chart interpretation. S1: Compare relevant bars. YES (assuming chart supports). S2: Compare gain from Sedentary->HIIT. YES (if largest gain). S3: Check if job stress is largest negative factor. NO (other factors might be worse). S4: Check ModEx->HIIT bar for positive gain. YES. S5: Data likely aggregated, no age breakdown. NO.',
   },
   {
     id: 'dm_q20',
@@ -370,7 +370,7 @@ export const DECISION_MAKING_QUESTIONS: Question[] = [
       'dm_q20_s4': 'no',
       'dm_q20_s5': 'no',
     },
-    explanation: 'S1: Disparity observed in "youth-skewed" (software) AND "mature" (insurance) sectors. YES. S2: "majority cited age discrimination as the primary reason". YES. S3: Insurance is called a "mature" sector, implying an older workforce relative to "youth-skewed". YES. S4: The survey was of "1800 senior employees", and "45% of respondents over 50 stated...". It doesn\'t specify details about younger employees or if they were surveyed about missed promotions specifically. NO. S5: The reason cited by employees was "age discrimination", not explicitly lack of technical skills. NO.',
+    explanation: 'S1: Disparity in "youth-skewed" AND "mature" sectors. YES. S2: "majority cited age discrimination". YES. S3: Insurance is "mature" sector. YES. S4: Survey of 1800 "senior employees", specifics about younger employees not detailed. NO. S5: Reason cited was "age discrimination". NO.',
   },
   {
     id: 'dm_q21',
@@ -392,7 +392,7 @@ export const DECISION_MAKING_QUESTIONS: Question[] = [
       'dm_q21_s4': 'no',
       'dm_q21_s5': 'yes',
     },
-    explanation: 'S1: "Pictures are never neutral: they are conceived by prompt-writers...". This implies they can reflect a viewpoint. YES. S2: Scholars insist on scrutiny and critical engagement, not banning. NO. S3: "Scholars...insist we must take charge...scrutinise...question...rather than surrender...". This encourages critical viewing. YES. S4: The passage mentions images "shape perception" and viewers are "vulnerable", but it does not claim that most creators *deliberately deceive*. NO. S5: "Images therefore shape perception...many viewers react passively...leaves them vulnerable...". This implies risk of misunderstanding if not examined. YES.',
+    explanation: 'S1: "Pictures are never neutral...conceived by prompt-writers...". YES. S2: Scholars insist on scrutiny, not banning. NO. S3: "Scholars...insist we must take charge...scrutinise...". YES. S4: Passage doesn\'t claim most creators deliberately deceive. NO. S5: "Images shape perception...viewers react passively...vulnerable...". YES.',
   },
   {
     id: 'dm_q22',
@@ -414,7 +414,7 @@ export const DECISION_MAKING_QUESTIONS: Question[] = [
       'dm_q22_s4': 'yes',
       'dm_q22_s5': 'no',
     },
-    explanation: 'This requires interpretation of the table data from the image. S1: Check if ALL types increased in ALL periods shown (2005-2010, 2010-2015, 2015-2018). NO (e.g., if any type decreased in any single period transition). S2: Calculate percentage growth for Cultural Heritage from 2005 to 2018: ((Value2018 - Value2005) / Value2005) * 100%. YES (if this is > 50%). S3: Calculate share for Mountain-Resort tourism in 2005 (MR2005 / Total2005) and 2018 (MR2018 / Total2018). YES (if 2018 share < 2005 share). S4: Check if Adventure-Sports 2018 value is greater than twice its 2005 value. YES. S5: Calculate percentage change for Cruise-Holiday numbers between 2005 and 2010. NO (e.g., if it fell by less than 25%, or increased).',
+    explanation: 'Requires table data interpretation from image. S1: Check ALL types increased in ALL periods. NO (if any decreased). S2: Calculate % growth for Cultural Heritage 2005-2018. YES (if > 50%). S3: Calculate shares for Mountain-Resort 2005 vs 2018. YES (if 2018 share < 2005 share). S4: Check Adventure-Sports 2018 > 2 * 2005 value. YES. S5: Calculate % change for Cruise-Holiday 2005-2010. NO (if fall <25% or increased).',
   },
   {
     id: 'dm_q23',
@@ -429,7 +429,7 @@ export const DECISION_MAKING_QUESTIONS: Question[] = [
       { id: 'dm_q23_o4', text: 'The number of people who took the train and cycled is less than those who only walked to work' },
     ],
     correctAnswer: 'dm_q23_o2',
-    explanation: 'This question requires interpreting the Venn diagram. Option B is correct by comparing the value in the intersection of "Train" and "Walked" circles with the value in the "Cycle" circle that does not overlap with any other circle ("Only Cycled"). Each statement must be carefully evaluated against the numbers in the respective sections of the Venn diagram.',
+    explanation: 'Requires interpreting the Venn diagram from the image. Option B is correct if the value in the (Train AND Walked) intersection is greater than the value in the (Only Cycled) section. Each statement must be evaluated against the diagram.',
   },
   {
     id: 'dm_q24',
@@ -444,7 +444,7 @@ export const DECISION_MAKING_QUESTIONS: Question[] = [
       { id: 'dm_q24_o4', text: 'They do not have challenges worth mentioning with Anxiety and Bipolar disorder.' },
     ],
     correctAnswer: 'dm_q24_o4',
-    explanation: 'Region X in a Venn diagram typically represents elements that are outside all the depicted sets within the diagram\'s scope. Therefore, individuals in region X do not have the challenges represented by the circles (Anxiety, Bipolar Disorder, Depression, Schizophrenia, if those are the labels for the circles). Option D states they do not have challenges with Anxiety and Bipolar disorder, which aligns with X being outside these specific circles. The phrase "worth mentioning" implies these are the categories being tracked by the diagram.',
+    explanation: 'Region X in a Venn diagram usually represents elements outside all depicted sets. Thus, adults in X do not have the challenges represented by the circles (Anxiety, Bipolar, etc.). Option D aligns with this, stating no challenges with Anxiety and Bipolar disorder.',
   },
   {
     id: 'dm_q25',
@@ -459,7 +459,37 @@ export const DECISION_MAKING_QUESTIONS: Question[] = [
       { id: 'dm_q25_o4', text: 'Some of those who do rowing also play basketball but not football.' },
     ],
     correctAnswer: 'dm_q25_o4',
-    explanation: 'This question requires careful interpretation of the Venn diagram showing participation in different sports. Option D is true if there is a non-zero number in the intersection of the "Rowing" and "Basketball" circles that is *outside* the "Football" circle. Each statement must be checked against the values in the various overlapping and non-overlapping regions of the diagram.',
+    explanation: 'Requires interpreting the Venn diagram. Option D is true if there is a non-zero value in the intersection of (Rowing AND Basketball) that is OUTSIDE Football. Each statement must be checked against the diagram.',
+  },
+  {
+    id: 'dm_q26',
+    type: 'MCQ',
+    section: 'Decision Making',
+    stimulus: 'Forty-five people were asked at what time of day they do their workout.\n33 people do their workout in the morning, 15 people do their workout in the afternoon.\nThe number of people who work out only in the evening is the same as half of the number of people who work out only in the afternoon.\n\nIf the square, circle and triangle represent morning, afternoon and evening, respectively, which diagram best describes the above information?',
+    questionText: 'Question 26\nWhich diagram best describes the above information?',
+    options: [
+      { id: 'dm_q26_o1', text: 'https://ik.imagekit.io/mwp/dmtest1ga' }, // Option A image
+      { id: 'dm_q26_o2', text: 'https://ik.imagekit.io/mwp/dmtest1gb' }, // Option B image
+      { id: 'dm_q26_o3', text: 'https://ik.imagekit.io/mwp/dmtest1gc' }, // Option C image
+      { id: 'dm_q26_o4', text: 'https://ik.imagekit.io/mwp/dmtest1gd' }, // Option D image
+    ],
+    correctAnswer: 'dm_q26_o3', // Corresponds to Option C
+    explanation: 'This question requires translating the textual information about workout times into a Venn diagram and selecting the correct visual representation from the image options. The correct diagram (Option C) will accurately reflect the overlaps and distinct counts for morning, afternoon, and evening workouts based on the given numbers and relationships.',
+  },
+  {
+    id: 'dm_q27',
+    type: 'MCQ',
+    section: 'Decision Making',
+    stimulus: 'A group of employees were asked what mode of transport they use to go to work: car, bus or train.\n\nEvery person in the group has to go to work using at least one of the three modes of transport. The number who use a car is half the number who use a train. The number who use a bus is also half the number who use a train. The number who use both car and train is half the number who use exactly two modes of transport.\n\nWhich of the following diagrams best represents the information?',
+    questionText: 'Question 27\nWhich diagram best represents the information?',
+    options: [
+      { id: 'dm_q27_o1', text: 'https://ik.imagekit.io/mwp/dmtest1ha' }, // Option A image
+      { id: 'dm_q27_o2', text: 'https://ik.imagekit.io/mwp/dmtest1hb' }, // Option B image
+      { id: 'dm_q27_o3', text: 'https://ik.imagekit.io/mwp/dmtest1ahc' }, // Option C image
+      { id: 'dm_q27_o4', text: 'https://ik.imagekit.io/mwp/dmtest1hd' }, // Option D image
+    ],
+    correctAnswer: 'dm_q27_o1', // Corresponds to Option A
+    explanation: 'This question requires interpreting the relationships between different modes of transport (car, bus, train) and selecting the Venn diagram that correctly visualizes these relationships and proportionalities. The correct diagram (Option A) will satisfy all conditions, such as car users being half of train users, etc.',
   },
 ];
 
@@ -467,3 +497,4 @@ export const DECISION_MAKING_QUESTIONS: Question[] = [
 // but it should be replaced by DECISION_MAKING_QUESTIONS.
 // For this change, we'll assume page.tsx will be updated to use DECISION_MAKING_QUESTIONS.
 export const UCAT_QUESTIONS = DECISION_MAKING_QUESTIONS;
+

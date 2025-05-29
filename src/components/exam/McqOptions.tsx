@@ -1,16 +1,21 @@
 
 'use client';
 
-import type { Option, UserAnswer } from '@/lib/types';
+import type { Option } from '@/lib/types';
 import { useExam } from '@/contexts/ExamContext';
-import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
-import { Label } from "@/components/ui/label"
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
+import { Label } from "@/components/ui/label";
 import { cn } from '@/lib/utils';
+import Image from 'next/image';
 
 interface McqOptionsProps {
   questionId: string;
   options: Option[];
 }
+
+const isImageUrl = (text: string) => {
+  return text.startsWith('http://') || text.startsWith('https://');
+};
 
 export default function McqOptions({ questionId, options }: McqOptionsProps) {
   const { selectAnswer, userAnswers } = useExam();
@@ -21,8 +26,8 @@ export default function McqOptions({ questionId, options }: McqOptionsProps) {
   };
 
   return (
-    <RadioGroup 
-      value={currentAnswer} 
+    <RadioGroup
+      value={currentAnswer}
       onValueChange={handleSelect}
       className="space-y-3 mt-4"
       aria-label="Multiple choice options"
@@ -32,14 +37,30 @@ export default function McqOptions({ questionId, options }: McqOptionsProps) {
           key={option.id}
           htmlFor={option.id}
           className={cn(
-            "flex items-center space-x-3 p-4 border rounded-lg cursor-pointer transition-all duration-200 hover:bg-accent/10",
+            "flex items-start space-x-3 p-4 border rounded-lg cursor-pointer transition-all duration-200 hover:bg-accent/10",
             currentAnswer === option.id ? "bg-accent/20 border-accent ring-2 ring-accent" : "border-border"
           )}
         >
-          <RadioGroupItem value={option.id} id={option.id} />
-          <span className="font-medium text-sm">
-            {String.fromCharCode(65 + index)}. {option.text}
-          </span>
+          <RadioGroupItem value={option.id} id={option.id} className="mt-1" />
+          <div className="flex flex-col">
+            <span className="font-medium text-sm mb-1">
+              {String.fromCharCode(65 + index)}.
+            </span>
+            {isImageUrl(option.text) ? (
+              <div className="relative w-full max-w-xs h-auto aspect-auto"> {/* Adjusted for better image display */}
+                <Image
+                  src={option.text}
+                  alt={`Option ${String.fromCharCode(65 + index)}`}
+                  width={300} // Example width, adjust as needed
+                  height={200} // Example height, adjust as needed
+                  className="rounded-md border object-contain"
+                  data-ai-hint="diagram option" // Generic hint for diagram options
+                />
+              </div>
+            ) : (
+              <span className="text-sm">{option.text}</span>
+            )}
+          </div>
         </Label>
       ))}
     </RadioGroup>
