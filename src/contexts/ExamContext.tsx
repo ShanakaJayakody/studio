@@ -3,12 +3,12 @@
 
 import type { ReactNode } from 'react';
 import React, { createContext, useContext, useState, useCallback, useEffect } from 'react';
-import type { Question, UserAnswer, AllUserAnswers, ExamPhase, YesNoAnswer } from '@/lib/types'; // Updated imports
+import type { Question, UserAnswer, AllUserAnswers, ExamPhase } from '@/lib/types'; // Updated imports
 
 interface ExamContextType {
   questions: Question[];
   currentQuestionIndex: number;
-  userAnswers: AllUserAnswers; // Updated to AllUserAnswers
+  userAnswers: AllUserAnswers;
   flaggedQuestions: Set<number>;
   examStartTime: number | null;
   examPhase: ExamPhase;
@@ -19,7 +19,7 @@ interface ExamContextType {
   startExam: () => void;
   nextQuestion: () => void;
   prevQuestion: () => void;
-  selectAnswer: (questionId: string, answer: UserAnswer) => void; // answer is Record<string, YesNoAnswer | undefined>
+  selectAnswer: (questionId: string, answer: UserAnswer) => void; // UserAnswer is now string | Record<...>
   toggleFlag: (questionIndex: number) => void;
   submitExam: () => void;
   setExamPhase: (phase: ExamPhase) => void;
@@ -41,7 +41,7 @@ export const ExamProvider: React.FC<ExamProviderProps> = ({
 }) => {
   const [questions, setQuestions] = useState<Question[]>(initialQuestions);
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
-  const [userAnswers, setUserAnswers] = useState<AllUserAnswers>({}); // Initialize as AllUserAnswers
+  const [userAnswers, setUserAnswers] = useState<AllUserAnswers>({});
   const [flaggedQuestions, setFlaggedQuestions] = useState<Set<number>>(new Set());
   const [examStartTime, setExamStartTime] = useState<number | null>(null);
   const [examPhase, setLocalExamPhase] = useState<ExamPhase>('instructions');
@@ -75,7 +75,6 @@ export const ExamProvider: React.FC<ExamProviderProps> = ({
     }
   }, [currentQuestionIndex]);
 
-  // This function now expects the complete set of answers for all statements within a single question
   const selectAnswer = useCallback((questionId: string, answer: UserAnswer) => {
     setUserAnswers((prev) => ({ ...prev, [questionId]: answer }));
   }, []);
@@ -119,7 +118,7 @@ export const ExamProvider: React.FC<ExamProviderProps> = ({
         selectAnswer,
         toggleFlag,
         submitExam,
-        setExamPhase: setLocalExamPhase, // Use the local setter for context internal changes
+        setExamPhase: setLocalExamPhase,
         isQuestionFlagged,
       }}
     >

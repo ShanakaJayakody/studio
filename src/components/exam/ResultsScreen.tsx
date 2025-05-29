@@ -6,7 +6,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { CheckCircle, XCircle, AlertTriangle, HelpCircle } from 'lucide-react';
-import type { UserAnswer, YesNoAnswer, Statement } from '@/lib/types';
+import type { UserAnswer, YesNoAnswer, Statement, Question, YesNoStatementsQuestion, MCQQuestion, Option } from '@/lib/types';
 import { cn } from '@/lib/utils';
 
 export default function ResultsScreen() {
@@ -15,9 +15,10 @@ export default function ResultsScreen() {
   const calculateScore = () => {
     let correctQuestions = 0;
     questions.forEach(q => {
+      const userAnswerForQuestion = userAnswers[q.id];
+
       if (q.type === 'YesNoStatements') {
-        const userAnswerForQuestion = userAnswers[q.id];
-        if (!userAnswerForQuestion) return; // Question not answered or partially answered
+        if (!userAnswerForQuestion || typeof userAnswerForQuestion === 'string') return; // Not answered or wrong type
 
         let allStatementsCorrect = true;
         // Check if all statements defined in correctAnswer are answered correctly
@@ -36,6 +37,10 @@ export default function ResultsScreen() {
         if (allStatementsCorrect) {
           correctQuestions++;
         }
+      } else if (q.type === 'MCQ') {
+        if (typeof userAnswerForQuestion === 'string' && userAnswerForQuestion === q.correctAnswer) {
+          correctQuestions++;
+        }
       }
     });
     return correctQuestions;
@@ -45,7 +50,7 @@ export default function ResultsScreen() {
   const percentage = questions.length > 0 ? ((score / questions.length) * 100).toFixed(2) : "0.00";
   const timeTaken = examStartTime ? ((Date.now() - examStartTime) / 1000 / 60).toFixed(2) : 'N/A';
 
-  const getAnswerDisplay = (questionId: string, answer: UserAnswer | undefined, conclusions: Statement[]) => {
+  const getAnswerDisplayForYesNo = (answer: Record<string, YesNoAnswer | undefined> | undefined, conclusions: Statement[]) => {
     if (!answer || Object.keys(answer).length === 0) return <span className="text-muted-foreground italic">Not Answered</span>;
     
     return (
@@ -61,6 +66,13 @@ export default function ResultsScreen() {
       </ul>
     );
   };
+
+  const getAnswerDisplayForMCQ = (answer: string | undefined, options: Option[]) => {
+    if (!answer) return <span className="text-muted-foreground italic">Not Answered</span>;
+    const selectedOption = options.find(opt => opt.id === answer);
+    return <span className="font-semibold">{selectedOption ? selectedOption.text : 'Unknown Option'}</span>;
+  };
+
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen p-4 bg-[hsl(var(--background))]">
@@ -91,35 +103,75 @@ export default function ResultsScreen() {
           <ScrollArea className="h-[40vh] border rounded-md p-1">
             <div className="space-y-3 p-3">
             {questions.map((q, index) => {
-              if (q.type !== 'YesNoStatements') return null;
-
               const userAnswerForQuestion = userAnswers[q.id];
-              let isQuestionFullyCorrect = false;
-              let isPartiallyAnswered = false;
-              let answeredCount = 0;
+              let isQuestionCorrect = false;
+              let isPartiallyOrUnanswered = true;
+              let answerDisplay: React.ReactNode;
+              let correctAnswerDisplay: React.ReactNode | null = null;
 
-              if (userAnswerForQuestion) {
-                answeredCount = Object.values(userAnswerForQuestion).filter(ans => ans !== undefined).length;
-                if (answeredCount > 0 && answeredCount < q.conclusions.length) {
-                  isPartiallyAnswered = true;
-                }
+              if (q.type === 'YesNoStatements') {
+                const ynq = q as YesNoStatementsQuestion;
+                const ynAnswer = userAnswerForQuestion as Record<string, YesNoAnswer | undefined> | undefined;
+                answerDisplay = getAnswerDisplayForYesNo(ynAnswer, ynq.conclusions);
 
-                isQuestionFullyCorrect = true;
-                if (answeredCount !== q.conclusions.length) {
-                    isQuestionFullyCorrect = false;
-                } else {
-                    for (const conclusion of q.conclusions) {
-                        if (userAnswerForQuestion[conclusion.id] !== q.correctAnswer[conclusion.id]) {
-                            isQuestionFullyCorrect = false;
-                            break;
-                        }
+                if (ynAnswer && Object.keys(ynAnswer).filter(k => ynAnswer[k] !== undefined).length === ynq.conclusions.length) {
+                  isPartiallyOrUnanswered = false;
+                  isQuestionCorrect = true;
+                  for (const conclusion of ynq.conclusions) {
+                    if (ynAnswer[conclusion.id] !== ynq.correctAnswer[conclusion.id]) {
+                      isQuestionCorrect = false;
+                      break;
                     }
+                  }
+                } else if (ynAnswer && Object.keys(ynAnswer).filter(k => ynAnswer[k] !== undefined).length > 0) {
+                  isPartiallyOrUnanswered = true; // Partially answered
+                } else {
+                  isPartiallyOrUnanswered = true; // Unanswered
                 }
+                
+                if(!isQuestionCorrect && !isPartiallyOrUnanswered){
+                   correctAnswerDisplay = (
+                     <ul className="list-disc pl-5 text-xs space-y-1">
+                       {ynq.conclusions.map((conc, idx) => (
+                         <li key={conc.id}>Statement {idx + 1}: <span className="font-semibold">{ynq.correctAnswer[conc.id]?.toUpperCase()}</span></li>
+                       ))}
+                     </ul>
+                   );
+                }
+                 if (!isQuestionCorrect && (ynAnswer && Object.keys(ynAnswer).filter(k => ynAnswer[k] !== undefined).length > 0)) {
+                     correctAnswerDisplay = (
+                         <div>
+                             <p className="mt-1"><strong>Correct Answer(s):</strong></p>
+                             <ul className="list-disc pl-5 text-xs space-y-1">
+                                 {ynq.conclusions.map((conc, idx) => (
+                                     <li key={conc.id}>Statement {idx + 1}: <span className="font-semibold">{ynq.correctAnswer[conc.id]?.toUpperCase()}</span></li>
+                                 ))}
+                             </ul>
+                         </div>
+                     );
+                 }
+
+
+              } else if (q.type === 'MCQ') {
+                const mcq = q as MCQQuestion;
+                const mcqAnswer = userAnswerForQuestion as string | undefined;
+                answerDisplay = getAnswerDisplayForMCQ(mcqAnswer, mcq.options);
+                isPartiallyOrUnanswered = !mcqAnswer;
+                if (mcqAnswer) {
+                  isQuestionCorrect = mcqAnswer === mcq.correctAnswer;
+                }
+                if (!isQuestionCorrect && mcqAnswer) {
+                  const correctOpt = mcq.options.find(opt => opt.id === mcq.correctAnswer);
+                  correctAnswerDisplay = <p className="mt-1"><strong>Correct Answer:</strong> <span className="font-semibold">{correctOpt?.text || 'N/A'}</span></p>;
+                }
+              } else {
+                answerDisplay = <span className="text-muted-foreground italic">Unknown question type</span>;
               }
               
-              const Icon = !userAnswerForQuestion || answeredCount === 0 ? HelpCircle : (isQuestionFullyCorrect ? CheckCircle : (isPartiallyAnswered ? AlertTriangle : XCircle));
-              const iconColor = !userAnswerForQuestion || answeredCount === 0 ? "text-gray-500" : (isQuestionFullyCorrect ? "text-green-500" : (isPartiallyAnswered ? "text-yellow-500" : "text-red-500"));
-              const cardBg = !userAnswerForQuestion || answeredCount === 0 ? "bg-gray-500/10" : (isQuestionFullyCorrect ? "bg-green-500/10" : (isPartiallyAnswered ? "bg-yellow-500/10" : "bg-red-500/10"));
+              const Icon = isPartiallyOrUnanswered ? HelpCircle : (isQuestionCorrect ? CheckCircle : XCircle);
+              const iconColor = isPartiallyOrUnanswered ? "text-gray-500" : (isQuestionCorrect ? "text-green-500" : "text-red-500");
+              const cardBg = isPartiallyOrUnanswered ? "bg-gray-500/10" : (isQuestionCorrect ? "bg-green-500/10" : "bg-red-500/10");
+
 
               return (
                 <Card key={q.id} className={cn("p-3", cardBg)}>
@@ -128,18 +180,9 @@ export default function ResultsScreen() {
                     <Icon className={cn("h-5 w-5 shrink-0", iconColor)} />
                   </div>
                   <div className="text-xs mt-1 space-y-1">
-                    <p><strong>Your Answer(s):</strong> {getAnswerDisplay(q.id, userAnswerForQuestion, q.conclusions)}</p>
-                    {(!isQuestionFullyCorrect || isPartiallyAnswered) && (userAnswerForQuestion && answeredCount > 0) && (
-                       <div>
-                         <p><strong>Correct Answer(s):</strong></p>
-                         <ul className="list-disc pl-5 text-xs space-y-1">
-                           {q.conclusions.map((conc, idx) => (
-                             <li key={conc.id}>Statement {idx + 1}: <span className="font-semibold">{q.correctAnswer[conc.id]?.toUpperCase()}</span></li>
-                           ))}
-                         </ul>
-                       </div>
-                    )}
-                     {q.explanation && <p className="mt-1 text-muted-foreground italic"><strong>Explanation:</strong> {q.explanation}</p>}
+                    <p><strong>Your Answer(s):</strong> {answerDisplay}</p>
+                    {correctAnswerDisplay}
+                    {q.explanation && <p className="mt-1 text-muted-foreground italic"><strong>Explanation:</strong> {q.explanation}</p>}
                   </div>
                 </Card>
               );

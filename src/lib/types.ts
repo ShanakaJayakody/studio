@@ -6,11 +6,16 @@ export type Statement = { // Used for conclusions
 
 export type YesNoAnswer = 'yes' | 'no';
 
-// Defines the structure for a single question
-export type Question = {
+export type Option = {
   id: string;
-  type: 'YesNoStatements'; // This is now the only question type
-  section: 'Decision Making'; // All questions will belong to this section
+  text: string;
+};
+
+// Defines the structure for a Yes/No statements question
+export type YesNoStatementsQuestion = {
+  id: string;
+  type: 'YesNoStatements';
+  section: 'Decision Making';
   stimulus: string; // This will hold the "Premises"
   questionText: string; // Main question title (e.g., "Question 1") and instructions
   conclusions: Statement[]; // The list of statements to be evaluated
@@ -18,9 +23,24 @@ export type Question = {
   explanation?: string; // Optional explanation for the entire question or specific parts
 };
 
-// Defines the structure for a user's answer to a single YesNoStatements question
-// It's a map where each key is a statementId and the value is the user's 'yes' or 'no' choice, or undefined if not answered
-export type UserAnswer = Record<string, YesNoAnswer | undefined>;
+// Defines the structure for an MCQ question
+export type MCQQuestion = {
+  id: string;
+  type: 'MCQ';
+  section: 'Decision Making';
+  stimulus?: string; // Stimulus is optional for MCQs
+  questionText: string;
+  options: Option[];
+  correctAnswer: string; // The ID of the correct option
+  explanation?: string;
+};
+
+// Union type for all possible question structures
+export type Question = YesNoStatementsQuestion | MCQQuestion;
+
+// Defines the structure for a user's answer to a single question
+// It can be a string (for MCQ option ID) or an object (for YesNo statement answers)
+export type UserAnswer = string | Record<string, YesNoAnswer | undefined>;
 
 // Defines the overall structure for all user answers in the exam
 // It's a map where each key is a questionId and the value is the UserAnswer for that question
