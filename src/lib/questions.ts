@@ -66,7 +66,7 @@ export const DECISION_MAKING_QUESTIONS: Question[] = [
       'dm_q3_s4': 'yes',
       'dm_q3_s5': 'yes',
     },
-    explanation: 'Let H=hard-covers sold. P=2H. A=H+P = 3H. Total sales=6H. User key: YNNYY. S1: (H/6H = 1/6). Key Y. S2: (Stock-2H vs Stock-H; Stock-2H < Stock-H if H>0) => YES. Key N. S3: (H vs 3H; H less popular) => YES. Key N. S4: (2H vs 2H; equal) => NO. Key Y. S5: (Original stock 1/3 audio) => YES. Key Y. Following user key despite discrepancies.',
+    explanation: 'Let H=hard-covers sold. P=2H. A=H+P = 3H. Total sales=6H. User key: YNNYY. S1: (H/6H = 1/6). Key Y. S2: (Stock-2H vs Stock-H; Stock-2H < Stock-H if H>0) => YES. Key N. S3: (H vs 3H; H less popular) => YES. Key N. S4: (2H vs 2H; equal) => NO. Key Y. S5: (Original stock 1/3 audio) => YES. Key Y. Following user key YNNYY despite discrepancies.',
   },
   {
     id: 'dm_q4',
@@ -110,7 +110,7 @@ export const DECISION_MAKING_QUESTIONS: Question[] = [
       'dm_q5_s4': 'yes',
       'dm_q5_s5': 'no',
     },
-    explanation: 'User key NYNYN. S1: Zephyrs -> Aeros -> Blue. Logically YES. Key NO. S2: Kites are aircraft, not stated if aeros. Logically NO. Key YES. S3: Unknown, so NO. S4: "Only aeros that fly Atlantic carry radar" -> if radar, then Atlantic. YES. S5: "All aeros blue." "Only Atlantic aeros radar." Possible all blue aeros fly Atlantic & carry radar, or some don\'t. Not necessarily true that "not all blue aeros carry radar". Key NO.',
+    explanation: 'Given NYNYN. S1 (Zephyrs are blue): NO (Zephyrs -> Aeros -> Blue. This should be YES. User key N). S2 (All aircraft are aeros): YES (Kites are aircraft, not stated if aeros. This should be NO. User key Y). S3 (Neither Z nor K fly over Atlantic): NO (Unknown). S4 (Aero with radar -> flies over Atlantic): YES (from "Only the aeros that fly over the Atlantic carry radar"). S5 (Not all blue aeros carry radar): NO (If all aeros are blue, and only Atlantic-flying aeros have radar, it is possible all blue aeros fly Atlantic and have radar, or some don\'t. Not necessarily true that *not all* carry radar. User key N). Using user keys NYNYN despite direct logic contradictions for S1 & S2.',
   },
   {
     id: 'dm_q6',
@@ -415,6 +415,21 @@ export const DECISION_MAKING_QUESTIONS: Question[] = [
       'dm_q22_s5': 'no',
     },
     explanation: 'This requires interpretation of the table image. S1: Check if ALL types increased in ALL periods. NO (e.g., if any type decreased in any period). S2: Calculate % growth for Cultural Heritage (2018 value / 2005 value). YES (if > 1.5). S3: Calculate share for Mountain-Resort in 2005 and 2018. YES (if 2018 share < 2005 share). S4: Check if Adventure-Sports 2018 value > 2 * 2005 value. YES. S5: Calculate % change for Cruise-Holiday 2005-2010. NO (e.g. if it fell by less, or increased).',
+  },
+  {
+    id: 'dm_q23',
+    type: 'MCQ',
+    section: 'Decision Making',
+    stimulus: 'Here is some information on methods of travel to the workplace.\n\nImage: https://ik.imagekit.io/mwp/dmtest1e',
+    questionText: 'Question 23\nBased on the diagram, which one of the following statements is TRUE?',
+    options: [
+      { id: 'dm_q23_o1', text: 'More people in total drove a car than walked to work' },
+      { id: 'dm_q23_o2', text: 'The number of people who took the train and also waked, is more than the number of people who only cycled' },
+      { id: 'dm_q23_o3', text: 'Out of any single method of transport, the most amount of people drove a car' },
+      { id: 'dm_q23_o4', text: 'The number of people who took the train and cycled is less than those who only walked to work' },
+    ],
+    correctAnswer: 'dm_q23_o2',
+    explanation: 'This question requires careful interpretation of the Venn diagram. Option B is correct because the intersection of "Train" and "Walked" represents a number greater than those who "Only Cycled". Evaluate each section and intersection of the Venn diagram to verify each statement. For B: Train AND Walked = (Value in Train AND Walked intersection). Only Cycled = (Value in Cycle circle only, not overlapping). Compare these two values based on the diagram.',
   },
 ];
 
