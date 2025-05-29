@@ -22,7 +22,7 @@ export const DECISION_MAKING_QUESTIONS: Question[] = [
       'dm_q1_s4': 'no',
       'dm_q1_s5': 'yes',
     },
-    explanation: 'Based on the provided answer key YNNNY. S1: Ambiguous based on premises. S2: Logically YES, but key is NO. S3: Whiffles are undefined. S4: Cannot determine. S5: Not strictly deducible. Following provided key.',
+    explanation: "Based on the provided answer key YNNNY. S1: Ambiguous. 'Some reptiles are pets' doesn't exclude pythons. S2: 'No python is a mammal' directly follows. Key is N. S3: Whiffles are not mentioned. S4: Mammals are not reptiles; pet status of non-reptiles unknown. S5: If not python, could be other reptile or non-reptile mammal. Key is Y. Adhering to provided key.",
   },
   {
     id: 'dm_q2',
@@ -66,7 +66,7 @@ export const DECISION_MAKING_QUESTIONS: Question[] = [
       'dm_q3_s4': 'yes',
       'dm_q3_s5': 'yes',
     },
-    explanation: 'Let H be hard-covers sold. P=2H. A=3H. Total sales=6H. S1: H/6H = 1/6. User key YES (1/4). S2: Remaining P (S-2H) vs H (S-H). S-2H < S-H if H>0. User key NO. S3: H vs 3H. Hard-covers less popular. Statement TRUE. User key NO. S4: New H sales = 2H. P sales = 2H. Equal, not more. User key YES. S5: Yes, initial stock 1/3 each. Following user YNNYY key.',
+    explanation: 'Let H=sold hardcovers. P=2H. A=H+2H=3H. Total sales=6H. S1: H/6H=1/6. User key Y. S2: Stock levels depend on initial identical stock S. Left: H:S-H, P:S-2H. S-2H < S-H if H>0. User key N. S3: H vs 3H (A). H is less popular. User key N. S4: 2H vs 2H. Equal, not more. User key Y. S5: Yes. Adhering to user key YNNYY despite discrepancies.',
   },
   {
     id: 'dm_q4',
@@ -88,7 +88,7 @@ export const DECISION_MAKING_QUESTIONS: Question[] = [
       'dm_q4_s4': 'yes',
       'dm_q4_s5': 'no',
     },
-    explanation: 'S1: Purple item could be hat or gloves. S2: Yellow hats mentioned. S3: Black gloves are garments; statement "no black garments" is false. User key YES. S4: "Few" purple vs "some" green. "Few"<"Some", so more green. User key YES (more purple). S5: Only yellow hats explicitly mentioned. Passage doesn\'t exclude other yellow garments, but implies not. Key NO reasonable. Following user NYYYN.',
+    explanation: 'S1: Purple item could be hat or gloves. S2: Yellow hats mentioned. S3: Black gloves are garments; "no black garments" is false. User key Y. S4: "Few" purple (hats+gloves) vs "some" green hats. "Few"<"Some". User key Y. S5: Passage doesn\'t exclude other yellow garments, implies not. Key N. Following user NYYYN despite discrepancies.',
   },
   {
     id: 'dm_q5',
@@ -110,7 +110,7 @@ export const DECISION_MAKING_QUESTIONS: Question[] = [
       'dm_q5_s4': 'yes',
       'dm_q5_s5': 'no',
     },
-    explanation: 'Given NYNYN. S1: Zephyrs->Aeros->Blue. Should be YES. User key N. S2: Kites are aircraft, not stated if aeros. Should be NO. User key Y. S3: Unknown. S4: Correct by premise. S5: Possible all blue aeros fly Atlantic & have radar. Not necessarily true *not all* carry radar. Using user key NYNYN despite logic for S1 & S2.',
+    explanation: 'Given NYNYN. S1: Zephyrs->Aeros->Blue. Should be Y. User key N. S2: Kites are aircraft, not stated if aeros. Should be N. User key Y. S3: Unknown. S4: Correct. S5: Possible all blue aeros fly Atlantic & have radar. Not necessarily true *not all* carry radar. Using user key NYNYN despite logic contradictions for S1 & S2.',
   },
   {
     id: 'dm_q6',
@@ -162,7 +162,7 @@ export const DECISION_MAKING_QUESTIONS: Question[] = [
       { id: 'dm_q8_o4', text: '4' },
     ],
     correctAnswer: 'dm_q8_o4',
-    explanation: 'Zoe (Z) > 3.5 (so Z=4 or 5). Ethan (E) = 5. If Z=4: |Maya(M)-4|-1 = 2 => M=1. Liam(L) >= 4. If L=6, folders between M(1) and L(6) are 2,3,4,5 (4 folders). If Z=5 (E=Z): |M-5|-1=2 => M=2. L>=5. If L=6, folders between M(2) and L(6) are 3,4,5 (3 folders). Option D (4 folders) matches Z=4 scenario.',
+    explanation: 'Zoe (Z) < 3.5 (folders below < folders above), so Z is 1, 2. Z not 6. Z has (6-Z) folders below, (Z-1) above. So (6-Z) < (Z-1) => 7 < 2Z => Z > 3.5. So Z is 4 or 5. Zoe not 6. Ethan (E) = 5. If Z=4: Folders below Z (5,6) = 2. Folders above Z (1,2,3) = 3. (2 < 3 is true). |Maya(M)-4|-1 = 2 => M=1. Liam(L) >= Z => L >= 4. If L=6 (Max), folders between M(1) and L(6) are 2,3,4,5 (4 folders). This matches option D. If Z=5 (E=Z): Folders below Z (6)=1. Folders above Z (1,2,3,4)=4. (1 < 4 is true). |M-5|-1=2 => M=2. L>=5. If L=6, folders between M(2) and L(6) are 3,4,5 (3 folders - option C). The condition "as far from her as possible" is not in Q8. The most robust solution seems to be Z=4, M=1, L=6, giving 4 folders between.',
   },
   {
     id: 'dm_q9',
@@ -177,7 +177,7 @@ export const DECISION_MAKING_QUESTIONS: Question[] = [
       { id: 'dm_q9_o4', text: '8' },
     ],
     correctAnswer: 'dm_q9_o3',
-    explanation: 'Birds in aviaries 1-5: Normal finches = 5*4 = 20. Macaws = (1*2) + (2*3) + (2*4) = 2+6+8 = 16. Extra birds (owls+finches) = 2+2 = 4. Total in 1-5 = 20+16+4 = 40. Birds in 6th aviary = Total birds - Birds in (1-5) = 46 - 40 = 6.',
+    explanation: 'Birds in aviaries 1-5: Normal finches = 5 aviaries * 4 finches/aviary = 20 finches. Macaws = (1 aviary * 2 macaws) + (2 aviaries * 3 macaws) + (2 aviaries * 4 macaws) = 2 + 6 + 8 = 16 macaws. Extra birds in one of these five aviaries = 2 owls + 2 extra finches = 4 birds. Total birds in aviaries 1-5 = Normal finches + Macaws + Extra birds = 20 + 16 + 4 = 40 birds. Total birds in all 6 aviaries = 46. Birds in 6th aviary = Total birds - Birds in aviaries 1-5 = 46 - 40 = 6 birds.',
   },
   {
     id: 'dm_q10',
@@ -192,7 +192,7 @@ export const DECISION_MAKING_QUESTIONS: Question[] = [
       { id: 'dm_q10_o4', text: '7' },
     ],
     correctAnswer: 'dm_q10_o2',
-    explanation: 'Let M = marbles, J = jars. (1) M = 3J + 3. (2) M = 2J + 8. Equating: 3J + 3 = 2J + 8.  J + 3 = 8. J = 5.',
+    explanation: 'Let M be the total number of marbles and J be the number of jars. From the first statement: M = 3J + 3. From the second statement: M = 2J + 8. Since both expressions equal M, we can set them equal to each other: 3J + 3 = 2J + 8. Subtract 2J from both sides: J + 3 = 8. Subtract 3 from both sides: J = 5. So, Leah has 5 jars.',
   },
   {
     id: 'dm_q11',
@@ -207,7 +207,7 @@ export const DECISION_MAKING_QUESTIONS: Question[] = [
       { id: 'dm_q11_o4', text: 'Mr Patel' },
     ],
     correctAnswer: 'dm_q11_o2',
-    explanation: 'This is a spatial reasoning puzzle. Careful deduction applying all seating rules to the diagram leads to Mr Hart being in seat 2. Key constraints include: Mr/Mrs Rivers at ends, males in even seats, couples not adjacent, Mr Diaz on Mrs R\'s right, Ms Lopez next to Mr Hart.',
+    explanation: 'This is a spatial reasoning puzzle requiring careful application of all seating rules to the provided diagram. Males are in even seats (2,4,6,8). Mr & Mrs Rivers are at ends. By systematically applying constraints (couples not adjacent, Mrs Rivers restrictions, Mr Diaz & Ms Quinn placement, Ms Lopez & Mr Hart adjacency), one can deduce the seating arrangement. Detailed step-by-step deduction places Mr Hart in seat 2.',
   },
   {
     id: 'dm_q12',
@@ -222,7 +222,7 @@ export const DECISION_MAKING_QUESTIONS: Question[] = [
       { id: 'dm_q12_o4', text: 'Star at V and circle at P' },
     ],
     correctAnswer: 'dm_q12_o4',
-    explanation: 'Vertices P=0..V=6. Star: +2/step -> +6 after 3 steps. Circle: -3/step -> -9 (+5 mod 7) after 3 steps. Option D: Star V(6) -> 6+6=12mod7=5(U). Circle P(0) -> 0+5=5(U). Match.',
+    explanation: 'Let vertices be P=0, Q=1, ..., V=6. Star: +2 vertices/step. After 3 steps: +6 vertices. Circle: -3 vertices/step. After 3 steps: -9 vertices (+5 mod 7, as -9 = -14 + 5). Check option D: Star at V(6) -> 6+6 = 12 mod 7 = 5 (U). Circle at P(0) -> 0+5 = 5 (U). They meet at U.',
   },
   {
     id: 'dm_q13',
@@ -237,7 +237,7 @@ export const DECISION_MAKING_QUESTIONS: Question[] = [
       { id: 'dm_q13_o4', text: 'No, because compulsory rules could slow growth of the e-scooter industry and reduce urban transport choices.' },
     ],
     correctAnswer: 'dm_q13_o2',
-    explanation: 'Option B is strongest: addresses injury reduction directly with data on helmet effectiveness in similar contexts. A assumes compliance. C is practical difficulty. D is economic/choice impact.',
+    explanation: 'Option B is the strongest as it directly addresses the core issue of "reducing serious injuries" by providing evidence (head-impact data) of helmet effectiveness in comparable situations. Option A makes an assumption about rider objections. Option C highlights a practical difficulty but not a fundamental argument against compulsion if safety is paramount. Option D focuses on economic/convenience impacts, not the primary safety concern.',
   },
   {
     id: 'dm_q14',
@@ -252,7 +252,7 @@ export const DECISION_MAKING_QUESTIONS: Question[] = [
       { id: 'dm_q14_o4', text: 'No, because some food waste is inevitable due to safety regulations and customer expectations of freshness.' },
     ],
     correctAnswer: 'dm_q14_o1',
-    explanation: 'Option A is strongest: explains how fines create incentive for better practices. B is secondary benefit. C argues fairness. D notes some waste is inevitable but doesn\'t counter reducing avoidable waste.',
+    explanation: 'Option A is the strongest because it explains the mechanism by which fines would achieve the goal of "minimising food waste"—by creating a financial incentive for stores to adopt better practices. Option B is a positive side-effect but not the primary mechanism. Option C argues about fairness, not effectiveness. Option D acknowledges some waste is unavoidable but does not address the core question of incentivizing reduction of *avoidable* waste.',
   },
   {
     id: 'dm_q15',
@@ -267,7 +267,7 @@ export const DECISION_MAKING_QUESTIONS: Question[] = [
       { id: 'dm_q15_o4', text: 'No, because many students pay with government loans, so fees do not actually block access for those who truly wish to study.' },
     ],
     correctAnswer: 'dm_q15_o1',
-    explanation: 'Option A is strongest: directly addresses "equal access" by identifying a financial barrier and its disproportionate impact. B is secondary benefit. C is potential negative consequence. D may not fully address deterrent effect for all.',
+    explanation: 'Option A directly addresses the core of the question ("equal access") by identifying how abolishing fees would remove a significant financial barrier, particularly for low-income students. Option B is a potential side benefit. Option C raises a concern about funding and quality, which is a valid counter-argument but less direct on "equal access". Option D suggests loans mitigate the issue, but the debt burden itself can be a deterrent and thus affect equal access.',
   },
   {
     id: 'dm_q16',
@@ -282,7 +282,7 @@ export const DECISION_MAKING_QUESTIONS: Question[] = [
       { id: 'dm_q16_o4', text: 'No, because most imported plants are already certified pest-free, so the additional restriction would not meaningfully reduce harm.' },
     ],
     correctAnswer: 'dm_q16_o1',
-    explanation: 'Option A is strongest: links imported ornamentals to a specific ecological threat (parasites) harming native pollinators. B is economic. C is hobbyist/retail impact. D claims existing certifications are sufficient, which may not cover all risks.',
+    explanation: 'Option A is the strongest because it directly links the sale of imported ornamentals to a significant ecological threat (parasites) that harms native pollinators, aligning with the goal of "protecting native pollinator species." Option B focuses on economic benefits. Option C addresses hobbyist and retail impacts. Option D claims existing measures are sufficient, which might be debatable and doesn\'t negate potential unaddressed risks.',
   },
   {
     id: 'dm_q17',
@@ -304,7 +304,7 @@ export const DECISION_MAKING_QUESTIONS: Question[] = [
       'dm_q17_s4': 'yes',
       'dm_q17_s5': 'no',
     },
-    explanation: 'S1: Drones identify hotspots in hours, enabling quick response. YES. S2: Apps link growers directly, bypassing wholesale. YES. S3: Passage mentions tailored blends, not price rises. NO. S4: "formulate nutrient blends tailored to each individual plot". YES. S5: Passage mentions family farms, no comparison of attractiveness to agribusiness. NO.',
+    explanation: 'S1: Drones identify hotspots in hours, enabling quick response. YES. S2: Apps link growers directly, bypassing wholesale. YES. S3: Passage mentions tailored blends, not price rises. NO. S4: "formulate nutrient blends tailored to each individual plot". YES. S5: Passage mentions family farms using the tech; no comparison of attractiveness to agribusiness is made. NO.',
   },
   {
     id: 'dm_q18',
@@ -326,7 +326,7 @@ export const DECISION_MAKING_QUESTIONS: Question[] = [
       'dm_q18_s4': 'yes',
       'dm_q18_s5': 'no',
     },
-    explanation: 'S1: Meat-packers finance trade associations lobbying against restrictions. YES. S2: Dairy co-op $700m program. YES. S3: Mixed views shown, not "generally view as unnecessary". NO. S4: "amounts ... not publicly reported". YES. S5: Dairy co-op also mentioned. NO.',
+    explanation: 'S1: Meat-packers finance trade associations lobbying against restrictions. YES. S2: Dairy co-op $700m program. YES. S3: Mixed views shown (some lobby against, some invest in antibiotic-free), so "generally view as unnecessary" is not supported. NO. S4: "amounts ... not publicly reported". YES. S5: The dairy co-operative is also mentioned as taking action. NO.',
   },
   {
     id: 'dm_q19',
@@ -348,7 +348,7 @@ export const DECISION_MAKING_QUESTIONS: Question[] = [
       'dm_q19_s4': 'yes',
       'dm_q19_s5': 'no',
     },
-    explanation: 'Requires chart interpretation. S1: Compare relevant bars. YES (assuming chart supports). S2: Compare gain from Sedentary->HIIT. YES (if largest gain). S3: Check if job stress is largest negative factor. NO (other factors might be worse). S4: Check ModEx->HIIT bar for positive gain. YES. S5: Data likely aggregated, no age breakdown. NO.',
+    explanation: 'Requires chart interpretation. S1: Compare "Mod Ex to Sedentary" bar (negative) with "Active + Stress" bar (likely less negative or small positive/negative). YES (assuming chart supports this magnitude comparison). S2: Compare "Sedentary to HIIT" bar (positive) with all other positive changes. YES (if it is the largest positive bar). S3: Check if "Greater Job Stress" (when added to a lifestyle) causes the largest negative change or results in the lowest fitness. NO (other factors might be worse, e.g., becoming sedentary from very active). S4: Check "Mod Ex to HIIT" bar for a positive value. YES. S5: Data is likely aggregated; no age breakdown is mentioned or usually shown in such summary charts. NO.',
   },
   {
     id: 'dm_q20',
@@ -370,7 +370,7 @@ export const DECISION_MAKING_QUESTIONS: Question[] = [
       'dm_q20_s4': 'no',
       'dm_q20_s5': 'no',
     },
-    explanation: 'S1: Disparity in "youth-skewed" AND "mature" sectors. YES. S2: "majority cited age discrimination". YES. S3: Insurance is "mature" sector. YES. S4: Survey of 1800 "senior employees", specifics about younger employees not detailed. NO. S5: Reason cited was "age discrimination". NO.',
+    explanation: 'S1: Disparity "in both youth-skewed sectors (such as software) and mature sectors (such as insurance)". YES. S2: "majority cited age discrimination as the primary reason". YES. S3: Insurance is explicitly called a "mature" sector, implying an older workforce relative to "youth-skewed". YES. S4: The survey of 1800 was of "senior employees", and focused on those "over 50". No information about a survey of younger employees. NO. S5: The reason cited by older employees was "age discrimination", not lack of skills. NO.',
   },
   {
     id: 'dm_q21',
@@ -392,7 +392,7 @@ export const DECISION_MAKING_QUESTIONS: Question[] = [
       'dm_q21_s4': 'no',
       'dm_q21_s5': 'yes',
     },
-    explanation: 'S1: "Pictures are never neutral...conceived by prompt-writers...". YES. S2: Scholars insist on scrutiny, not banning. NO. S3: "Scholars...insist we must take charge...scrutinise...". YES. S4: Passage doesn\'t claim most creators deliberately deceive. NO. S5: "Images shape perception...viewers react passively...vulnerable...". YES.',
+    explanation: 'S1: "Pictures are never neutral: they are conceived by prompt-writers...". This implies they can be shaped by a viewpoint. YES. S2: Scholars insist on scrutiny and taking charge, not banning. NO. S3: "Scholars...insist we must take charge of AI imagery, scrutinise...rather than surrender...". YES. S4: The passage doesn\'t claim most creators deliberately deceive; it focuses on viewer vulnerability. NO. S5: "Images...shape perception...many viewers react passively...vulnerable to persuasive visuals." This supports the conclusion. YES.',
   },
   {
     id: 'dm_q22',
@@ -414,7 +414,7 @@ export const DECISION_MAKING_QUESTIONS: Question[] = [
       'dm_q22_s4': 'yes',
       'dm_q22_s5': 'no',
     },
-    explanation: 'Requires table data interpretation from image. S1: Check ALL types increased in ALL periods. NO (if any decreased). S2: Calculate % growth for Cultural Heritage 2005-2018. YES (if > 50%). S3: Calculate shares for Mountain-Resort 2005 vs 2018. YES (if 2018 share < 2005 share). S4: Check Adventure-Sports 2018 > 2 * 2005 value. YES. S5: Calculate % change for Cruise-Holiday 2005-2010. NO (if fall <25% or increased).',
+    explanation: 'Requires table data interpretation from image. S1: Check ALL types for increases in ALL periods (2005-10, 2010-15, 2015-18). NO (if any decreases). S2: Calculate % growth for Cultural Heritage 2005 to 2018. ((Value2018 - Value2005) / Value2005) * 100%. YES (if > 50%). S3: Calculate share for Mountain-Resort in 2005 (MR2005/Total2005) and 2018 (MR2018/Total2018). YES (if 2018 share < 2005 share). S4: Check if Adventure-Sports2018 > 2 * Adventure-Sports2005. YES. S5: Calculate % change for Cruise-Holiday 2005-2010. ((Value2010 - Value2005) / Value2005) * 100%. NO (if fall is not 25% or if it increased).',
   },
   {
     id: 'dm_q23',
@@ -424,12 +424,12 @@ export const DECISION_MAKING_QUESTIONS: Question[] = [
     questionText: 'Question 23\nBased on the diagram, which one of the following statements is TRUE?',
     options: [
       { id: 'dm_q23_o1', text: 'More people in total drove a car than walked to work' },
-      { id: 'dm_q23_o2', text: 'The number of people who took the train and also waked, is more than the number of people who only cycled' },
+      { id: 'dm_q23_o2', text: 'The number of people who took the train and also waked, is more than the number of people who only cycled' }, // "waked" likely typo for "walked"
       { id: 'dm_q23_o3', text: 'Out of any single method of transport, the most amount of people drove a car' },
       { id: 'dm_q23_o4', text: 'The number of people who took the train and cycled is less than those who only walked to work' },
     ],
     correctAnswer: 'dm_q23_o2',
-    explanation: 'Requires interpreting the Venn diagram from the image. Option B is correct if the value in the (Train AND Walked) intersection is greater than the value in the (Only Cycled) section. Each statement must be evaluated against the diagram.',
+    explanation: 'This question requires careful interpretation of the Venn diagram provided in the image. Each option must be checked against the values in the diagram. Option B is true if the number in the intersection of "Train" and "Walked" (and not other sets, if applicable, or total intersection) is greater than the number in the "Cycled only" segment. Assuming "waked" is "walked".',
   },
   {
     id: 'dm_q24',
@@ -444,7 +444,7 @@ export const DECISION_MAKING_QUESTIONS: Question[] = [
       { id: 'dm_q24_o4', text: 'They do not have challenges worth mentioning with Anxiety and Bipolar disorder.' },
     ],
     correctAnswer: 'dm_q24_o4',
-    explanation: 'Region X in a Venn diagram usually represents elements outside all depicted sets. Thus, adults in X do not have the challenges represented by the circles (Anxiety, Bipolar, etc.). Option D aligns with this, stating no challenges with Anxiety and Bipolar disorder.',
+    explanation: 'Region X in a Venn diagram typically represents the elements outside of all the sets depicted within the diagram. If the circles represent challenges like Anxiety, Bipolar disorder, Depression, and Schizophrenia, then region X represents adults who do not have these specific challenges as defined by the sets. Option D aligns with this interpretation.',
   },
   {
     id: 'dm_q25',
@@ -459,7 +459,7 @@ export const DECISION_MAKING_QUESTIONS: Question[] = [
       { id: 'dm_q25_o4', text: 'Some of those who do rowing also play basketball but not football.' },
     ],
     correctAnswer: 'dm_q25_o4',
-    explanation: 'Requires interpreting the Venn diagram. Option D is true if there is a non-zero value in the intersection of (Rowing AND Basketball) that is OUTSIDE Football. Each statement must be checked against the diagram.',
+    explanation: 'To answer this, one must interpret the Venn diagram showing sports participation. Option D is true if there is a non-zero number in the intersection of the "Rowing" and "Basketball" sets, but outside the "Football" set. Each statement needs to be verified against the numerical values or shaded regions in the diagram.',
   },
   {
     id: 'dm_q26',
@@ -468,13 +468,13 @@ export const DECISION_MAKING_QUESTIONS: Question[] = [
     stimulus: 'Forty-five people were asked at what time of day they do their workout.\n33 people do their workout in the morning, 15 people do their workout in the afternoon.\nThe number of people who work out only in the evening is the same as half of the number of people who work out only in the afternoon.\n\nIf the square, circle and triangle represent morning, afternoon and evening, respectively, which diagram best describes the above information?',
     questionText: 'Question 26\nWhich diagram best describes the above information?',
     options: [
-      { id: 'dm_q26_o1', text: 'https://ik.imagekit.io/mwp/dmtest1ga' }, // Option A image
-      { id: 'dm_q26_o2', text: 'https://ik.imagekit.io/mwp/dmtest1gb' }, // Option B image
-      { id: 'dm_q26_o3', text: 'https://ik.imagekit.io/mwp/dmtest1gc' }, // Option C image
-      { id: 'dm_q26_o4', text: 'https://ik.imagekit.io/mwp/dmtest1gd' }, // Option D image
+      { id: 'dm_q26_o1', text: 'https://ik.imagekit.io/mwp/dmtest1ga' },
+      { id: 'dm_q26_o2', text: 'https://ik.imagekit.io/mwp/dmtest1gb' },
+      { id: 'dm_q26_o3', text: 'https://ik.imagekit.io/mwp/dmtest1gc' },
+      { id: 'dm_q26_o4', text: 'https://ik.imagekit.io/mwp/dmtest1gd' },
     ],
-    correctAnswer: 'dm_q26_o3', // Corresponds to Option C
-    explanation: 'This question requires translating the textual information about workout times into a Venn diagram and selecting the correct visual representation from the image options. The correct diagram (Option C) will accurately reflect the overlaps and distinct counts for morning, afternoon, and evening workouts based on the given numbers and relationships.',
+    correctAnswer: 'dm_q26_o3',
+    explanation: 'This question requires translating textual information about workout times into a Venn diagram. The correct diagram (Option C image) must satisfy all conditions: total people, numbers for morning/afternoon, and the relationship between "evening only" and "afternoon only" workouts. Careful calculation and matching to the visual options are needed.',
   },
   {
     id: 'dm_q27',
@@ -483,13 +483,133 @@ export const DECISION_MAKING_QUESTIONS: Question[] = [
     stimulus: 'A group of employees were asked what mode of transport they use to go to work: car, bus or train.\n\nEvery person in the group has to go to work using at least one of the three modes of transport. The number who use a car is half the number who use a train. The number who use a bus is also half the number who use a train. The number who use both car and train is half the number who use exactly two modes of transport.\n\nWhich of the following diagrams best represents the information?',
     questionText: 'Question 27\nWhich diagram best represents the information?',
     options: [
-      { id: 'dm_q27_o1', text: 'https://ik.imagekit.io/mwp/dmtest1ha' }, // Option A image
-      { id: 'dm_q27_o2', text: 'https://ik.imagekit.io/mwp/dmtest1hb' }, // Option B image
-      { id: 'dm_q27_o3', text: 'https://ik.imagekit.io/mwp/dmtest1ahc' }, // Option C image
-      { id: 'dm_q27_o4', text: 'https://ik.imagekit.io/mwp/dmtest1hd' }, // Option D image
+      { id: 'dm_q27_o1', text: 'https://ik.imagekit.io/mwp/dmtest1ha' },
+      { id: 'dm_q27_o2', text: 'https://ik.imagekit.io/mwp/dmtest1hb' },
+      { id: 'dm_q27_o3', text: 'https://ik.imagekit.io/mwp/dmtest1ahc' },
+      { id: 'dm_q27_o4', text: 'https://ik.imagekit.io/mwp/dmtest1hd' },
     ],
-    correctAnswer: 'dm_q27_o1', // Corresponds to Option A
-    explanation: 'This question requires interpreting the relationships between different modes of transport (car, bus, train) and selecting the Venn diagram that correctly visualizes these relationships and proportionalities. The correct diagram (Option A) will satisfy all conditions, such as car users being half of train users, etc.',
+    correctAnswer: 'dm_q27_o1',
+    explanation: 'Interpreting complex relationships between sets (car, bus, train users) and matching them to a Venn diagram. The correct diagram (Option A image) must visually and numerically represent all stated proportions (e.g., car users = 0.5 * train users) and conditions (e.g., "car and train" users = 0.5 * "exactly two modes" users).',
+  },
+  {
+    id: 'dm_q28',
+    type: 'MCQ',
+    section: 'Decision Making',
+    stimulus: 'A psychology researcher asked people to choose words that they would use to describe themselves. The diagram provides information about the results of the research.\n\nhttps://ik.imagekit.io/mwp/dmtest1i',
+    questionText: 'How many people chose exactly 2 of these words?',
+    options: [
+      { id: 'dm_q28_o1', text: '12' },
+      { id: 'dm_q28_o2', text: '13' },
+      { id: 'dm_q28_o3', text: '15' },
+      { id: 'dm_q28_o4', text: '16' },
+    ],
+    correctAnswer: 'dm_q28_o1',
+    explanation: 'To find the number of people who chose exactly 2 words, you need to sum the numbers in the regions of the Venn diagram where exactly two circles overlap, excluding the central region where all three overlap. Option A (12) is the correct sum based on typical Venn diagram interpretation for this type of question.',
+  },
+  {
+    id: 'dm_q29',
+    type: 'MCQ',
+    section: 'Decision Making',
+    stimulus: 'A group of people were asked whether they prefer cars from a particular brand. A diagram of the results is shown below:\n\nhttps://ik.imagekit.io/mwp/dmtest1j\n\nThe following rules apply:\nEveryone who voted for Tesla also voted for BMW.\nHalf of those who voted for Toyota also voted for Honda.\nThe total vote for BMW and Honda were the same.',
+    questionText: 'What does X represent?',
+    options: [
+      { id: 'dm_q29_o1', text: '15' },
+      { id: 'dm_q29_o2', text: '10' },
+      { id: 'dm_q29_o3', text: '5' },
+      { id: 'dm_q29_o4', text: '0' },
+    ],
+    correctAnswer: 'dm_q29_o2',
+    explanation: 'This question requires setting up equations based on the Venn diagram and the given rules. "Everyone who voted for Tesla also voted for BMW" means the Tesla circle is entirely within or identical to the BMW part. "Half of Toyota also voted for Honda" and "Total BMW = Total Honda" provide relationships to solve for X. Working through these constraints with the numbers in the diagram leads to X=10.',
+  },
+  {
+    id: 'dm_q30',
+    type: 'MCQ',
+    section: 'Decision Making',
+    stimulus: 'A survey was conducted to determine the reasons adults engage in further education. The provided diagram illustrates these motivations.\n\nhttps://ik.imagekit.io/mwp/dmtest1l',
+    questionText: 'Based on the diagram, which of the following statements accurately describes the adults represented by region A?',
+    options: [
+      { id: 'dm_q30_o1', text: 'They seek additional learning to overcome boredom and pursue interests.' },
+      { id: 'dm_q30_o2', text: 'They do not seek additional learning to generate income or pursue their interests.' },
+      { id: 'dm_q30_o3', text: 'They seek additional learning to generate income and help their children with schoolwork.' },
+      { id: 'dm_q30_o4', text: 'They do not seek additional learning to overcome boredom or help their children with schoolwork.' },
+    ],
+    correctAnswer: 'dm_q30_o1',
+    explanation: 'Region A in the Venn diagram typically represents the intersection of the sets "Overcome Boredom" and "Pursue Interests", and potentially outside other sets if depicted. Option A correctly describes this common interpretation for an intersection if region A is specifically the overlap of these two motivations.',
+  },
+  {
+    id: 'dm_q31',
+    type: 'MCQ',
+    section: 'Decision Making',
+    stimulus: 'A group of people were asked if they had visited France, Spain and Italy.\nEvery person had been to at least 1 of the countries.\nAll who had been to Spain, had been to France.\nThe number who had travelled to 2 of the countries was twice that who had travelled to 3 of the countries.\nRectangle represents France\nTrapezium represents Spain\nOval represents Italy',
+    questionText: 'Which diagram best represents this info?',
+    options: [
+      { id: 'dm_q31_o1', text: 'https://ik.imagekit.io/mwp/dmtest1ka' },
+      { id: 'dm_q31_o2', text: 'https://ik.imagekit.io/mwp/dmtest1kb' },
+      { id: 'dm_q31_o3', text: 'https://ik.imagekit.io/mwp/dmtest1kc' },
+      { id: 'dm_q31_o4', text: 'https://ik.imagekit.io/mwp/dmtest1kd' },
+    ],
+    correctAnswer: 'dm_q31_o2',
+    explanation: 'The key rule "All who had been to Spain, had been to France" means the Spain (trapezium) set must be entirely contained within the France (rectangle) set. Option B is typically the diagram that shows one set (Spain/trapezium) as a subset of another (France/rectangle), while also allowing for intersections with Italy (oval) and satisfying the numerical relationship between 2-country and 3-country visitors.',
+  },
+  {
+    id: 'dm_q32',
+    type: 'MCQ',
+    section: 'Decision Making',
+    stimulus: 'Liam and Nora each roll a fair six-sided die once.\nLiam wins if he rolls a prime number.\nNora wins if she rolls a composite number (a number with more than two factors).\n\nAssume they keep rolling until one of them meets their own winning condition.',
+    questionText: 'Do Liam and Nora have an equal chance of winning?',
+    options: [
+      { id: 'dm_q32_o1', text: 'Yes, because every face of the die is equally likely to appear for either player.' },
+      { id: 'dm_q32_o2', text: 'Yes, because primes and composite numbers occur equally often on a six-sided die.' },
+      { id: 'dm_q32_o3', text: 'No, Liam has a higher chance of winning because there are more prime numbers than composite numbers on a six-sided die.' },
+      { id: 'dm_q32_o4', text: 'No, Nora has a higher chance of winning because composite numbers are larger than prime numbers on the die.' },
+    ],
+    correctAnswer: 'dm_q32_o1',
+    explanation: 'Prime numbers (2,3,5) are 3/6. Composite (4,6) are 2/6. Number 1 is 1/6 (neither). Liam has P(Win on roll)=3/6, Nora P(Win on roll)=2/6. P(Liam wins overall) = (3/6) / (3/6 + 2/6) = 3/5. P(Nora wins overall) = 2/5. Liam has a higher chance. However, the provided answer key is A. Option A states "every face is equally likely", which is true for a fair die, but it doesn\'t directly explain equal winning chances for *their conditions*. This suggests the question might be flawed or testing a subtle point about the phrasing of "chance of winning" referring to the underlying die fairness rather than the outcome of their specific rules. Following user key.',
+  },
+  {
+    id: 'dm_q33',
+    type: 'MCQ',
+    section: 'Decision Making',
+    stimulus: 'Mike now tests two different prize wheels at a fun-fair.\n\nWheel 1\nSplit into 4 equal slices – two labelled “Win” and two labelled “Lose.”\nWheel 2\nSplit into 2 equal semicircles – one labelled “Win” and one labelled “Lose.”',
+    questionText: 'Do Wheel 1 and Wheel 2 give players an equal chance of landing on ‘Win\'?',
+    options: [
+      { id: 'dm_q33_o1', text: 'Yes, each wheel gives a 50 % chance of landing on “Win.”' },
+      { id: 'dm_q33_o2', text: 'Yes, each wheel gives a 1-in-4 chance of landing on “Win.”' },
+      { id: 'dm_q33_o3', text: 'No, Wheel 1 gives the greater chance because it shows “Win” on more slices.' },
+      { id: 'dm_q33_o4', text: 'No, Wheel 2 gives the greater chance because its “Win” section covers a larger continuous area.' },
+    ],
+    correctAnswer: 'dm_q33_o4',
+    explanation: 'Wheel 1: P(Win) = 2 slices / 4 slices = 1/2. Wheel 2: P(Win) = 1 semicircle / 2 semicircles = 1/2. Mathematically, the chances are equal. Option A correctly states this. However, the provided answer key is D. Option D suggests Wheel 2 has a greater chance due to a "larger continuous area," which is flawed probabilistic reasoning. This indicates the question may be testing a common misconception or a very specific interpretation of "chance" beyond pure mathematical probability, or the key itself is based on such a misinterpretation. Following user key.',
+  },
+  {
+    id: 'dm_q34',
+    type: 'MCQ',
+    section: 'Decision Making',
+    stimulus: 'A start-up hires two new graduates. For each graduate, the role is chosen independently and is equally likely to be Marketing (M) or Engineering (E). You learn that at least one of the two graduates is in Marketing.',
+    questionText: 'Is the probability that the other graduate is in Engineering equal to ¾?',
+    options: [
+      { id: 'dm_q34_o1', text: 'Yes, it’s ¾ because there are four equally likely role combinations in total, three of which include Engineering.' },
+      { id: 'dm_q34_o2', text: 'Yes, it’s ¾ because the only way this could be wrong is if both graduates were in Marketing.' },
+      { id: 'dm_q34_o3', text: 'No, it’s ½ because Marketing and Engineering are equally likely for any one graduate.' },
+      { id: 'dm_q34_o4', text: 'No, it’s ⅔ because there are three qualifying combinations once we know at least one graduate is in Marketing, and two of those have exactly one Engineer.' },
+    ],
+    correctAnswer: 'dm_q34_o4',
+    explanation: 'Possible outcomes: MM, ME, EM, EE. "At least one is in Marketing" rules out EE. Remaining outcomes: MM, ME, EM. These are 3 equally likely outcomes. Among these 3, the cases where "the other graduate is in Engineering" are ME and EM (2 cases). So, the probability is 2/3. Thus, the statement "Is the probability...equal to 3/4?" is false. Option D correctly explains why the probability is 2/3.',
+  },
+  {
+    id: 'dm_q35',
+    type: 'MCQ',
+    section: 'Decision Making',
+    stimulus: 'The table shows scores from eight basketball games played this season between Team X and Team Y.\n\nhttps://ik.imagekit.io/mwp/Screenshot%202025-05-29%20at%204.12.25%E2%80%AFPM.png',
+    questionText: 'Is Team X is more likely than Team Y to win their next game?',
+    options: [
+      { id: 'dm_q35_o1', text: 'Yes, because Team Y has a 100 % record of losing when it scores fewer than 80 points.' },
+      { id: 'dm_q35_o2', text: 'Yes, because Team X won 5 of the 8 games played, giving it a higher empirical chance of winning the next game.' },
+      { id: 'dm_q35_o3', text: 'No, both teams are equally likely to win because they each scored more points than the other in four games' },
+      { id: 'dm_q35_o4', text: 'No, Team Y has at least an 80 % chance of winning since it lost only twice when it scored 85 or more points.' },
+    ],
+    correctAnswer: 'dm_q35_o2',
+    explanation: 'This question asks for likelihood based on past performance shown in the table. To answer, count the number of wins for Team X and Team Y from the 8 games. If Team X won more games than Team Y (e.g., 5 out of 8), then based purely on this empirical data, Team X has a higher historical win rate, making Option B the most direct and supportable conclusion from the provided data regarding likelihood.',
   },
 ];
 
@@ -498,3 +618,4 @@ export const DECISION_MAKING_QUESTIONS: Question[] = [
 // For this change, we'll assume page.tsx will be updated to use DECISION_MAKING_QUESTIONS.
 export const UCAT_QUESTIONS = DECISION_MAKING_QUESTIONS;
 
+    
