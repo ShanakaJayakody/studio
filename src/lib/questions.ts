@@ -22,7 +22,7 @@ export const DECISION_MAKING_QUESTIONS: Question[] = [
       'dm_q1_s4': 'no',  
       'dm_q1_s5': 'yes', 
     },
-    explanation: 'Based on the provided answer key YNNNY. S1: This conclusion is ambiguous. "Some reptiles are pets" & "All pythons are reptiles" doesn\'t mean NO pet python. However, if we interpret "Nobody kept as a pet is a python" as "It is not necessarily true that a pet is a python", it could be seen as YES if no definite link. S2: "No reptile is a mammal" and "All pythons are reptiles" directly implies "No python is a mammal". The answer key says NO, which is a contradiction. Assuming "NO" means "it does not necessarily NOT follow" (double negative, confusing). S3: Whiffles are undefined in this premise. S4: No information to support this. S5: If not python, could be another reptile (not mammal) or a mammal. This is not strictly YES. Following the provided answer key.',
+    explanation: 'Based on the provided answer key YNNNY. S1: This conclusion is ambiguous. "Some reptiles are pets" & "All pythons are reptiles" doesn\'t mean NO pet python. However, if we interpret "Nobody kept as a pet is a python" as "It is not necessarily true that a pet is a python", it could be seen as YES if no definite link. S2: "No reptile is a mammal" and "All pythons are reptiles" directly implies "No python is a mammal". The answer key says NO, which is a contradiction. S3: Whiffles are undefined in this premise. S4: No information to support this. S5: If not python, could be another reptile (not mammal) or a mammal. This is not strictly YES. Following the provided answer key.',
   },
   {
     id: 'dm_q2',
@@ -66,7 +66,7 @@ export const DECISION_MAKING_QUESTIONS: Question[] = [
       'dm_q3_s4': 'yes',
       'dm_q3_s5': 'yes',
     },
-    explanation: 'Let H = hard-covers sold. Then P (paperbacks sold) = 2H. A (audio-books sold) = H + P = H + 2H = 3H. Total sales = H + 2H + 3H = 6H. S1 (A quarter of sales were hard-covers): H / 6H = 1/6. The answer key says YES. This implies some specific initial stock number not evident from problem statement that makes H = 1/4 of total. S2 (Fewer paperbacks left than hard-covers): If initial stock S for each type, remaining P = S-2H, remaining H = S-H. S-2H < S-H means -2H < -H means H < 2H, true if H>0. So this should be YES. Answer key says NO. S3 (Hard-covers less popular than audio-books): H vs 3H. H is less popular. Statement says "less popular", so should be YES. Answer key is NO. S4 (Next day: 2H sold, P sold (2H). More hardcovers than paperbacks?): 2H vs 2H. Equal. So "more" is false. Answer key is YES. S5 (1/3 of original stock were audio-books): Yes, stated in premises "same number of hard-cover, paperback, and audio-book copies". Following the provided answer key YNNYY.',
+    explanation: 'Let H be hard-covers sold. Paperbacks P=2H. Audio-books A=H+P = H+2H = 3H. Total sales = H+2H+3H = 6H. User answer key is YNNYY. S1: (H/6H = 1/6) vs Key Y. S2: (S-2H vs S-H; S-2H < S-H if H>0) => YES. Key N. S3: (H vs 3H; H less popular) => YES. Key N. S4: (2H vs 2H; equal) => NO. Key Y. S5: (Original stock is 1/3 audio) => YES. Key Y. There are discrepancies between direct logic and the provided key for S1, S2, S3, S4. Following the provided YNNYY.',
   },
   {
     id: 'dm_q4',
@@ -88,7 +88,7 @@ export const DECISION_MAKING_QUESTIONS: Question[] = [
       'dm_q4_s4': 'yes', // "Few" purple hats + "few" purple gloves vs "some" green hats. This is subjective on "few" vs "some". If few < some, then No. Answer key is YES.
       'dm_q4_s5': 'no',  // Correct: Only "some yellow hats" mentioned. Could be other yellow garments if "nothing else" refers to types (hats, gloves) and not colors.
     },
-    explanation: 'S1: A purple item could be a hat or gloves. S2: Yellow hats are mentioned. S3: Only black gloves are mentioned as black items. S4: "Few" purple hats and "few" purple gloves compared to "some" green hats. "Few" usually implies less than "some", so this would typically be "no". However, the answer key states YES. S5: Only yellow hats are mentioned as yellow items; "nothing else" could imply no other yellow garments, but also could just refer to item types (hats, gloves).',
+    explanation: 'S1: A purple item could be a hat or gloves. S2: Yellow hats are mentioned. S3: Only black gloves are mentioned as black items; "nothing else" implies no other black garments if interpreted as only hats and gloves are garments. S4: "Few" purple hats + "few" purple gloves vs. "some" green hats. "Few" generally implies less than "some". The key "YES" is unusual. S5: Only yellow hats are mentioned, "nothing else" could refer to types (hats/gloves) and not exclude other yellow garments. Key is NO.',
   },
   {
     id: 'dm_q5',
@@ -110,7 +110,7 @@ export const DECISION_MAKING_QUESTIONS: Question[] = [
       'dm_q5_s4': 'yes',
       'dm_q5_s5': 'no',
     },
-    explanation: 'S1: Zephyrs -> Aeros -> Blue. So Zephyrs are blue. This should be YES. Answer key is NO. S2: Kites are aircraft, but not stated if they are aeros. So this should be NO. Answer key is YES. S3: No information about zephyrs or kites flying over the Atlantic specifically. S4: "Only the aeros that fly over the Atlantic carry radar" means if an aero carries radar, it must fly over the Atlantic. S5: All aeros are blue. Only Atlantic-flying aeros carry radar. It is possible that *all* blue aeros fly the Atlantic and carry radar, or that some blue aeros do not fly the Atlantic and thus do not carry radar. So it is not necessarily true that "not all blue aeros carry radar". This is subtly tricky. Following the provided answer key NYNYN.',
+    explanation: 'Using user key NYNYN. S1: Zephyrs -> Aeros -> Blue. Logically YES. Key is NO. S2: Kites are aircraft, not stated if aeros. Logically NO. Key is YES. S3: Unknown, so NO. S4: "Only aeros that fly Atlantic carry radar" implies if radar, then Atlantic. YES. S5: "All aeros are blue." "Only Atlantic aeros carry radar." It is possible all blue aeros fly Atlantic and carry radar, or some blue aeros don\'t fly Atlantic and don\'t carry radar. So it\'s not necessarily true that "not all blue aeros carry radar". Key NO is consistent with this ambiguity (it doesn\'t *necessarily* follow).',
   },
   {
     id: 'dm_q6',
@@ -147,7 +147,7 @@ export const DECISION_MAKING_QUESTIONS: Question[] = [
       { id: 'dm_q7_o4', text: '176kg' },
     ],
     correctAnswer: 'dm_q7_o2',
-    explanation: 'Let C, A, S be the weights. Equations: (1) 2C+3A+S=70, (2) C+2A+S=40. Subtract (2) from (1): C+A=30. We need to find 4C+4A+S. This can be written as 4(C+A)+S. Substitute C+A=30: 4(30)+S = 120+S. From (2), S = 40-C-2A. Substitute C=30-A: S = 40-(30-A)-2A = 40-30+A-2A = 10-A. So we need 120+(10-A) = 130-A. This indicates multiple solutions. Let\'s test option B (128kg): 120+S = 128 => S=8kg. If S=8, then A+S=10 (derived from S=10-A), so A=2kg. Then C+A=30 => C+2=30 => C=28kg. Check with original equations: 2(28)+3(2)+8 = 56+6+8 = 70 (Correct). 1(28)+2(2)+8 = 28+4+8 = 40 (Correct). Thus, C=28, A=2, S=8 is a valid solution, and the bundle 4C+4A+S weighs 4(28)+4(2)+8 = 112+8+8 = 128kg.',
+    explanation: 'Let C, A, S be the weights. Equations: (1) 2C+3A+S=70, (2) C+2A+S=40. Subtract (2) from (1): C+A=30. We need to find 4C+4A+S. This can be written as 4(C+A)+S. Substitute C+A=30: 4(30)+S = 120+S. From (2), S = 40-C-2A. Substitute C=30-A: S = 40-(30-A)-2A = 40-30+A-2A = 10-A. So we need 120+(10-A) = 130-A. This indicates multiple solutions if A is not fixed. Let\'s test option B (128kg): 120+S = 128 => S=8kg. If S=8, then from A+S=10 (derived from S=10-A), so A=2kg. Then C+A=30 => C+2=30 => C=28kg. Check with original equations: 2(28)+3(2)+8 = 56+6+8 = 70 (Correct). 1(28)+2(2)+8 = 28+4+8 = 40 (Correct). Thus, C=28, A=2, S=8 is a valid solution, and the bundle 4C+4A+S weighs 4(28)+4(2)+8 = 112+8+8 = 128kg.',
   },
   {
     id: 'dm_q8',
@@ -254,12 +254,44 @@ export const DECISION_MAKING_QUESTIONS: Question[] = [
     correctAnswer: 'dm_q14_o1',
     explanation: 'Option A directly links the proposed action (fines) to the desired outcome (minimising food waste) by explaining the mechanism (incentivising alternatives like donation/discounting). B is a secondary benefit. C argues fairness but doesn\'t address waste minimisation. D points out inevitability but doesn\'t argue against fines as a deterrent for *avoidable* waste.',
   },
+  {
+    id: 'dm_q15',
+    type: 'MCQ',
+    section: 'Decision Making',
+    stimulus: 'To ensure equal access to higher education, should governments abolish tuition fees at public universities?',
+    questionText: 'Question 15\nSelect the strongest argument from the statements below.',
+    options: [
+      { id: 'dm_q15_o1', text: 'Yes, because removing fees eliminates a direct financial barrier that disproportionately deters low-income students.' },
+      { id: 'dm_q15_o2', text: 'Yes, because countries with free universities often attract international applicants, boosting cultural diversity on campus.' },
+      { id: 'dm_q15_o3', text: 'No, because universities would then rely more heavily on public funds, potentially reducing educational quality.' },
+      { id: 'dm_q15_o4', text: 'No, because many students pay with government loans, so fees do not actually block access for those who truly wish to study.' },
+    ],
+    correctAnswer: 'dm_q15_o1',
+    explanation: 'Option A directly addresses the core issue of "equal access" by identifying a primary barrier (financial) and its disproportionate impact. B discusses a potential secondary benefit (diversity) but isn\'t as central to "equal access" as cost. C raises a potential negative consequence (funding/quality) which is a valid counter-argument but doesn\'t directly address access for the strongest "Yes" argument. D makes a claim about loans that might be debatable and doesn\'t fully negate the deterrent effect of fees for some.',
+  },
+  {
+    id: 'dm_q16',
+    type: 'MCQ',
+    section: 'Decision Making',
+    stimulus: 'To protect native pollinator species, should the sale of imported ornamental plants be restricted?',
+    questionText: 'Question 16\nSelect the strongest argument from the statements below.',
+    options: [
+      { id: 'dm_q16_o1', text: 'Yes, because imported ornamentals may harbour parasites that can devastate local pollinators like bee populations.' },
+      { id: 'dm_q16_o2', text: 'Yes, because encouraging gardeners to buy native plants supports regional horticultural businesses.' },
+      { id: 'dm_q16_o3', text: 'No, because restricting plant choice would upset gardening enthusiasts and hurt retail sales.' },
+      { id: 'dm_q16_o4', text: 'No, because most imported plants are already certified pest-free, so the additional restriction would not meaningfully reduce harm.' },
+    ],
+    correctAnswer: 'dm_q16_o1',
+    explanation: 'Option A presents a direct and significant ecological threat (parasites devastating local pollinators) that restricting imported plants could mitigate. This aligns closely with the goal of "protecting native pollinator species." B is an economic co-benefit, not the primary ecological argument. C focuses on economic/hobbyist impact, not pollinator protection. D makes a claim about existing certifications which, if true, would weaken the "Yes" argument based on pests, but A specifically mentions parasites which might not be covered by all "pest-free" certifications and highlights a severe potential impact ("devastate").',
+  },
 ];
 
 // Keeping UCAT_QUESTIONS for now to avoid breaking imports in page.tsx,
 // but it should be replaced by DECISION_MAKING_QUESTIONS.
 // For this change, we'll assume page.tsx will be updated to use DECISION_MAKING_QUESTIONS.
 export const UCAT_QUESTIONS = DECISION_MAKING_QUESTIONS;
+
+    
 
     
 
