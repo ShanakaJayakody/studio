@@ -11,7 +11,7 @@ export const DECISION_MAKING_QUESTIONS: Question[] = [
     conclusions: [
       { id: 'dm_q1_s1', text: 'Nobody kept as a pet is a python.' },
       { id: 'dm_q1_s2', text: 'No python is a mammal.' },
-      { id: 'dm_q1_s3', text: 'If an animal has no wings, it cannot be a whiffle.' },
+      { id: 'dm_q1_s3', text: 'If an animal has no wings, it cannot be a whiffle.' }, // Whiffle context is from Q2, seems misplaced but following user
       { id: 'dm_q1_s4', text: 'An animal that is a mammal cannot be kept as a pet.' },
       { id: 'dm_q1_s5', text: 'An animal that is not a python cannot be a mammal.' },
     ],
@@ -22,7 +22,7 @@ export const DECISION_MAKING_QUESTIONS: Question[] = [
       'dm_q1_s4': 'no',  
       'dm_q1_s5': 'yes', 
     },
-    explanation: 'Given answers YNNNY. S1 (Nobody kept as a pet is a python): YES. This means if something is a pet, it cannot be a python. From "Some reptiles are kept as pets" and "All pythons are reptiles", this is not directly conclusive. S2 (No python is a mammal): NO. This is contradictory to "No reptile is a mammal" and "All pythons are reptiles" which implies No python is a mammal. The provided key might be interpreting "not necessarily" as NO. S3 (If an animal has no wings, it cannot be a whiffle): NO (Whiffles not defined enough). S4 (An animal that is a mammal cannot be kept as a pet): NO. S5 (An animal that is not a python cannot be a mammal): YES.',
+    explanation: 'Based on the provided answer key YNNNY. S1: This conclusion is ambiguous. "Some reptiles are pets" & "All pythons are reptiles" doesn\'t mean NO pet python. However, if we interpret "Nobody kept as a pet is a python" as "It is not necessarily true that a pet is a python", it could be seen as YES if no definite link. S2: "No reptile is a mammal" and "All pythons are reptiles" directly implies "No python is a mammal". The answer key says NO, which is a contradiction. Assuming "NO" means "it does not necessarily NOT follow" (double negative, confusing). S3: Whiffles are undefined in this premise. S4: No information to support this. S5: If not python, could be another reptile (not mammal) or a mammal. This is not strictly YES. Following the provided answer key.',
   },
   {
     id: 'dm_q2',
@@ -38,13 +38,13 @@ export const DECISION_MAKING_QUESTIONS: Question[] = [
       { id: 'dm_q2_s5', text: 'If an animal is a flarn, it cannot be a sparrow.' },
     ],
     correctAnswer: {
-      'dm_q2_s1': 'no',
-      'dm_q2_s2': 'no',
-      'dm_q2_s3': 'no',
-      'dm_q2_s4': 'yes',
-      'dm_q2_s5': 'yes',
+      'dm_q2_s1': 'no', // Correct: Flarn scale status unknown
+      'dm_q2_s2': 'no', // Correct: Flarn animal status unknown
+      'dm_q2_s3': 'no', // Correct: Sparrows no scales, Flarn scales unknown
+      'dm_q2_s4': 'yes',// Correct: Whiffles have wings
+      'dm_q2_s5': 'yes',// Correct: Given "A flarn... is not a sparrow"
     },
-    explanation: 'S1 (Flarns do not have scales): NO (Flarn scales status not mentioned). S2 (Flarns are animals): NO (Flarn animal status not mentioned). S3 (Either sparrows or flarns have scales): NO (Sparrows no scales, Flarn scales unknown). S4 (If an animal has no wings, it cannot be a whiffle): YES (Whiffles have wings). S5 (If an animal is a flarn, it cannot be a sparrow): YES (Given "A flarn... is not a sparrow").',
+    explanation: 'S1: Flarn scale status is not mentioned. S2: Flarn animal status is not mentioned. S3: Sparrows do not have scales; Flarn scale status is unknown. S4: Whiffles have wings, so if an animal has no wings, it cannot be a whiffle. S5: The premise states "A flarn... is not a sparrow".',
   },
   {
     id: 'dm_q3',
@@ -66,7 +66,7 @@ export const DECISION_MAKING_QUESTIONS: Question[] = [
       'dm_q3_s4': 'yes',
       'dm_q3_s5': 'yes',
     },
-    explanation: 'Given YNNYY. Let H be hard-covers sold. Paperbacks P=2H. Audio-books A=H+P = H+2H = 3H. Total sales = H+2H+3H = 6H. S1: H/6H = 1/6, not 1/4. The user answer key is Y for S1. This implies specific numeric interpretation not obvious. Let\'s use user answer key. S3: Audiobooks(3H) vs Hardcovers(H), audiobooks more popular, so statement "less popular" is NO. My deduction for S1 is NO. Correcting based on user\'s YNNYY. Q3 S1 is YES as per user, so H/(H+2H+3H) = H/6H = 1/6. This doesn\'t fit. Assuming user answer key is YNNYY. For S3: H vs A (3H). H is less popular than A. So statement is YES. User key is N. This indicates possible misinterpretation or error in provided keys. I will stick to the user-provided YNNYY.',
+    explanation: 'Let H = hard-covers sold. Then P (paperbacks sold) = 2H. A (audio-books sold) = H + P = H + 2H = 3H. Total sales = H + 2H + 3H = 6H. S1 (A quarter of sales were hard-covers): H / 6H = 1/6. The answer key says YES. This implies some specific initial stock number not evident from problem statement that makes H = 1/4 of total. S2 (Fewer paperbacks left than hard-covers): If initial stock S for each type, remaining P = S-2H, remaining H = S-H. S-2H < S-H means -2H < -H means H < 2H, true if H>0. So this should be YES. Answer key says NO. S3 (Hard-covers less popular than audio-books): H vs 3H. H is less popular. Statement says "less popular", so should be YES. Answer key is NO. S4 (Next day: 2H sold, P sold (2H). More hardcovers than paperbacks?): 2H vs 2H. Equal. So "more" is false. Answer key is YES. S5 (1/3 of original stock were audio-books): Yes, stated in premises "same number of hard-cover, paperback, and audio-book copies". Following the provided answer key YNNYY.',
   },
   {
     id: 'dm_q4',
@@ -82,13 +82,13 @@ export const DECISION_MAKING_QUESTIONS: Question[] = [
       { id: 'dm_q4_s5', text: 'The only yellow garments were hats.' },
     ],
     correctAnswer: {
-      'dm_q4_s1': 'no',
-      'dm_q4_s2': 'yes',
-      'dm_q4_s3': 'yes', 
-      'dm_q4_s4': 'yes', 
-      'dm_q4_s5': 'no',  
+      'dm_q4_s1': 'no',  // Correct: Could be purple gloves
+      'dm_q4_s2': 'yes', // Correct: Yellow hats
+      'dm_q4_s3': 'yes', // Correct: "nothing else" implies only gloves and hats. Black gloves exist. No other black garments.
+      'dm_q4_s4': 'yes', // "Few" purple hats + "few" purple gloves vs "some" green hats. This is subjective on "few" vs "some". If few < some, then No. Answer key is YES.
+      'dm_q4_s5': 'no',  // Correct: Only "some yellow hats" mentioned. Could be other yellow garments if "nothing else" refers to types (hats, gloves) and not colors.
     },
-    explanation: 'Given NYYYN. S1 (Purple item -> hat): NO (could be purple gloves). S2 (Also yellow items): YES (some yellow hats). S3 (No black garments): YES (only black GLOVES mentioned, garments could imply other types. User key is Y). S4 (More purple garments than green): YES ("Few" purple hats + "few" purple gloves vs "some" green hats. If "few" < "some", this could be false. User key Y implies their interpretation makes it true). S5 (Only yellow garments were hats): NO (It says "some yellow hats", implies possibility of other yellow items if "nothing else" clause is strictly for non-hat/glove items. User key is N). Sticking to NYYYN.',
+    explanation: 'S1: A purple item could be a hat or gloves. S2: Yellow hats are mentioned. S3: Only black gloves are mentioned as black items. S4: "Few" purple hats and "few" purple gloves compared to "some" green hats. "Few" usually implies less than "some", so this would typically be "no". However, the answer key states YES. S5: Only yellow hats are mentioned as yellow items; "nothing else" could imply no other yellow garments, but also could just refer to item types (hats, gloves).',
   },
   {
     id: 'dm_q5',
@@ -110,7 +110,7 @@ export const DECISION_MAKING_QUESTIONS: Question[] = [
       'dm_q5_s4': 'yes',
       'dm_q5_s5': 'no',
     },
-    explanation: 'Given NYNYN. S1 (Zephyrs are blue): NO (Zephyrs -> Aeros -> Blue. This should be YES. User key N). S2 (All aircraft are aeros): YES (Kites are aircraft, not stated if aeros. This should be NO. User key Y). S3 (Neither Z nor K fly over Atlantic): NO (Unknown). S4 (Aero with radar -> flies over Atlantic): YES (from "Only the aeros that fly over the Atlantic carry radar"). S5 (Not all blue aeros carry radar): NO (If all aeros are blue, and only Atlantic-flying aeros have radar, it\'s possible all blue aeros fly Atlantic and have radar, or some don\'t. Not necessarily true that *not all* carry radar. User key N). Using user keys NYNYN despite direct logic contradictions for S1 & S2.',
+    explanation: 'S1: Zephyrs -> Aeros -> Blue. So Zephyrs are blue. This should be YES. Answer key is NO. S2: Kites are aircraft, but not stated if they are aeros. So this should be NO. Answer key is YES. S3: No information about zephyrs or kites flying over the Atlantic specifically. S4: "Only the aeros that fly over the Atlantic carry radar" means if an aero carries radar, it must fly over the Atlantic. S5: All aeros are blue. Only Atlantic-flying aeros carry radar. It is possible that *all* blue aeros fly the Atlantic and carry radar, or that some blue aeros do not fly the Atlantic and thus do not carry radar. So it is not necessarily true that "not all blue aeros carry radar". This is subtly tricky. Following the provided answer key NYNYN.',
   },
   {
     id: 'dm_q6',
@@ -126,13 +126,13 @@ export const DECISION_MAKING_QUESTIONS: Question[] = [
       { id: 'dm_q6_s5', text: 'All of the fruit is either green or yellow.' },
     ],
     correctAnswer: {
-      'dm_q6_s1': 'no',
-      'dm_q6_s2': 'yes',
-      'dm_q6_s3': 'no',
-      'dm_q6_s4': 'yes',
-      'dm_q6_s5': 'no',
+      'dm_q6_s1': 'no',  // Correct: Peaches color unknown, no red mentioned
+      'dm_q6_s2': 'yes', // Correct: Green apples
+      'dm_q6_s3': 'no',  // Correct: Yellow bananas
+      'dm_q6_s4': 'yes', // Correct: Bananas are yellow
+      'dm_q6_s5': 'no',  // Correct: Peaches color unknown
     },
-    explanation: 'S1 (Some fruit red): NO (No red fruit mentioned, peaches color unknown). S2 (Some green fruits): YES (green apples). S3 (No yellow fruits): NO (yellow bananas). S4 (No red bananas): YES (bananas are yellow). S5 (All fruit green or yellow): NO (peaches color unknown).',
+    explanation: 'S1: No red fruit is mentioned; peach color is unknown. S2: Green apples are present. S3: Yellow bananas are present. S4: Bananas are yellow, not red. S5: Peaches are in the bowl, and their color is not specified as green or yellow.',
   },
   {
     id: 'dm_q7',
@@ -153,7 +153,7 @@ export const DECISION_MAKING_QUESTIONS: Question[] = [
     id: 'dm_q8',
     type: 'MCQ',
     section: 'Decision Making',
-    stimulus: 'There are six folders stacked in a tray, numbered 1 (top) to 6 (bottom).\nZoe’s folder is not the bottom-most folder (not 6).\nThe number of folders below Zoe’s folder is less than the number above it.\nEthan’s folder is the last-but-one folder from the bottom of the stack (position 5).\nThere are exactly two folders between Maya’s folder and Zoe’s folder.\nLiam’s folder is not above Zoe’s folder (Liam <= Zoe in position number, or Liam is below or same as Zoe).',
+    stimulus: 'There are six folders stacked in a tray, numbered 1 (top) to 6 (bottom).\nZoe’s folder is not the bottom-most folder (not 6).\nThe number of folders below Zoe’s folder is less than the number above it.\nEthan’s folder is the last-but-one folder from the bottom of the stack (position 5).\nThere are exactly two folders between Maya’s folder and Zoe’s folder.\nLiam’s folder is not above Zoe’s folder (Liam >= Zoe in position number, or Liam is below or same as Zoe).',
     questionText: 'Question 8\nHow many folders are there between Maya’s folder and Liam’s folder?',
     options: [
       { id: 'dm_q8_o1', text: '1' },
@@ -162,7 +162,7 @@ export const DECISION_MAKING_QUESTIONS: Question[] = [
       { id: 'dm_q8_o4', text: '4' },
     ],
     correctAnswer: 'dm_q8_o4',
-    explanation: 'Positions 1(top)-6(bottom). Zoe (Z) != 6. Folders below Z (6-Z) < Folders above Z (Z-1) => 7 < 2Z => Z > 3.5. So Z is 4 or 5. Ethan (E) = 5. Case 1: Z=4. Then |Maya(M)-4|-1=2 => |M-4|=3 => M=1 or M=7 (invalid). So M=1. Liam (L) >= Z => L >= 4. Possible L: 4, 5(E), 6. If L=4 (Z=L), between M(1) & L(4) are 2 folders (2,3). If L=5 (E=L), between M(1) & L(5) are 3 folders (2,3,4). If L=6, between M(1) & L(6) are 4 folders (2,3,4,5). Case 2: Z=5. Then E=Z=5. |M-5|-1=2 => |M-5|=3 => M=2 or M=8 (invalid). So M=2. L >= Z => L >= 5. Possible L: 5(E,Z=L), 6. If L=5, between M(2) & L(5) are 2 folders (3,4). If L=6, between M(2) & L(6) are 3 folders (3,4,5). The option 4 is available, fitting L=6 from Case 1 (Z=4, M=1, E=5, L=6).',
+    explanation: 'Positions 1(top)-6(bottom). Zoe (Z) != 6. Folders below Z (6-Z) < Folders above Z (Z-1) => 7 < 2Z => Z > 3.5. So Z is 4 or 5. Ethan (E) = 5. Case 1: Z=4. Then |Maya(M)-4|-1=2 => |M-4|=3 => M=1 or M=7 (invalid). So M=1. Liam (L) is not above Zoe => L is at position >= Z. So L >= 4. Possible L: 4, 5(E), 6. If L=4 (Z=L), folders between M(1) & L(4) are 2,3 (2 folders). If L=5 (E=L), folders between M(1) & L(5) are 2,3,4 (3 folders). If L=6, folders between M(1) & L(6) are 2,3,4,5 (4 folders). Case 2: Z=5. Then E=Z=5. |M-5|-1=2 => |M-5|=3 => M=2 or M=8 (invalid). So M=2. L >= Z => L >= 5. Possible L: 5(E,Z=L), 6. If L=5, folders between M(2) & L(5) are 3,4 (2 folders). If L=6, folders between M(2) & L(6) are 3,4,5 (3 folders). The option 4 is available, fitting L=6 from Case 1 (Z=4, M=1, E=5, L=6).',
   },
   {
     id: 'dm_q9',
@@ -177,7 +177,7 @@ export const DECISION_MAKING_QUESTIONS: Question[] = [
       { id: 'dm_q9_o4', text: '8' },
     ],
     correctAnswer: 'dm_q9_o3', 
-    explanation: 'Total birds in aviaries 1-5: \nNormal finches: 5 aviaries * 4 finches/aviary = 20 finches. \nMacaws: (1 * 2) + (2 * 3) + (2 * 4) = 2 + 6 + 8 = 16 macaws. \nExtra birds (in one aviary): 2 owls + 2 extra finches = 4 birds. \nTotal in aviaries 1-5 = 20 (normal finches) + 16 (macaws) + 4 (extra birds) = 40 birds. \nTotal birds across all 6 aviaries = 46. \nBirds in 6th aviary = Total birds - Birds in aviaries 1-5 = 46 - 40 = 6 birds.',
+    explanation: 'Total birds in aviaries 1-5: Normal finches: 5 aviaries * 4 finches/aviary = 20 finches. Macaws: (1 * 2) + (2 * 3) + (2 * 4) = 2 + 6 + 8 = 16 macaws. Extra birds (in one of the first five aviaries): 2 owls + 2 extra finches = 4 birds. Total in aviaries 1-5 = 20 (normal finches) + 16 (macaws) + 4 (extra birds) = 40 birds. Total birds across all 6 aviaries = 46. Birds in 6th aviary = Total birds - Birds in aviaries 1-5 = 46 - 40 = 6 birds.',
   },
   {
     id: 'dm_q10',
@@ -192,7 +192,7 @@ export const DECISION_MAKING_QUESTIONS: Question[] = [
       { id: 'dm_q10_o4', text: '7' },
     ],
     correctAnswer: 'dm_q10_o2', 
-    explanation: 'Let M be the total number of marbles and J be the number of jars. \nFrom the first statement: M = 3J + 3. \nFrom the second statement: M = 2J + 8. \nEquating the two expressions for M: 3J + 3 = 2J + 8. \nSubtract 2J from both sides: J + 3 = 8. \nSubtract 3 from both sides: J = 5. \nSo, Leah has 5 jars.',
+    explanation: 'Let M be the total number of marbles and J be the number of jars. From the first statement: M = 3J + 3. From the second statement: M = 2J + 8. Equating the two expressions for M: 3J + 3 = 2J + 8. Subtract 2J from both sides: J + 3 = 8. Subtract 3 from both sides: J = 5. So, Leah has 5 jars.',
   },
   {
     id: 'dm_q11',
@@ -207,7 +207,52 @@ export const DECISION_MAKING_QUESTIONS: Question[] = [
       { id: 'dm_q11_o4', text: 'Mr Patel' },
     ],
     correctAnswer: 'dm_q11_o2', 
-    explanation: 'This is a spatial reasoning and logic puzzle. Key seating rules: Mr & Mrs Rivers at ends. Males in even seats. No married couples adjacent. Mrs Rivers not next to Harts or Patels. Mr Diaz on Mrs Rivers\' right, opposite Ms Quinn & far. Ms Lopez next to Mr Hart. Following these rules systematically places Mr Hart in seat 2. The image URL provided in the stimulus is crucial for visualizing the seating arrangement.',
+    explanation: 'This is a spatial reasoning and logic puzzle based on the provided seating rules and the image (represented by the URL). The rules involve: Mr & Mrs Rivers at ends, males in even seats, no married couples adjacent, Mrs Rivers not next to Harts/Patels, Mr Diaz on Mrs Rivers\' right & opposite/far from Ms Quinn, Ms Lopez next to Mr Hart. Applying these rules systematically leads to Mr Hart being in seat 2. The visual layout from the image is crucial for solving.',
+  },
+  {
+    id: 'dm_q12',
+    type: 'MCQ',
+    section: 'Decision Making',
+    stimulus: 'A star-shaped counter and a circle-shaped counter move around the seven vertices of a regular heptagon labelled P Q R S T U V in clockwise order.\n\nImage: @https://placehold.co/300x200.png?data-ai-hint=heptagon%20diagram\n\nThe star moves two vertices clockwise in every step.\nThe circle moves three vertices anti-clockwise (counter-clockwise) in every step.',
+    questionText: 'Question 12\nAt which of the following pairs of vertices should the counters be placed originally so that they arrive at the same vertex after exactly the third move?',
+    options: [
+      { id: 'dm_q12_o1', text: 'Star at Q and circle at T' },
+      { id: 'dm_q12_o2', text: 'Star at R and circle at P' },
+      { id: 'dm_q12_o3', text: 'Star at S and circle at Q' },
+      { id: 'dm_q12_o4', text: 'Star at V and circle at P' },
+    ],
+    correctAnswer: 'dm_q12_o4',
+    explanation: 'Let vertices be 0(P)-6(V). Star moves +2 mod 7. Circle moves -3 mod 7 (or +4 mod 7). After 3 moves: Star moves 3*2=6 vertices. Circle moves 3*(-3) = -9 vertices, which is -9 mod 7 = -2 mod 7 = +5 mod 7. \nOption D: Star at V (6), Circle at P (0). Star: 6 + 6 = 12 mod 7 = 5 (U). Circle: 0 + 5 = 5 mod 7 = 5 (U). They meet at U. So D is correct.',
+  },
+  {
+    id: 'dm_q13',
+    type: 'MCQ',
+    section: 'Decision Making',
+    stimulus: 'To reduce serious injuries among e-scooter riders, should cities make helmet use compulsory?',
+    questionText: 'Question 13\nSelect the strongest argument from the statements below.',
+    options: [
+      { id: 'dm_q13_o1', text: 'Yes, because helmets are inexpensive and easy to carry, so most riders would not object to wearing one.' },
+      { id: 'dm_q13_o2', text: 'Yes, because head-impact data show helmets cut the risk of fatal or disabling injury dramatically in similar micro-mobility devices.' },
+      { id: 'dm_q13_o3', text: 'No, because many riders rent short-term scooters while travelling and may forget to bring a helmet with them.' },
+      { id: 'dm_q13_o4', text: 'No, because compulsory rules could slow growth of the e-scooter industry and reduce urban transport choices.' },
+    ],
+    correctAnswer: 'dm_q13_o2',
+    explanation: 'Option B directly addresses the core issue of reducing serious injuries by citing evidence of helmet effectiveness (head-impact data, risk reduction). A is an assumption about rider objection. C focuses on a practical difficulty but doesn\'t counter the safety argument. D focuses on economic/industry impact, not the primary safety concern.',
+  },
+  {
+    id: 'dm_q14',
+    type: 'MCQ',
+    section: 'Decision Making',
+    stimulus: 'To minimise food waste, should grocery stores be fined for discarding unsold yet edible products?',
+    questionText: 'Question 14\nSelect the strongest argument from the statements below.',
+    options: [
+      { id: 'dm_q14_o1', text: 'Yes, because the possibility of a fine will incentivise stores to donate or discount food instead of throwing it away.' },
+      { id: 'dm_q14_o2', text: 'Yes, because charities that receive surplus food can then spend more money on other social causes.' },
+      { id: 'dm_q14_o3', text: 'No, because stores already pay disposal fees, so extra fines would be an unfair double penalty.' },
+      { id: 'dm_q14_o4', text: 'No, because some food waste is inevitable due to safety regulations and customer expectations of freshness.' },
+    ],
+    correctAnswer: 'dm_q14_o1',
+    explanation: 'Option A directly links the proposed action (fines) to the desired outcome (minimising food waste) by explaining the mechanism (incentivising alternatives like donation/discounting). B is a secondary benefit. C argues fairness but doesn\'t address waste minimisation. D points out inevitability but doesn\'t argue against fines as a deterrent for *avoidable* waste.',
   },
 ];
 
@@ -215,5 +260,7 @@ export const DECISION_MAKING_QUESTIONS: Question[] = [
 // but it should be replaced by DECISION_MAKING_QUESTIONS.
 // For this change, we'll assume page.tsx will be updated to use DECISION_MAKING_QUESTIONS.
 export const UCAT_QUESTIONS = DECISION_MAKING_QUESTIONS;
+
+    
 
     
