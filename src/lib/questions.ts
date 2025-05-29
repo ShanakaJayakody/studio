@@ -6,7 +6,7 @@ export const DECISION_MAKING_QUESTIONS: Question[] = [
     id: 'dm_q1',
     type: 'YesNoStatements',
     section: 'Decision Making',
-    stimulus: 'Premises:\nNo reptile is a mammal.\nAll pythons are reptiles.\nSome reptiles are kept as pets.',
+    stimulus: 'No reptile is a mammal.\\nAll pythons are reptiles.\\nSome reptiles are kept as pets.',
     questionText: 'For each statement, indicate if it logically follows from the premises.',
     conclusions: [
       { id: 'dm_q1_s1', text: 'Nobody kept as a pet is a python.' },
@@ -28,7 +28,7 @@ export const DECISION_MAKING_QUESTIONS: Question[] = [
     id: 'dm_q2',
     type: 'YesNoStatements',
     section: 'Decision Making',
-    stimulus: 'Premises:\nWhiffles and sparrows are animals, but neither has scales, although both have wings.\nA flarn has wings but is not a sparrow.',
+    stimulus: 'Whiffles and sparrows are animals, but neither has scales, although both have wings.\\nA flarn has wings but is not a sparrow.',
     questionText: 'For each statement, indicate if it logically follows from the premises.',
     conclusions: [
       { id: 'dm_q2_s1', text: 'Flarns do not have scales.' },
@@ -50,7 +50,7 @@ export const DECISION_MAKING_QUESTIONS: Question[] = [
     id: 'dm_q3',
     type: 'YesNoStatements',
     section: 'Decision Making',
-    stimulus: 'Premises:\nThe bookstore received the same number of hard-cover, paperback, and audio-book copies of a new title. On one particular day:\nIt sold twice as many paperbacks as hard-covers, and\nIt sold exactly as many audio-books as hard-covers and paperbacks combined.',
+    stimulus: 'The bookstore received the same number of hard-cover, paperback, and audio-book copies of a new title. On one particular day:\\nIt sold twice as many paperbacks as hard-covers, and\\nIt sold exactly as many audio-books as hard-covers and paperbacks combined.',
     questionText: 'For each statement, indicate if it logically follows from the premises.',
     conclusions: [
       { id: 'dm_q3_s1', text: 'A quarter of all sales that day were hard-cover copies.' },
@@ -72,7 +72,7 @@ export const DECISION_MAKING_QUESTIONS: Question[] = [
     id: 'dm_q4',
     type: 'YesNoStatements',
     section: 'Decision Making',
-    stimulus: 'Premises:\nInside the suitcase were some green hats, some yellow hats, but only a few purple hats.\nThere was nothing else in the suitcase except for some black gloves and a few purple gloves.',
+    stimulus: 'Inside the suitcase were some green hats, some yellow hats, but only a few purple hats.\\nThere was nothing else in the suitcase except for some black gloves and a few purple gloves.',
     questionText: 'For each statement, indicate if it logically follows from the premises.',
     conclusions: [
       { id: 'dm_q4_s1', text: 'If you took out a purple item, it would be a hat.' },
@@ -94,7 +94,7 @@ export const DECISION_MAKING_QUESTIONS: Question[] = [
     id: 'dm_q5',
     type: 'YesNoStatements',
     section: 'Decision Making',
-    stimulus: 'Premises:\nZephyrs and kites are types of aircraft.\nAll zephyrs are aeros.\nOnly the aeros that fly over the Atlantic carry radar.\nAll aeros are blue.',
+    stimulus: 'Zephyrs and kites are types of aircraft.\\nAll zephyrs are aeros.\\nOnly the aeros that fly over the Atlantic carry radar.\\nAll aeros are blue.',
     questionText: 'For each statement, indicate if it logically follows from the premises.',
     conclusions: [
       { id: 'dm_q5_s1', text: 'Zephyrs are blue.' },
@@ -110,13 +110,13 @@ export const DECISION_MAKING_QUESTIONS: Question[] = [
       'dm_q5_s4': 'yes',
       'dm_q5_s5': 'no',
     },
-    explanation: 'Given NYNYN. S1 (Zephyrs are blue): NO (Zephyrs -> Aeros -> Blue. This should be YES. User key N). S2 (All aircraft are aeros): YES (Kites are aircraft, not stated if aeros. This should be NO. User key Y). S3 (Neither Z nor K fly over Atlantic): NO (Unknown). S4 (Aero with radar -> flies over Atlantic): YES (from "Only the aeros that fly over the Atlantic carry radar"). S5 (Not all blue aeros carry radar): NO (If all aeros are blue, and only Atlantic-flying aeros have radar, it is possible all blue aeros fly Atlantic and have radar, or some don\'t. Not necessarily true that *not all* carry radar. User key N). Using user keys NYNYN despite direct logic contradictions for S1 & S2.',
+    explanation: 'Given NYNYN. S1 (Zephyrs are blue): NO (Zephyrs -> Aeros -> Blue. This should be YES. User key N). S2 (All aircraft are aeros): YES (Kites are aircraft, not stated if aeros. This should be NO. User key Y). S3 (Neither Z nor K fly over Atlantic): NO (Unknown). S4 (Aero with radar -> flies over Atlantic): YES (from "Only the aeros that fly over the Atlantic carry radar"). S5 (Not all blue aeros carry radar): NO (If all aeros are blue, and only Atlantic-flying aeros have radar, it\'s possible all blue aeros fly Atlantic and have radar, or some don\'t. Not necessarily true that *not all* carry radar. User key N). Using user keys NYNYN despite direct logic contradictions for S1 & S2.',
   },
   {
     id: 'dm_q6',
     type: 'YesNoStatements',
     section: 'Decision Making',
-    stimulus: 'Premises:\nIn Maria’s fruit bowl, there are green apples and there are peaches.\nNothing else is in the bowl except for the yellow bananas.',
+    stimulus: 'In Maria’s fruit bowl, there are green apples and there are peaches.\\nNothing else is in the bowl except for the yellow bananas.',
     questionText: 'For each statement, indicate if it logically follows from the premises.',
     conclusions: [
       { id: 'dm_q6_s1', text: 'Some of the fruit is red.' },
@@ -153,7 +153,7 @@ export const DECISION_MAKING_QUESTIONS: Question[] = [
     id: 'dm_q8',
     type: 'MCQ',
     section: 'Decision Making',
-    stimulus: 'There are six folders stacked in a tray, numbered 1 (top) to 6 (bottom).\nZoe’s folder is not the bottom-most folder (not 6).\nThe number of folders below Zoe’s folder is less than the number above it.\nEthan’s folder is the last-but-one folder from the bottom of the stack (position 5).\nThere are exactly two folders between Maya’s folder and Zoe’s folder.\nLiam’s folder is not above Zoe’s folder (Liam >= Zoe in position number, or Liam is below or same as Zoe).',
+    stimulus: 'There are six folders stacked in a tray, numbered 1 (top) to 6 (bottom). Zoe’s folder is not the bottom-most folder.\\nThe number of folders below Zoe’s folder is less than the number above it.\\nEthan’s folder is the last-but-one folder from the bottom of the stack.\\nThere are exactly two folders between Maya’s folder and Zoe’s folder.\\nLiam’s folder is not above Zoe’s folder.',
     questionText: 'How many folders are there between Maya’s folder and Liam’s folder?',
     options: [
       { id: 'dm_q8_o1', text: '1' },
@@ -168,7 +168,7 @@ export const DECISION_MAKING_QUESTIONS: Question[] = [
     id: 'dm_q9',
     type: 'MCQ',
     section: 'Decision Making',
-    stimulus: 'There are 6 aviaries in Feather Lane, with a total of 46 birds.\nEach aviary normally houses 4 finches.\n\nIn aviaries 1–5, the macaw counts are arranged as follows: 2 macaws in one aviary, 3 macaws in two aviaries, and 4 macaws in two aviaries.\n\nOne of these five aviaries (not the 6th) also shelters 2 rescued owls and 2 extra finches.',
+    stimulus: 'There are 6 aviaries in Feather Lane, with a total of 46 birds. Each aviary normally houses 4 finches.\\nIn aviaries 1–5, the macaw counts are arranged as follows: 2 macaws in one aviary, 3 macaws in two aviaries, and 4 macaws in two aviaries.\\nOne of these five aviaries (not the 6th) also shelters 2 rescued owls and 2 extra finches.',
     questionText: 'How many birds live in the 6th aviary?',
     options: [
       { id: 'dm_q9_o1', text: '2' },
@@ -183,7 +183,7 @@ export const DECISION_MAKING_QUESTIONS: Question[] = [
     id: 'dm_q10',
     type: 'MCQ',
     section: 'Decision Making',
-    stimulus: 'Leah has a certain number of marbles and a certain number of jars.\nIf she puts 3 marbles in each jar, she has 3 marbles left over.\n\nIf she puts 2 marbles in each jar, she has 8 marbles left over.',
+    stimulus: 'Leah has a certain number of marbles and a certain number of jars.\\nIf she puts 3 marbles in each jar, she has 3 marbles left over.\\nIf she puts 2 marbles in each jar, she has 8 marbles left over.',
     questionText: 'How many jars does Leah have?',
     options: [
       { id: 'dm_q10_o1', text: '4' },
@@ -198,7 +198,7 @@ export const DECISION_MAKING_QUESTIONS: Question[] = [
     id: 'dm_q11',
     type: 'MCQ',
     section: 'Decision Making',
-    stimulus: 'Mr and Mrs Rivers hosted a dinner party. They invited two couples – Mr & Mrs Hart and Mr & Mrs Patel – as well as Ms Quinn, Mr Banner, Ms Lopez and Mr Diaz.\\n\\nhttps://ik.imagekit.io/mwp/dmtest1a\\n\\nMr Rivers and Mrs Rivers sit at opposite ends (shown above).\\nMale guests occupy the even-numbered seats.\\nMarried couples are not seated next to each other.\\nMrs Rivers sits next to neither of the Harts nor the Patels.\\nMr Diaz sits on Mrs Rivers’ right-hand side, but on the opposite side of the table to Ms Quinn and as far from her as possible.\\nMs Lopez sits directly next to Mr Hart.',
+    stimulus: 'Mr and Mrs Rivers hosted a dinner party. They invited two couples – Mr & Mrs Hart and Mr & Mrs Patel – as well as Ms Quinn, Mr Banner, Ms Lopez and Mr Diaz.\\nhttps://ik.imagekit.io/mwp/dmtest1a\\nMr Rivers and Mrs Rivers sit at opposite ends (shown above).\\nMale guests occupy the even-numbered seats.\\nMarried couples are not seated next to each other.\\nMrs Rivers sits next to neither of the Harts nor the Patels.\\nMr Diaz sits on Mrs Rivers’ right-hand side, but on the opposite side of the table to Ms Quinn and as far from her as possible.\\nMs Lopez sits directly next to Mr Hart.',
     questionText: 'Who occupies seat 2?',
     options: [
       { id: 'dm_q11_o1', text: 'Mr Banner' },
@@ -213,7 +213,7 @@ export const DECISION_MAKING_QUESTIONS: Question[] = [
     id: 'dm_q12',
     type: 'MCQ',
     section: 'Decision Making',
-    stimulus: 'A star-shaped counter and a circle-shaped counter move around the seven vertices of a regular heptagon labelled P Q R S T U V in clockwise order.\\n\\nhttps://placehold.co/300x200.png?data-ai-hint=heptagon%20diagram\\n\\nThe star moves two vertices clockwise in every step.\\nThe circle moves three vertices anti-clockwise (counter-clockwise) in every step.',
+    stimulus: 'A star-shaped counter and a circle-shaped counter move around the seven vertices of a regular heptagon labelled P Q R S T U V in clockwise order.\\nhttps://ik.imagekit.io/mwp/dmtest1d?updatedAt=1748497366424\\nThe star moves two vertices clockwise in every step.\\nThe circle moves three vertices anti-clockwise (counter-clockwise) in every step.',
     questionText: 'At which of the following pairs of vertices should the counters be placed originally so that they arrive at the same vertex after exactly the third move?',
     options: [
       { id: 'dm_q12_o1', text: 'Star at Q and circle at T' },
@@ -332,7 +332,7 @@ export const DECISION_MAKING_QUESTIONS: Question[] = [
     id: 'dm_q19',
     type: 'YesNoStatements',
     section: 'Decision Making',
-    stimulus: 'The bar chart below summarises a nationwide study.\\n\\nhttps://ik.imagekit.io/mwp/dmtest1b?updatedAt=1748406494036',
+    stimulus: 'The bar chart below summarises a nationwide study.\\nhttps://ik.imagekit.io/mwp/dmtest1b?updatedAt=1748406494036',
     questionText: 'Place ‘Yes’ if the conclusion does follow from the data. Place ‘No’ if the conclusion does not follow.',
     conclusions: [
       { id: 'dm_q19_s1', text: 'An adult who becomes sedentary after exercising moderately loses more fitness than one who simply stays active but experiences increased job stress.' },
@@ -398,7 +398,7 @@ export const DECISION_MAKING_QUESTIONS: Question[] = [
     id: 'dm_q22',
     type: 'YesNoStatements',
     section: 'Decision Making',
-    stimulus: 'The table below shows tourist visitor numbers (in millions) to various destination types over several years.\\n\\nhttps://ik.imagekit.io/mwp/dmtest1c?updatedAt=1748406635013',
+    stimulus: 'The table below shows tourist visitor numbers (in millions) to various destination types over several years.\\nhttps://ik.imagekit.io/mwp/dmtest1c?updatedAt=1748406635013',
     questionText: 'Place ‘Yes’ if the conclusion does follow from the table. Place ‘No’ if the conclusion does not follow.',
     conclusions: [
       { id: 'dm_q22_s1', text: 'Tourist numbers in all destination types increased in every period shown.' },
@@ -420,7 +420,7 @@ export const DECISION_MAKING_QUESTIONS: Question[] = [
     id: 'dm_q23',
     type: 'MCQ',
     section: 'Decision Making',
-    stimulus: 'Here is some information on methods of travel to the workplace.\\n\\nhttps://ik.imagekit.io/mwp/dmtest1e\\n\\nBased on the diagram, which one of the following statements is TRUE?',
+    stimulus: 'Here is some information on methods of travel to the workplace.\\nhttps://ik.imagekit.io/mwp/dmtest1e',
     questionText: 'Based on the diagram, which one of the following statements is TRUE?',
     options: [
       { id: 'dm_q23_o1', text: 'More people in total drove a car than walked to work' },
@@ -435,7 +435,7 @@ export const DECISION_MAKING_QUESTIONS: Question[] = [
     id: 'dm_q24',
     type: 'MCQ',
     section: 'Decision Making',
-    stimulus: 'A survey to assess mental health challenges was done.\\n\\nhttps://ik.imagekit.io/mwp/dmtest1f\\n\\nBased on the diagram, which statement is correct about the adults represented by region X?',
+    stimulus: 'A survey to assess mental health challenges was done.\\nhttps://ik.imagekit.io/mwp/dmtest1f',
     questionText: 'Based on the diagram, which statement is correct about the adults represented by region X?',
     options: [
       { id: 'dm_q24_o1', text: 'They have challenges with anxiety and schizophrenia.' },
@@ -450,7 +450,7 @@ export const DECISION_MAKING_QUESTIONS: Question[] = [
     id: 'dm_q25',
     type: 'MCQ',
     section: 'Decision Making',
-    stimulus: 'A national survey of sports played was conducted\\n\\nhttps://ik.imagekit.io/mwp/dmtest1g\\n\\nBased on the diagram, which statement is true?',
+    stimulus: 'A national survey of sports played was conducted\\nhttps://ik.imagekit.io/mwp/dmtest1g',
     questionText: 'Based on the diagram, which statement is true?',
     options: [
       { id: 'dm_q25_o1', text: 'Nobody plays 3 sports.' },
@@ -465,7 +465,7 @@ export const DECISION_MAKING_QUESTIONS: Question[] = [
     id: 'dm_q26',
     type: 'MCQ',
     section: 'Decision Making',
-    stimulus: 'Forty-five people were asked at what time of day they do their workout.\\n33 people do their workout in the morning, 15 people do their workout in the afternoon.\\nThe number of people who work out only in the evening is the same as half of the number of people who work out only in the afternoon.\\n\\nIf the square, circle and triangle represent morning, afternoon and evening, respectively, which diagram best describes the above information?',
+    stimulus: 'Forty-five people were asked at what time of day they do their workout.\\n33 people do their workout in the morning, 15 people do their workout in the afternoon.\\nThe number of people who work out only in the evening is the same as half of the number of people who work out only in the afternoon.\\nIf the square, circle and triangle represent morning, afternoon and evening, respectively, which diagram best describes the above information?',
     questionText: 'Which diagram best describes the above information?',
     options: [
       { id: 'dm_q26_o1', text: 'https://ik.imagekit.io/mwp/dmtest1ga' },
@@ -480,7 +480,7 @@ export const DECISION_MAKING_QUESTIONS: Question[] = [
     id: 'dm_q27',
     type: 'MCQ',
     section: 'Decision Making',
-    stimulus: 'A group of employees were asked what mode of transport they use to go to work: car, bus or train.\\n\\nEvery person in the group has to go to work using at least one of the three modes of transport. The number who use a car is half the number who use a train. The number who use a bus is also half the number who use a train. The number who use both car and train is half the number who use exactly two modes of transport.\\n\\nWhich of the following diagrams best represents the information?',
+    stimulus: 'A group of employees were asked what mode of transport they use to go to work: car, bus or train.\\nEvery person in the group has to go to work using at least one of the three modes of transport. The number who use a car is half the number who use a train. The number who use a bus is also half the number who use a train. The number who use both car and train is half the number who use exactly two modes of transport.\\nWhich of the following diagrams best represents the information?',
     questionText: 'Which of the following diagrams best represents the information?',
     options: [
       { id: 'dm_q27_o1', text: 'https://ik.imagekit.io/mwp/dmtest1ha' },
@@ -495,7 +495,7 @@ export const DECISION_MAKING_QUESTIONS: Question[] = [
     id: 'dm_q28',
     type: 'MCQ',
     section: 'Decision Making',
-    stimulus: 'A psychology researcher asked people to choose words that they would use to describe themselves. The diagram provides information about the results of the research.\\n\\nhttps://ik.imagekit.io/mwp/dmtest1i',
+    stimulus: 'A psychology researcher asked people to choose words that they would use to describe themselves. The diagram provides information about the results of the research.\\nhttps://ik.imagekit.io/mwp/dmtest1i',
     questionText: 'How many people chose exactly 2 of these words?',
     options: [
       { id: 'dm_q28_o1', text: '12' },
@@ -510,7 +510,7 @@ export const DECISION_MAKING_QUESTIONS: Question[] = [
     id: 'dm_q29',
     type: 'MCQ',
     section: 'Decision Making',
-    stimulus: 'A group of people were asked whether they prefer cars from a particular brand. A diagram of the results is shown below:\\n\\nhttps://ik.imagekit.io/mwp/dmtest1j\\n\\nThe following rules apply\\n\\nEveryone who voted for Tesla also voted for BMW\\nHalf of those who voted for Toyota also voted for Honda\\nThe total vote for BMW and Honda were the same.',
+    stimulus: 'A group of people were asked whether they prefer cars from a particular brand. A diagram of the results is shown below:\\nhttps://ik.imagekit.io/mwp/dmtest1j\\nThe following rules apply\\nEveryone who voted for Tesla also voted for BMW\\nHalf of those who voted for Toyota also voted for Honda\\nThe total vote for BMW and Honda were the same.',
     questionText: 'What does X represent?',
     options: [
       { id: 'dm_q29_o1', text: '15' },
@@ -525,7 +525,7 @@ export const DECISION_MAKING_QUESTIONS: Question[] = [
     id: 'dm_q30',
     type: 'MCQ',
     section: 'Decision Making',
-    stimulus: 'A survey was conducted to determine the reasons adults engage in further education. The provided diagram illustrates these motivations.\\n\\nhttps://ik.imagekit.io/mwp/dmtest1l\\n\\nBased on the diagram, which of the following statements accurately describes the adults represented by region A?',
+    stimulus: 'A survey was conducted to determine the reasons adults engage in further education. The provided diagram illustrates these motivations.\\nhttps://ik.imagekit.io/mwp/dmtest1l\\nBased on the diagram, which of the following statements accurately describes the adults represented by region A?',
     questionText: 'Based on the diagram, which of the following statements accurately describes the adults represented by region A?',
     options: [
       { id: 'dm_q30_o1', text: 'They seek additional learning to overcome boredom and pursue interests.' },
@@ -555,7 +555,7 @@ export const DECISION_MAKING_QUESTIONS: Question[] = [
     id: 'dm_q32',
     type: 'MCQ',
     section: 'Decision Making',
-    stimulus: 'Liam and Nora each roll a fair six-sided die once.\\nLiam wins if he rolls a prime number.\\nNora wins if she rolls a composite number (a number with more than two factors).\\n\\nAssume they keep rolling until one of them meets their own winning condition.',
+    stimulus: 'Liam and Nora each roll a fair six-sided die once.\\nLiam wins if he rolls a prime number.\\nNora wins if she rolls a composite number (a number with more than two factors).\\nAssume they keep rolling until one of them meets their own winning condition.',
     questionText: 'Do Liam and Nora have an equal chance of winning?',
     options: [
       { id: 'dm_q32_o1', text: 'Yes, because every face of the die is equally likely to appear for either player.' },
@@ -570,7 +570,7 @@ export const DECISION_MAKING_QUESTIONS: Question[] = [
     id: 'dm_q33',
     type: 'MCQ',
     section: 'Decision Making',
-    stimulus: 'Mike now tests two different prize wheels at a fun-fair.\\n\\nWheel 1\\nSplit into 4 equal slices – two labelled “Win” and two labelled “Lose.”\\nWheel 2\\nSplit into 2 equal semicircles – one labelled “Win” and one labelled “Lose.”',
+    stimulus: 'Mike now tests two different prize wheels at a fun-fair.\\nWheel 1\\nSplit into 4 equal slices – two labelled “Win” and two labelled “Lose.”\\nWheel 2\\nSplit into 2 equal semicircles – one labelled “Win” and one labelled “Lose.”',
     questionText: 'Do Wheel 1 and Wheel 2 give players an equal chance of landing on ‘Win\'?',
     options: [
       { id: 'dm_q33_o1', text: 'Yes, each wheel gives a 50 % chance of landing on “Win.”' },
@@ -600,7 +600,7 @@ export const DECISION_MAKING_QUESTIONS: Question[] = [
     id: 'dm_q35',
     type: 'MCQ',
     section: 'Decision Making',
-    stimulus: 'The table shows scores from eight basketball games played this season between Team X and Team Y.\\n\\nhttps://ik.imagekit.io/mwp/Screenshot%202025-05-29%20at%204.12.25%E2%80%AFPM.png\\n\\nIs Team X is more likely than Team Y to win their next game?',
+    stimulus: 'The table shows scores from eight basketball games played this season between Team X and Team Y.\\nhttps://ik.imagekit.io/mwp/Screenshot%202025-05-29%20at%204.12.25%E2%80%AFPM.png',
     questionText: 'Is Team X is more likely than Team Y to win their next game?',
     options: [
       { id: 'dm_q35_o1', text: 'Yes, because Team Y has a 100 % record of losing when it scores fewer than 80 points.' },
