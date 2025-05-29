@@ -88,7 +88,7 @@ export default function QuestionDisplay() {
       <div className="p-6">
         <Card className="shadow-lg">
           <CardHeader>
-            <CardTitle className="text-xl font-semibold text-[hsl(var(--primary))]">{currentQuestion.section}</CardTitle>
+            {/* <CardTitle className="text-xl font-semibold text-[hsl(var(--primary))]">{currentQuestion.section}</CardTitle> */}
             {currentQuestion.stimulus && (
               <CardDescription className="mt-2 p-3 bg-card rounded-md border">
                 {renderStimulus(currentQuestion.stimulus)}
