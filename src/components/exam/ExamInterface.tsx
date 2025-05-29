@@ -16,14 +16,13 @@ export default function ExamInterface() {
     toggleFlag, 
     currentQuestionIndex, 
     isQuestionFlagged,
-    currentQuestion, // Added to get current question details
-    selectAnswer      // Added for selecting MCQ answer
+    currentQuestion, 
+    selectAnswer      
   } = useExam();
-  const { toast } = useToast();
+  // const { toast } = useToast(); // Toast removed for flagging
 
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
-      // Check if focus is on an input, textarea, or contenteditable element
       const activeElement = document.activeElement;
       const isTyping = activeElement && (
         activeElement.tagName === 'INPUT' ||
@@ -32,40 +31,37 @@ export default function ExamInterface() {
       );
 
       if (isTyping) {
-        return; // Don't process shortcuts if user is typing in an input field
+        return; 
       }
 
       if (event.altKey) {
-        event.preventDefault(); // Prevent default browser behavior for Alt combinations
+        event.preventDefault(); 
         switch (event.key.toLowerCase()) {
           case 'n':
-            nextQuestion();
+            // If it's the last question, nextQuestion in context will handle going to review
+            nextQuestion(); 
             break;
           case 'p':
             prevQuestion();
             break;
           case 'f':
-            const wasFlagged = isQuestionFlagged(currentQuestionIndex);
+            // const wasFlagged = isQuestionFlagged(currentQuestionIndex); // Not needed for toast
             toggleFlag(currentQuestionIndex);
-            toast({ 
-              title: `Question ${currentQuestionIndex + 1} ${!wasFlagged ? 'flagged' : 'unflagged'}`,
-              duration: 2000 
-            });
+            // toast({ 
+            //   title: `Question ${currentQuestionIndex + 1} ${!wasFlagged ? 'flagged' : 'unflagged'}`,
+            //   duration: 2000 
+            // }); // Toast removed
             break;
           case 'c':
             const calculatorButton = document.querySelector('button[aria-label="Open Calculator"]') as HTMLButtonElement | null;
             if (calculatorButton) {
               calculatorButton.click();
-            } else {
-              // Fallback, though button should exist in TopBar
-              toast({ title: "Calculator button not found via Alt+C" });
             }
             break;
         }
       } else {
-        // Handle direct key presses for MCQ options (a, b, c, d, e)
         if (currentQuestion && currentQuestion.type === 'MCQ') {
-          const mcq = currentQuestion as MCQQuestion; // Type assertion
+          const mcq = currentQuestion as MCQQuestion; 
           const key = event.key.toLowerCase();
           let optionIndex = -1;
 
@@ -78,7 +74,7 @@ export default function ExamInterface() {
           if (optionIndex !== -1 && mcq.options && optionIndex < mcq.options.length) {
             const selectedOptionId = mcq.options[optionIndex].id;
             selectAnswer(currentQuestion.id, selectedOptionId);
-            event.preventDefault(); // Prevent any default action for a-e keys
+            event.preventDefault(); 
           }
         }
       }
@@ -93,10 +89,10 @@ export default function ExamInterface() {
     prevQuestion, 
     toggleFlag, 
     currentQuestionIndex, 
-    isQuestionFlagged, 
-    toast,
-    currentQuestion, // Added dependency
-    selectAnswer     // Added dependency
+    // isQuestionFlagged, // Not needed for toast
+    // toast, // Toast removed
+    currentQuestion, 
+    selectAnswer     
   ]);
 
   return (

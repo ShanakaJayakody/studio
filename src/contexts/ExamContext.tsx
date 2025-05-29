@@ -3,7 +3,7 @@
 
 import type { ReactNode } from 'react';
 import React, { createContext, useContext, useState, useCallback, useEffect } from 'react';
-import type { Question, UserAnswer, AllUserAnswers, ExamPhase } from '@/lib/types'; // Updated imports
+import type { Question, UserAnswer, AllUserAnswers, ExamPhase, YesNoAnswer, YesNoStatementsQuestion } from '@/lib/types';
 
 interface ExamContextType {
   questions: Question[];
@@ -19,12 +19,13 @@ interface ExamContextType {
   startExam: () => void;
   nextQuestion: () => void;
   prevQuestion: () => void;
-  selectAnswer: (questionId: string, answer: UserAnswer) => void; // UserAnswer is now string | Record<...>
+  selectAnswer: (questionId: string, answer: UserAnswer) => void;
   toggleFlag: (questionIndex: number) => void;
   submitExam: () => void;
   setExamPhase: (phase: ExamPhase) => void;
   isQuestionFlagged: (questionIndex: number) => boolean;
-  reviewQuestion: (questionIndex: number) => void; // New function
+  reviewQuestion: (questionIndex: number) => void;
+  isQuestionAnswered: (questionId: string, questionType: Question['type']) => boolean;
 }
 
 const ExamContext = createContext<ExamContextType | undefined>(undefined);
@@ -65,10 +66,12 @@ export const ExamProvider: React.FC<ExamProviderProps> = ({
   }, []);
 
   const nextQuestion = useCallback(() => {
-    if (currentQuestionIndex < totalQuestions - 1) {
+    if (isLastQuestion) {
+      setLocalExamPhase('review');
+    } else if (currentQuestionIndex < totalQuestions - 1) {
       setCurrentQuestionIndex((prev) => prev + 1);
     }
-  }, [currentQuestionIndex, totalQuestions]);
+  }, [currentQuestionIndex, totalQuestions, isLastQuestion]);
 
   const prevQuestion = useCallback(() => {
     if (currentQuestionIndex > 0) {
@@ -103,9 +106,23 @@ export const ExamProvider: React.FC<ExamProviderProps> = ({
   const reviewQuestion = useCallback((questionIndex: number) => {
     if (questionIndex >= 0 && questionIndex < questions.length) {
       setCurrentQuestionIndex(questionIndex);
-      setLocalExamPhase('in-progress');
+      setLocalExamPhase('in-progress'); // Go back to the exam interface to show the question
     }
   }, [questions.length]);
+
+  const isQuestionAnswered = useCallback((questionId: string, questionType: Question['type']): boolean => {
+    const answer = userAnswers[questionId];
+    if (answer === undefined) return false;
+    if (questionType === 'MCQ') {
+      return typeof answer === 'string' && answer !== '';
+    }
+    if (questionType === 'YesNoStatements') {
+      const ynAnswers = answer as Record<string, YesNoAnswer | undefined>;
+      return Object.values(ynAnswers).some(val => val !== undefined);
+    }
+    return false;
+  }, [userAnswers]);
+
 
   return (
     <ExamContext.Provider
@@ -128,7 +145,8 @@ export const ExamProvider: React.FC<ExamProviderProps> = ({
         submitExam,
         setExamPhase: setLocalExamPhase,
         isQuestionFlagged,
-        reviewQuestion, // Expose new function
+        reviewQuestion,
+        isQuestionAnswered,
       }}
     >
       {children}

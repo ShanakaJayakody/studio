@@ -4,7 +4,7 @@
 import { useState } from 'react';
 import { useExam } from '@/contexts/ExamContext';
 import { Button } from '@/components/ui/button';
-import { ArrowLeft, ArrowRight, LogOut, LayoutGrid } from 'lucide-react';
+import { ArrowLeft, ArrowRight, LayoutGrid } from 'lucide-react';
 import NavigatorDialog from './NavigatorDialog';
 import { cn } from '@/lib/utils';
 
@@ -12,15 +12,23 @@ export default function BottomBar() {
   const {
     prevQuestion,
     nextQuestion,
-    submitExam,
     isFirstQuestion,
     isLastQuestion,
+    setExamPhase, // Get setExamPhase from context
   } = useExam();
 
   const [isNavigatorOpen, setIsNavigatorOpen] = useState(false);
 
   const navButtonBaseClass = "bg-accent text-accent-foreground hover:bg-accent/90 transition-transform duration-200 hover:scale-105";
   const navButtonDisabledClass = "bg-muted text-muted-foreground hover:bg-muted cursor-not-allowed";
+
+  const handleNextOrReview = () => {
+    if (isLastQuestion) {
+      setExamPhase('review'); // Go to review screen on last question
+    } else {
+      nextQuestion();
+    }
+  };
 
   return (
     <>
@@ -38,29 +46,17 @@ export default function BottomBar() {
             onClick={() => setIsNavigatorOpen(true)}
             aria-label="Open Navigator"
             className={cn(navButtonBaseClass)}
-            variant="outline"
           >
             <LayoutGrid className="mr-2 h-5 w-5" /> Navigator
           </Button>
 
-          {!isLastQuestion ? (
-            <Button
-              onClick={nextQuestion}
-              aria-label="Next Question"
-              className={cn(navButtonBaseClass)}
-            >
-              Next <ArrowRight className="ml-2 h-5 w-5" />
-            </Button>
-          ) : (
-            <Button
-              onClick={submitExam}
-              variant="destructive"
-              className="transition-colors duration-200"
-              aria-label="End Exam"
-            >
-              <LogOut className="mr-2 h-5 w-5" /> End Exam
-            </Button>
-          )}
+          <Button
+            onClick={handleNextOrReview}
+            aria-label={isLastQuestion ? "Review Answers" : "Next Question"}
+            className={cn(navButtonBaseClass)}
+          >
+            {isLastQuestion ? "Review Answers" : "Next"} <ArrowRight className="ml-2 h-5 w-5" />
+          </Button>
         </div>
       </div>
       <NavigatorDialog isOpen={isNavigatorOpen} onOpenChange={setIsNavigatorOpen} />

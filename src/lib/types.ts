@@ -17,7 +17,7 @@ export type YesNoStatementsQuestion = {
   type: 'YesNoStatements';
   section: 'Decision Making';
   stimulus: string; // This will hold the "Premises"
-  questionText: string; // Main question title (e.g., "Question 1") and instructions
+  questionText: string; // Main question title
   conclusions: Statement[]; // The list of statements to be evaluated
   correctAnswer: Record<string, YesNoAnswer>; // Maps statementId to its correct 'yes' or 'no' answer
   explanation?: string; // Optional explanation for the entire question or specific parts
@@ -47,4 +47,4 @@ export type UserAnswer = string | Record<string, YesNoAnswer | undefined>;
 export type AllUserAnswers = Record<string, UserAnswer>;
 
 // Defines the possible phases of the exam
-export type ExamPhase = 'instructions' | 'in-progress' | 'results';
+export type ExamPhase = 'instructions' | 'in-progress' | 'review' | 'results';

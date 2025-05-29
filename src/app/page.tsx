@@ -6,10 +6,11 @@ import { ExamProvider } from '@/contexts/ExamContext';
 import InstructionsScreen from '@/components/exam/InstructionsScreen';
 import ExamInterface from '@/components/exam/ExamInterface';
 import ResultsScreen from '@/components/exam/ResultsScreen';
-import { DECISION_MAKING_QUESTIONS } from '@/lib/questions'; // Updated to use new questions
+import ReviewScreen from '@/components/exam/ReviewScreen'; // Import ReviewScreen
+import { DECISION_MAKING_QUESTIONS } from '@/lib/questions';
 import type { ExamPhase } from '@/lib/types';
 
-export default function DecisionMakingTestPage() { // Renamed component
+export default function DecisionMakingTestPage() {
   const [examPhase, setExamPhase] = useState<ExamPhase>('instructions');
   const [isClient, setIsClient] = useState(false);
 
@@ -29,6 +30,7 @@ export default function DecisionMakingTestPage() { // Renamed component
     <ExamProvider questions={DECISION_MAKING_QUESTIONS} setExamPhase={setExamPhase}>
       {examPhase === 'instructions' && <InstructionsScreen />}
       {examPhase === 'in-progress' && <ExamInterface />}
+      {examPhase === 'review' && <ReviewScreen />} {/* Add ReviewScreen */}
       {examPhase === 'results' && <ResultsScreen />}
     </ExamProvider>
   );
