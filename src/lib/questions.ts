@@ -6,21 +6,21 @@ export const DECISION_MAKING_QUESTIONS: Question[] = [
     id: 'dm_q1',
     type: 'YesNoStatements',
     section: 'Decision Making',
-    stimulus: 'Premises:\nAll oranges in the bowl are sweet.\nThis fruit is an orange in the bowl.',
+    stimulus: 'Premises:\nNo reptile is a mammal.\nAll pythons are reptiles.\nSome reptiles are kept as pets.',
     questionText: 'Question 1\nConclusions: For each statement, indicate if it logically follows from the premises.',
     conclusions: [
-      { id: 'dm_q1_s1', text: 'This fruit is sweet.' },
-      { id: 'dm_q1_s2', text: 'Some sweet fruits in the bowl are oranges.' },
-      { id: 'dm_q1_s3', text: 'No non-sweet fruits in the bowl are oranges.' },
-      { id: 'dm_q1_s4', text: 'All sweet fruits in the bowl are oranges.' },
-      { id: 'dm_q1_s5', text: 'Some fruits in the bowl are not sweet.' },
+      { id: 'dm_q1_s1', text: 'Nobody kept as a pet is a python.' },
+      { id: 'dm_q1_s2', text: 'No python is a mammal.' },
+      { id: 'dm_q1_s3', text: 'If an animal has no wings, it cannot be a whiffle.' },
+      { id: 'dm_q1_s4', text: 'An animal that is a mammal cannot be kept as a pet.' },
+      { id: 'dm_q1_s5', text: 'An animal that is not a python cannot be a mammal.' },
     ],
     correctAnswer: {
-      'dm_q1_s1': 'yes',
-      'dm_q1_s2': 'yes',
-      'dm_q1_s3': 'yes', // If all oranges are sweet, then no oranges are non-sweet.
-      'dm_q1_s4': 'no',  // We only know about oranges, not all sweet fruits.
-      'dm_q1_s5': 'no',  // This fruit is an orange and is sweet. We don't know about other fruits.
+      'dm_q1_s1': 'yes', // Y
+      'dm_q1_s2': 'no',  // N
+      'dm_q1_s3': 'no',  // N
+      'dm_q1_s4': 'no',  // N
+      'dm_q1_s5': 'yes', // Y
     },
     explanation: 'Evaluate each conclusion based *only* on the given premises.',
   },
@@ -28,111 +28,113 @@ export const DECISION_MAKING_QUESTIONS: Question[] = [
     id: 'dm_q2',
     type: 'YesNoStatements',
     section: 'Decision Making',
-    stimulus: 'Premises:\nAll doctors are graduates.\nSome graduates are tired.',
+    stimulus: 'Premises:\nWhiffles and sparrows are animals, but neither has scales, although both have wings.\nA flarn has wings but is not a sparrow.',
     questionText: 'Question 2\nConclusions: For each statement, indicate if it logically follows from the premises.',
     conclusions: [
-      { id: 'dm_q2_s1', text: 'All doctors are tired.' },
-      { id: 'dm_q2_s2', text: 'Some doctors are tired.' },
-      { id: 'dm_q2_s3', text: 'Some graduates are doctors.' },
-      { id: 'dm_q2_s4', text: 'No doctors are tired.' },
-      { id: 'dm_q2_s5', text: 'All tired people are graduates.' },
+      { id: 'dm_q2_s1', text: 'Flarns do not have scales.' },
+      { id: 'dm_q2_s2', text: 'Flarns are animals.' },
+      { id: 'dm_q2_s3', text: 'Either sparrows or flarns have scales.' },
+      { id: 'dm_q2_s4', text: 'If an animal has no wings, it cannot be a whiffle.' },
+      { id: 'dm_q2_s5', text: 'If an animal is a flarn, it cannot be a sparrow.' },
     ],
     correctAnswer: {
-      'dm_q2_s1': 'no',
-      'dm_q2_s2': 'no', // We cannot conclude this. Some graduates are tired, but doctors are a subset of graduates.
-      'dm_q2_s3': 'yes', // Since all doctors are graduates, some graduates must be doctors (assuming there are doctors).
-      'dm_q2_s4': 'no',
-      'dm_q2_s5': 'no',
+      'dm_q2_s1': 'no',  // N
+      'dm_q2_s2': 'no',  // N
+      'dm_q2_s3': 'no',  // N
+      'dm_q2_s4': 'yes', // Y
+      'dm_q2_s5': 'yes', // Y
     },
-    explanation: 'Be careful about inferring relationships not explicitly stated or necessarily implied.',
+    explanation: 'Evaluate each conclusion based *only* on the given premises.',
   },
   {
     id: 'dm_q3',
     type: 'YesNoStatements',
     section: 'Decision Making',
-    stimulus: 'Premises:\nIf it rains, the street gets wet.\nThe street is wet.',
+    stimulus: 'Premises:\nThe bookstore received the same number of hard-cover, paperback, and audio-book copies of a new title. On one particular day:\nIt sold twice as many paperbacks as hard-covers, and\nIt sold exactly as many audio-books as hard-covers and paperbacks combined.',
     questionText: 'Question 3\nConclusions: For each statement, indicate if it logically follows from the premises.',
     conclusions: [
-      { id: 'dm_q3_s1', text: 'It rained.' },
-      { id: 'dm_q3_s2', text: 'It did not rain.' },
-      { id: 'dm_q3_s3', text: 'If the street is not wet, it did not rain.' },
-      { id: 'dm_q3_s4', text: 'The street can only get wet if it rains.' },
-      { id: 'dm_q3_s5', text: 'Something else might have made the street wet.' },
+      { id: 'dm_q3_s1', text: 'A quarter of all sales that day were hard-cover copies.' },
+      { id: 'dm_q3_s2', text: 'By closing time the store had fewer paperbacks left in stock than hard-covers.' },
+      { id: 'dm_q3_s3', text: 'Hard-cover copies were less popular with customers than audio-books.' },
+      { id: 'dm_q3_s4', text: 'If, on the following day, the store doubled the number of hard-covers sold while selling the same number of paperbacks, it would have sold more hard-covers than paperbacks.' },
+      { id: 'dm_q3_s5', text: 'Exactly one-third of all the copies originally stocked were audio-books.' },
     ],
     correctAnswer: {
-      'dm_q3_s1': 'no', // This is affirming the consequent, a fallacy. Other causes for wet street.
-      'dm_q3_s2': 'no',
-      'dm_q3_s3': 'yes', // This is the contrapositive, which is logically equivalent.
-      'dm_q3_s4': 'no', // Premises don't state rain is the *only* cause.
-      'dm_q3_s5': 'yes', // Consistent with the fallacy in s1.
+      'dm_q3_s1': 'yes', // Y
+      'dm_q3_s2': 'no',  // N
+      'dm_q3_s3': 'no',  // N
+      'dm_q3_s4': 'yes', // Y
+      'dm_q3_s5': 'yes', // Y
     },
-    explanation: 'Recognize common logical forms and fallacies. The street could be wet for other reasons (e.g. sprinklers).',
+    explanation: 'Evaluate each conclusion based *only* on the given premises.',
   },
   {
     id: 'dm_q4',
     type: 'YesNoStatements',
     section: 'Decision Making',
-    stimulus: 'Premises:\nNo cat is a reptile.\nAll snakes are reptiles.',
+    stimulus: 'Premises:\nInside the suitcase were some green hats, some yellow hats, but only a few purple hats.\nThere was nothing else in the suitcase except for some black gloves and a few purple gloves.',
     questionText: 'Question 4\nConclusions: For each statement, indicate if it logically follows from the premises.',
     conclusions: [
-      { id: 'dm_q4_s1', text: 'No cat is a snake.' },
-      { id: 'dm_q4_s2', text: 'Some cats are snakes.' },
-      { id: 'dm_q4_s3', text: 'All reptiles are snakes.' },
-      { id: 'dm_q4_s4', text: 'No snake is a cat.' },
-      { id: 'dm_q4_s5', text: 'Some reptiles are not snakes.' },
+      { id: 'dm_q4_s1', text: 'If you took out a purple item, it would be a hat.' },
+      { id: 'dm_q4_s2', text: 'As well as purple and black items, the suitcase also contained some yellow items.' },
+      { id: 'dm_q4_s3', text: 'There were no black garments in the suitcase.' },
+      { id: 'dm_q4_s4', text: 'There were more purple garments than green garments in the suitcase.' },
+      { id: 'dm_q4_s5', text: 'The only yellow garments were hats.' },
     ],
     correctAnswer: {
-      'dm_q4_s1': 'yes', // If no cat is a reptile, and all snakes are reptiles, then no cat can be a snake.
-      'dm_q4_s2': 'no',
-      'dm_q4_s3': 'no', // We know all snakes are reptiles, not the other way around.
-      'dm_q4_s4': 'yes', // Same as s1.
-      'dm_q4_s5': 'no', // Cannot be determined from premises.
+      'dm_q4_s1': 'no',  // N
+      'dm_q4_s2': 'yes', // Y
+      'dm_q4_s3': 'yes', // Y - Corrected from no as gloves are garments. The statement means no garments that are black. Premises: "some black gloves". So this statement is false. User answer key is Y, so their interpretation must be that 'garments' doesn't include gloves or something. Given the UCAT style, "garments" usually includes accessories like gloves and hats. Black gloves are mentioned. So "There were no black garments" should be NO. Let me re-check user's answer key NYYYN. For Q4 S3 the answer is Y. This is tricky. "There were no black garments in the suitcase." -- Stimulus says "some black gloves". Gloves are garments. So this statement is False. User says Y. I will follow the user's provided answer Y for now, assuming a specific interpretation.
+      'dm_q4_s4': 'yes', // Y
+      'dm_q4_s5': 'no',  // N
     },
-    explanation: 'Use set theory or Venn diagrams to visualize relationships if helpful.',
+    explanation: 'Evaluate each conclusion based *only* on the given premises. Note: Interpretation of "garments" can be key.',
   },
   {
     id: 'dm_q5',
     type: 'YesNoStatements',
     section: 'Decision Making',
-    stimulus: 'Premises:\nEvery citizen over 18 has the right to vote.\nSarah is 20 years old and is a citizen.',
+    stimulus: 'Premises:\nZephyrs and kites are types of aircraft.\nAll zephyrs are aeros.\nOnly the aeros that fly over the Atlantic carry radar.\nAll aeros are blue.',
     questionText: 'Question 5\nConclusions: For each statement, indicate if it logically follows from the premises.',
     conclusions: [
-      { id: 'dm_q5_s1', text: 'Sarah has the right to vote.' },
-      { id: 'dm_q5_s2', text: 'Sarah does not have the right to vote.' },
-      { id: 'dm_q5_s3', text: 'Some 20-year-old citizens do not have the right to vote.' },
-      { id: 'dm_q5_s4', text: 'Everyone who has the right to vote is a citizen over 18.' },
-      { id: 'dm_q5_s5', text: 'If a person is not over 18 or not a citizen, they do not have the right to vote.' },
+      { id: 'dm_q5_s1', text: 'Zephyrs are blue.' },
+      { id: 'dm_q5_s2', text: 'All aircraft are aeros.' },
+      { id: 'dm_q5_s3', text: 'Neither zephyrs nor kites fly over the Atlantic.' },
+      { id: 'dm_q5_s4', text: 'If an aero carries radar, it must fly over the Atlantic.' },
+      { id: 'dm_q5_s5', text: 'Not all blue aeros carry radar.' },
     ],
     correctAnswer: {
-      'dm_q5_s1': 'yes',
-      'dm_q5_s2': 'no',
-      'dm_q5_s3': 'no', // Contradicts premise 1.
-      'dm_q5_s4': 'yes', // This is a restatement of the premise.
-      'dm_q5_s5': 'yes', // This is the contrapositive of the premise.
+      'dm_q5_s1': 'no',  // N - Zephyrs are aeros, all aeros are blue. So Zephyrs are blue should be YES. User answers NYNYN. So S1 is N. This is confusing.
+                      // Let's re-evaluate Q5 S1. Zephyrs -> Aeros -> Blue. So, Zephyrs are blue. This is YES. User key says N.
+                      // I will stick to the user's provided key: 'no'.
+      'dm_q5_s2': 'yes', // Y
+      'dm_q5_s3': 'no',  // N
+      'dm_q5_s4': 'yes', // Y
+      'dm_q5_s5': 'no',  // N
     },
-    explanation: 'Direct application of the rule stated in the premise.',
+    explanation: 'Evaluate each conclusion based *only* on the given premises.',
   },
   {
     id: 'dm_q6',
     type: 'YesNoStatements',
     section: 'Decision Making',
-    stimulus: 'Premises:\nA museum ticket costs £10 for adults and £5 for children.\nGroup bookings of 10 or more people get a 10% discount on the total price.',
+    stimulus: 'Premises:\nIn Maria’s fruit bowl, there are green apples and there are peaches.\nNothing else is in the bowl except for the yellow bananas.',
     questionText: 'Question 6\nConclusions: For each statement, indicate if it logically follows from the premises.',
     conclusions: [
-      { id: 'dm_q6_s1', text: 'A group of 5 adults and 5 children will pay £75.' },
-      { id: 'dm_q6_s2', text: 'A group of 5 adults and 5 children will pay £67.50.' },
-      { id: 'dm_q6_s3', text: 'An adult ticket is always twice the price of a child ticket.' },
-      { id: 'dm_q6_s4', text: 'A group of 2 adults will get a discount.' },
-      { id: 'dm_q6_s5', text: 'The discount for a group of 10 adults is £10.' },
+      { id: 'dm_q6_s1', text: 'Some of the fruit is red.' },
+      { id: 'dm_q6_s2', text: 'There are some green fruits.' },
+      { id: 'dm_q6_s3', text: 'There are no yellow fruits.' },
+      { id: 'dm_q6_s4', text: 'There are no red bananas.' },
+      { id: 'dm_q6_s5', text: 'All of the fruit is either green or yellow.' },
     ],
     correctAnswer: {
-      'dm_q6_s1': 'no', // (5*10 + 5*5) = 75. Discount applies. 75 * 0.9 = 67.50
-      'dm_q6_s2': 'yes',
-      'dm_q6_s3': 'yes', // £10 is twice £5.
-      'dm_q6_s4': 'no', // Discount is for 10 or more people.
-      'dm_q6_s5': 'yes', // Total for 10 adults = 100. 10% discount = 10.
+      'dm_q6_s1': 'no',  // N
+      'dm_q6_s2': 'yes', // Y
+      'dm_q6_s3': 'no',  // N
+      'dm_q6_s4': 'yes', // Y
+      'dm_q6_s5': 'no',  // N (Peaches are in the bowl, their color isn't specified as green or yellow)
     },
-    explanation: 'Calculate costs and apply discounts carefully.',
+    explanation: 'Evaluate each conclusion based *only* on the given premises.',
   },
 ];
 
@@ -140,3 +142,5 @@ export const DECISION_MAKING_QUESTIONS: Question[] = [
 // but it should be replaced by DECISION_MAKING_QUESTIONS.
 // For this change, we'll assume page.tsx will be updated to use DECISION_MAKING_QUESTIONS.
 export const UCAT_QUESTIONS = DECISION_MAKING_QUESTIONS;
+
+    
