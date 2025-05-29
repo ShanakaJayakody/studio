@@ -37,20 +37,17 @@ export default function McqOptions({ questionId, options }: McqOptionsProps) {
           key={option.id}
           htmlFor={option.id}
           className={cn(
-            "flex items-start space-x-3 p-4 border rounded-lg cursor-pointer transition-all duration-200 hover:bg-accent/10 text-black",
+            "flex items-start space-x-3 p-4 border rounded-lg cursor-pointer transition-all duration-200 hover:bg-accent/10",
             currentAnswer === option.id ? "bg-accent/20 border-accent ring-2 ring-accent" : "border-border"
           )}
         >
           <RadioGroupItem value={option.id} id={option.id} className="mt-1" />
-          <div className="flex flex-col">
-            <span className="font-medium text-sm mb-1">
-              {String.fromCharCode(65 + index)}.
-            </span>
+          <div className="flex flex-col text-black">
             {isImageUrl(option.text) ? (
               <div className="relative w-full max-w-xs h-auto aspect-auto">
                 <Image
                   src={option.text}
-                  alt={`Option ${String.fromCharCode(65 + index)}`}
+                  alt={`Option image`}
                   width={300}
                   height={200}
                   className="rounded-md border object-contain"
@@ -58,7 +55,7 @@ export default function McqOptions({ questionId, options }: McqOptionsProps) {
                 />
               </div>
             ) : (
-              <span className="text-sm">{option.text}</span>
+              <span className="text-base">{option.text}</span>
             )}
           </div>
         </Label>

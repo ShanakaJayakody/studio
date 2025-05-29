@@ -35,7 +35,7 @@ export default function YesNoStatementQuestion({ question }: YesNoStatementQuest
           key={conclusion.id} 
           className="p-4 border rounded-lg shadow-sm bg-card flex flex-col sm:flex-row justify-between items-start sm:items-center"
         >
-          <p className="mb-3 sm:mb-0 sm:mr-4 flex-grow text-black">
+          <p className="mb-3 sm:mb-0 sm:mr-4 flex-grow text-black text-base">
             <span className="font-medium">{index + 1}.</span> {conclusion.text}
           </p>
           <div className="flex space-x-2 flex-shrink-0">

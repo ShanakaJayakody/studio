@@ -30,6 +30,7 @@ export default function QuestionDisplay() {
         let hint = "stimulus image";
         if (part.includes('data-ai-hint=')) {
             try {
+                // Extract hint from query param if present
                 const urlObj = new URL(part);
                 const hintParam = urlObj.searchParams.get('data-ai-hint');
                 if (hintParam) {
@@ -39,17 +40,21 @@ export default function QuestionDisplay() {
                 // Could not parse URL or hint, use default
             }
         } else if (isImageKitUrl) {
+            // Try to generate a hint from imagekit URL path
             const pathSegments = part.split('/');
-            const imageName = pathSegments[pathSegments.length -1].split('?')[0];
+            const imageName = pathSegments[pathSegments.length -1].split('?')[0]; // Get filename before query
             if (imageName) {
-                hint = imageName.replace(/%20/g, ' ').substring(0, 50);
+                // Use filename as hint, removing URL encoding and truncating
+                hint = decodeURIComponent(imageName).replace(/[-_]/g, ' ').substring(0, 50);
             }
         }
+        
+        const imageUrl = part.split('?data-ai-hint=')[0]; // Remove our custom hint param from src
 
         return (
           <div key={index} className="my-4 flex justify-center">
             <Image
-              src={part.split('?data-ai-hint=')[0]}
+              src={imageUrl}
               alt="Question stimulus image"
               width={600} 
               height={250} 
@@ -59,8 +64,8 @@ export default function QuestionDisplay() {
           </div>
         );
       } else if (part && part.trim()) {
-        return part.trim().split('\n').map((line, lineIndex) => (
-          line.trim() ? <p key={`${index}-${lineIndex}`} className="mb-2 text-sm leading-relaxed text-black">{line}</p> : null
+        return part.trim().split('\\n').map((line, lineIndex) => ( // Changed from \n to \\n for question.ts
+          line.trim() ? <p key={`${index}-${lineIndex}`} className="mb-2 text-base leading-relaxed text-black">{line}</p> : null
         ));
       }
       return null;
