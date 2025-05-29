@@ -14,17 +14,17 @@ export default function BottomBar() {
     nextQuestion,
     isFirstQuestion,
     isLastQuestion,
-    setExamPhase, // Get setExamPhase from context
+    setExamPhase,
   } = useExam();
 
   const [isNavigatorOpen, setIsNavigatorOpen] = useState(false);
 
-  const navButtonBaseClass = "bg-accent text-accent-foreground hover:bg-accent/90 transition-transform duration-200 hover:scale-105";
+  const navButtonBaseClass = "bg-accent text-accent-foreground hover:bg-accent/90 transition-transform duration-200 hover:scale-105 text-base"; // Added text-base
   const navButtonDisabledClass = "bg-muted text-muted-foreground hover:bg-muted cursor-not-allowed";
 
   const handleNextOrReview = () => {
     if (isLastQuestion) {
-      setExamPhase('review'); // Go to review screen on last question
+      setExamPhase('review');
     } else {
       nextQuestion();
     }

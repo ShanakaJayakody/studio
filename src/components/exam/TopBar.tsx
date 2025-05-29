@@ -7,7 +7,6 @@ import { Button } from '@/components/ui/button';
 import { Flag, Calculator as CalculatorIcon } from 'lucide-react';
 import CalculatorDialog from './CalculatorDialog';
 import { cn } from '@/lib/utils';
-// import { useToast } from '@/hooks/use-toast'; // Toast removed
 
 const EXAM_DURATION_MINUTES = 37;
 const EXAM_DURATION_SECONDS = EXAM_DURATION_MINUTES * 60;
@@ -15,7 +14,6 @@ const EXAM_DURATION_SECONDS = EXAM_DURATION_MINUTES * 60;
 export default function TopBar() {
   const { currentQuestionIndex, totalQuestions, examPhase, isQuestionFlagged, toggleFlag } = useExam();
   const [isCalculatorOpen, setIsCalculatorOpen] = useState(false);
-  // const { toast } = useToast(); // Toast removed
   const [timeLeft, setTimeLeft] = useState(EXAM_DURATION_SECONDS);
 
   useEffect(() => {
@@ -26,6 +24,7 @@ export default function TopBar() {
         setTimeLeft((prevTime) => {
           if (prevTime <= 1) {
             clearInterval(intervalId!);
+            // Optionally, trigger exam submission or a warning here
             return 0;
           }
           return prevTime - 1;
@@ -49,12 +48,7 @@ export default function TopBar() {
   };
 
   const handleFlagToggle = () => {
-    // const wasFlagged = isQuestionFlagged(currentQuestionIndex); // Not needed for toast
     toggleFlag(currentQuestionIndex);
-    // toast({ // Toast removed
-    //   title: `Question ${currentQuestionIndex + 1} ${!wasFlagged ? 'flagged' : 'unflagged'}`,
-    //   duration: 2000,
-    // });
   };
 
   const flagged = isQuestionFlagged(currentQuestionIndex);
@@ -83,7 +77,7 @@ export default function TopBar() {
               variant="ghost"
               className={cn(
                 "text-[hsl(var(--ucat-light-blue-bar-fg))] hover:bg-accent/20 hover:text-[hsl(var(--accent-foreground))]",
-                "px-3 py-1 h-8 text-sm"
+                "px-3 py-1 h-8 text-base" // Changed from text-sm to text-base
               )}
             >
               <CalculatorIcon className="mr-2 h-4 w-4" /> Calculator
@@ -95,7 +89,7 @@ export default function TopBar() {
               aria-label={flagged ? "Unflag Question" : "Flag Question"}
               variant="ghost"
               className={cn(
-                "px-3 py-1 h-8 text-sm",
+                "px-3 py-1 h-8 text-base", // Changed from text-sm to text-base
                 flagged
                   ? "bg-destructive text-destructive-foreground hover:bg-destructive/90"
                   : "text-[hsl(var(--ucat-light-blue-bar-fg))] hover:bg-accent/20 hover:text-[hsl(var(--accent-foreground))]"
