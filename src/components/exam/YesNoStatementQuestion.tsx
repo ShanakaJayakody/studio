@@ -14,7 +14,6 @@ interface YesNoStatementQuestionProps {
 export default function YesNoStatementQuestion({ question }: YesNoStatementQuestionProps) {
   const { selectAnswer, userAnswers } = useExam();
   
-  // Ensure question.type is 'YesNoStatements' to access conclusions
   if (question.type !== 'YesNoStatements') {
     return <p>Invalid question type for this component.</p>;
   }
@@ -24,7 +23,7 @@ export default function YesNoStatementQuestion({ question }: YesNoStatementQuest
   const handleSelect = (statementId: string, answer: YesNoAnswer) => {
     const newAnswersForQuestion = {
       ...currentAnswersForQuestion,
-      [statementId]: currentAnswersForQuestion[statementId] === answer ? undefined : answer, // Toggle or set
+      [statementId]: currentAnswersForQuestion[statementId] === answer ? undefined : answer,
     };
     selectAnswer(question.id, newAnswersForQuestion);
   };
@@ -36,7 +35,7 @@ export default function YesNoStatementQuestion({ question }: YesNoStatementQuest
           key={conclusion.id} 
           className="p-4 border rounded-lg shadow-sm bg-card flex flex-col sm:flex-row justify-between items-start sm:items-center"
         >
-          <p className="mb-3 sm:mb-0 sm:mr-4 flex-grow">
+          <p className="mb-3 sm:mb-0 sm:mr-4 flex-grow text-black">
             <span className="font-medium">{index + 1}.</span> {conclusion.text}
           </p>
           <div className="flex space-x-2 flex-shrink-0">

@@ -37,7 +37,7 @@ export default function McqOptions({ questionId, options }: McqOptionsProps) {
           key={option.id}
           htmlFor={option.id}
           className={cn(
-            "flex items-start space-x-3 p-4 border rounded-lg cursor-pointer transition-all duration-200 hover:bg-accent/10",
+            "flex items-start space-x-3 p-4 border rounded-lg cursor-pointer transition-all duration-200 hover:bg-accent/10 text-black",
             currentAnswer === option.id ? "bg-accent/20 border-accent ring-2 ring-accent" : "border-border"
           )}
         >
@@ -47,14 +47,14 @@ export default function McqOptions({ questionId, options }: McqOptionsProps) {
               {String.fromCharCode(65 + index)}.
             </span>
             {isImageUrl(option.text) ? (
-              <div className="relative w-full max-w-xs h-auto aspect-auto"> {/* Adjusted for better image display */}
+              <div className="relative w-full max-w-xs h-auto aspect-auto">
                 <Image
                   src={option.text}
                   alt={`Option ${String.fromCharCode(65 + index)}`}
-                  width={300} // Example width, adjust as needed
-                  height={200} // Example height, adjust as needed
+                  width={300}
+                  height={200}
                   className="rounded-md border object-contain"
-                  data-ai-hint="diagram option" // Generic hint for diagram options
+                  data-ai-hint="diagram option"
                 />
               </div>
             ) : (
