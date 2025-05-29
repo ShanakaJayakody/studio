@@ -153,7 +153,7 @@ export const DECISION_MAKING_QUESTIONS: Question[] = [
     id: 'dm_q8',
     type: 'MCQ',
     section: 'Decision Making',
-    stimulus: 'There are six folders stacked in a tray, numbered 1 (top) to 6 (bottom). Zoe’s folder is not the bottom-most folder.\\nThe number of folders below Zoe’s folder is less than the number above it.\\nEthan’s folder is the last-but-one folder from the bottom of the stack.\\nThere are exactly two folders between Maya’s folder and Zoe’s folder.\\nLiam’s folder is not above Zoe’s folder.',
+    stimulus: 'There are six folders stacked in a tray, numbered 1 (top) to 6 (bottom). Zoe’s folder is not the bottom-most folder.\\n* The number of folders below Zoe’s folder is less than the number above it.\\n* Ethan’s folder is the last-but-one folder from the bottom of the stack.\\n* There are exactly two folders between Maya’s folder and Zoe’s folder.\\n* Liam’s folder is not above Zoe’s folder.',
     questionText: 'How many folders are there between Maya’s folder and Liam’s folder?',
     options: [
       { id: 'dm_q8_o1', text: '1' },
@@ -168,7 +168,7 @@ export const DECISION_MAKING_QUESTIONS: Question[] = [
     id: 'dm_q9',
     type: 'MCQ',
     section: 'Decision Making',
-    stimulus: 'There are 6 aviaries in Feather Lane, with a total of 46 birds. Each aviary normally houses 4 finches.\\nIn aviaries 1–5, the macaw counts are arranged as follows: 2 macaws in one aviary, 3 macaws in two aviaries, and 4 macaws in two aviaries.\\nOne of these five aviaries (not the 6th) also shelters 2 rescued owls and 2 extra finches.',
+    stimulus: '* There are 6 aviaries in Feather Lane, with a total of 46 birds. Each aviary normally houses 4 finches.\\n* In aviaries 1–5, the macaw counts are arranged as follows: 2 macaws in one aviary, 3 macaws in two aviaries, and 4 macaws in two aviaries.\\n* One of these five aviaries (not the 6th) also shelters 2 rescued owls and 2 extra finches.',
     questionText: 'How many birds live in the 6th aviary?',
     options: [
       { id: 'dm_q9_o1', text: '2' },
@@ -183,7 +183,7 @@ export const DECISION_MAKING_QUESTIONS: Question[] = [
     id: 'dm_q10',
     type: 'MCQ',
     section: 'Decision Making',
-    stimulus: 'Leah has a certain number of marbles and a certain number of jars.\\nIf she puts 3 marbles in each jar, she has 3 marbles left over.\\nIf she puts 2 marbles in each jar, she has 8 marbles left over.',
+    stimulus: 'Leah has a certain number of marbles and a certain number of jars.\\n* If she puts 3 marbles in each jar, she has 3 marbles left over.\\n* If she puts 2 marbles in each jar, she has 8 marbles left over.',
     questionText: 'How many jars does Leah have?',
     options: [
       { id: 'dm_q10_o1', text: '4' },
@@ -198,7 +198,7 @@ export const DECISION_MAKING_QUESTIONS: Question[] = [
     id: 'dm_q11',
     type: 'MCQ',
     section: 'Decision Making',
-    stimulus: 'Mr and Mrs Rivers hosted a dinner party. They invited two couples – Mr & Mrs Hart and Mr & Mrs Patel – as well as Ms Quinn, Mr Banner, Ms Lopez and Mr Diaz.\\nhttps://ik.imagekit.io/mwp/dmtest1a\\nMr Rivers and Mrs Rivers sit at opposite ends (shown above).\\nMale guests occupy the even-numbered seats.\\nMarried couples are not seated next to each other.\\nMrs Rivers sits next to neither of the Harts nor the Patels.\\nMr Diaz sits on Mrs Rivers’ right-hand side, but on the opposite side of the table to Ms Quinn and as far from her as possible.\\nMs Lopez sits directly next to Mr Hart.',
+    stimulus: 'Mr and Mrs Rivers hosted a dinner party. They invited two couples – Mr & Mrs Hart and Mr & Mrs Patel – as well as Ms Quinn, Mr Banner, Ms Lopez and Mr Diaz.\\n\\nhttps://ik.imagekit.io/mwp/dmtest1a?updatedAt=1748406061818\\n\\n- Mr Rivers and Mrs Rivers sit at opposite ends (shown above).\\n- Male guests occupy the even-numbered seats.\\n- Married couples are not seated next to each other.\\n- Mrs Rivers sits next to neither of the Harts nor the Patels.\\n- Mr Diaz sits on Mrs Rivers’ right-hand side, but on the opposite side of the table to Ms Quinn and as far from her as possible.\\n- Ms Lopez sits directly next to Mr Hart.',
     questionText: 'Who occupies seat 2?',
     options: [
       { id: 'dm_q11_o1', text: 'Mr Banner' },
@@ -213,7 +213,7 @@ export const DECISION_MAKING_QUESTIONS: Question[] = [
     id: 'dm_q12',
     type: 'MCQ',
     section: 'Decision Making',
-    stimulus: 'A star-shaped counter and a circle-shaped counter move around the seven vertices of a regular heptagon labelled P Q R S T U V in clockwise order.\\nhttps://ik.imagekit.io/mwp/dmtest1d?updatedAt=1748497366424\\nThe star moves two vertices clockwise in every step.\\nThe circle moves three vertices anti-clockwise (counter-clockwise) in every step.',
+    stimulus: 'A star-shaped counter and a circle-shaped counter move around the seven vertices of a regular heptagon labelled P Q R S T U V in clockwise order.\\n\\nhttps://ik.imagekit.io/mwp/dmtest1d?updatedAt=1748497366424\\n\\n- The star moves two vertices clockwise in every step.\\n- The circle moves three vertices anti-clockwise (counter-clockwise) in every step.',
     questionText: 'At which of the following pairs of vertices should the counters be placed originally so that they arrive at the same vertex after exactly the third move?',
     options: [
       { id: 'dm_q12_o1', text: 'Star at Q and circle at T' },
@@ -332,7 +332,7 @@ export const DECISION_MAKING_QUESTIONS: Question[] = [
     id: 'dm_q19',
     type: 'YesNoStatements',
     section: 'Decision Making',
-    stimulus: 'The bar chart below summarises a nationwide study.\\nhttps://ik.imagekit.io/mwp/dmtest1b?updatedAt=1748406494036',
+    stimulus: 'The bar chart below summarises a nationwide study.\\nhttps://ik.imagekit.io/mwp/output%20(2).png',
     questionText: 'Place ‘Yes’ if the conclusion does follow from the data. Place ‘No’ if the conclusion does not follow.',
     conclusions: [
       { id: 'dm_q19_s1', text: 'An adult who becomes sedentary after exercising moderately loses more fitness than one who simply stays active but experiences increased job stress.' },
@@ -398,7 +398,7 @@ export const DECISION_MAKING_QUESTIONS: Question[] = [
     id: 'dm_q22',
     type: 'YesNoStatements',
     section: 'Decision Making',
-    stimulus: 'The table below shows tourist visitor numbers (in millions) to various destination types over several years.\\nhttps://ik.imagekit.io/mwp/dmtest1c?updatedAt=1748406635013',
+    stimulus: 'https://ik.imagekit.io/mwp/dmtest1c?updatedAt=1748406635013\\nThe table below shows tourist visitor numbers (in millions) to various destination types over several years.',
     questionText: 'Place ‘Yes’ if the conclusion does follow from the table. Place ‘No’ if the conclusion does not follow.',
     conclusions: [
       { id: 'dm_q22_s1', text: 'Tourist numbers in all destination types increased in every period shown.' },
@@ -510,7 +510,7 @@ export const DECISION_MAKING_QUESTIONS: Question[] = [
     id: 'dm_q29',
     type: 'MCQ',
     section: 'Decision Making',
-    stimulus: 'A group of people were asked whether they prefer cars from a particular brand. A diagram of the results is shown below:\\nhttps://ik.imagekit.io/mwp/dmtest1j\\nThe following rules apply\\nEveryone who voted for Tesla also voted for BMW\\nHalf of those who voted for Toyota also voted for Honda\\nThe total vote for BMW and Honda were the same.',
+    stimulus: 'A group of people were asked whether they prefer cars from a particular brand. A diagram of the results is shown below:\\nhttps://ik.imagekit.io/mwp/dmtest1j?updatedAt=1748498708755\\nThe following rules apply\\nEveryone who voted for Tesla also voted for BMW\\nHalf of those who voted for Toyota also voted for Honda\\nThe total vote for BMW and Honda were the same.',
     questionText: 'What does X represent?',
     options: [
       { id: 'dm_q29_o1', text: '15' },
@@ -525,7 +525,7 @@ export const DECISION_MAKING_QUESTIONS: Question[] = [
     id: 'dm_q30',
     type: 'MCQ',
     section: 'Decision Making',
-    stimulus: 'A survey was conducted to determine the reasons adults engage in further education. The provided diagram illustrates these motivations.\\nhttps://ik.imagekit.io/mwp/dmtest1l\\nBased on the diagram, which of the following statements accurately describes the adults represented by region A?',
+    stimulus: 'A survey was conducted to determine the reasons adults engage in further education. The provided diagram illustrates these motivations.\\nhttps://ik.imagekit.io/mwp/dmtest1l?updatedAt=1748498967550\\nBased on the diagram, which of the following statements accurately describes the adults represented by region A?',
     questionText: 'Based on the diagram, which of the following statements accurately describes the adults represented by region A?',
     options: [
       { id: 'dm_q30_o1', text: 'They seek additional learning to overcome boredom and pursue interests.' },
@@ -617,5 +617,7 @@ export const DECISION_MAKING_QUESTIONS: Question[] = [
 // but it should be replaced by DECISION_MAKING_QUESTIONS.
 // For this change, we'll assume page.tsx will be updated to use DECISION_MAKING_QUESTIONS.
 export const UCAT_QUESTIONS = DECISION_MAKING_QUESTIONS;
+
+    
 
     
