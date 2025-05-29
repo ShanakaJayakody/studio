@@ -9,7 +9,7 @@ import QuestionDisplay from './QuestionDisplay';
 import { useToast } from '@/hooks/use-toast';
 
 export default function ExamInterface() {
-  const { nextQuestion, prevQuestion, toggleFlag, currentQuestionIndex } = useExam();
+  const { nextQuestion, prevQuestion, toggleFlag, currentQuestionIndex, isQuestionFlagged } = useExam();
   const { toast } = useToast();
 
   useEffect(() => {
@@ -24,14 +24,20 @@ export default function ExamInterface() {
             prevQuestion();
             break;
           case 'f':
+            const wasFlagged = isQuestionFlagged(currentQuestionIndex);
             toggleFlag(currentQuestionIndex);
-            toast({ title: `Question ${currentQuestionIndex + 1} ${useExam().isQuestionFlagged(currentQuestionIndex) ? 'flagged' : 'unflagged'}` });
+            toast({ 
+              title: `Question ${currentQuestionIndex + 1} ${!wasFlagged ? 'flagged' : 'unflagged'}`,
+              duration: 2000 
+            });
             break;
           case 'c':
-            // Logic to open calculator dialog will be in BottomBar, this is a conceptual shortcut
-            // For now, we'll just toast. In a real scenario, BottomBar would need a way to trigger this.
             const calculatorButton = document.querySelector('button[aria-label="Open Calculator"]') as HTMLButtonElement | null;
-            if (calculatorButton) calculatorButton.click(); else toast({ title: "Calculator shortcut pressed (Alt+C)"});
+            if (calculatorButton) {
+              calculatorButton.click();
+            } else {
+              toast({ title: "Calculator shortcut (Alt+C): Button not found" });
+            }
             break;
         }
       }
@@ -41,7 +47,7 @@ export default function ExamInterface() {
     return () => {
       window.removeEventListener('keydown', handleKeyDown);
     };
-  }, [nextQuestion, prevQuestion, toggleFlag, currentQuestionIndex, toast]);
+  }, [nextQuestion, prevQuestion, toggleFlag, currentQuestionIndex, isQuestionFlagged, toast]);
 
   return (
     <div className="flex flex-col h-screen max-h-screen overflow-hidden">
