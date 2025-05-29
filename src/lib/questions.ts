@@ -11,18 +11,18 @@ export const DECISION_MAKING_QUESTIONS: Question[] = [
     conclusions: [
       { id: 'dm_q1_s1', text: 'Nobody kept as a pet is a python.' },
       { id: 'dm_q1_s2', text: 'No python is a mammal.' },
-      { id: 'dm_q1_s3', text: 'If an animal has no wings, it cannot be a whiffle.' }, // Whiffle context is from Q2, seems misplaced but following user
+      { id: 'dm_q1_s3', text: 'If an animal has no wings, it cannot be a whiffle.' },
       { id: 'dm_q1_s4', text: 'An animal that is a mammal cannot be kept as a pet.' },
       { id: 'dm_q1_s5', text: 'An animal that is not a python cannot be a mammal.' },
     ],
     correctAnswer: {
-      'dm_q1_s1': 'yes', 
-      'dm_q1_s2': 'no',  
-      'dm_q1_s3': 'no',  
-      'dm_q1_s4': 'no',  
-      'dm_q1_s5': 'yes', 
+      'dm_q1_s1': 'yes',
+      'dm_q1_s2': 'no',
+      'dm_q1_s3': 'no',
+      'dm_q1_s4': 'no',
+      'dm_q1_s5': 'yes',
     },
-    explanation: 'Based on the provided answer key YNNNY. S1: This conclusion is ambiguous. "Some reptiles are pets" & "All pythons are reptiles" doesn\'t mean NO pet python. However, if we interpret "Nobody kept as a pet is a python" as "It is not necessarily true that a pet is a python", it could be seen as YES if no definite link. S2: "No reptile is a mammal" and "All pythons are reptiles" directly implies "No python is a mammal". The answer key says NO, which is a contradiction. S3: Whiffles are undefined in this premise. S4: No information to support this. S5: If not python, could be another reptile (not mammal) or a mammal. This is not strictly YES. Following the provided answer key.',
+    explanation: 'Based on the provided answer key YNNNY. S1: Ambiguous. "Some reptiles are pets" & "All pythons are reptiles" doesn\'t mean NO pet python. Interpreted as not necessarily true that a pet is a python. S2: "No reptile is a mammal" and "All pythons are reptiles" directly implies "No python is a mammal". The answer key says NO, a contradiction. S3: Whiffles are undefined here. S4: No info. S5: If not python, could be another reptile (not mammal) or a mammal. Not strictly YES. Following provided key.',
   },
   {
     id: 'dm_q2',
@@ -38,11 +38,11 @@ export const DECISION_MAKING_QUESTIONS: Question[] = [
       { id: 'dm_q2_s5', text: 'If an animal is a flarn, it cannot be a sparrow.' },
     ],
     correctAnswer: {
-      'dm_q2_s1': 'no', // Correct: Flarn scale status unknown
-      'dm_q2_s2': 'no', // Correct: Flarn animal status unknown
-      'dm_q2_s3': 'no', // Correct: Sparrows no scales, Flarn scales unknown
-      'dm_q2_s4': 'yes',// Correct: Whiffles have wings
-      'dm_q2_s5': 'yes',// Correct: Given "A flarn... is not a sparrow"
+      'dm_q2_s1': 'no',
+      'dm_q2_s2': 'no',
+      'dm_q2_s3': 'no',
+      'dm_q2_s4': 'yes',
+      'dm_q2_s5': 'yes',
     },
     explanation: 'S1: Flarn scale status is not mentioned. S2: Flarn animal status is not mentioned. S3: Sparrows do not have scales; Flarn scale status is unknown. S4: Whiffles have wings, so if an animal has no wings, it cannot be a whiffle. S5: The premise states "A flarn... is not a sparrow".',
   },
@@ -66,7 +66,7 @@ export const DECISION_MAKING_QUESTIONS: Question[] = [
       'dm_q3_s4': 'yes',
       'dm_q3_s5': 'yes',
     },
-    explanation: 'Let H be hard-covers sold. Paperbacks P=2H. Audio-books A=H+P = H+2H = 3H. Total sales = H+2H+3H = 6H. User answer key is YNNYY. S1: (H/6H = 1/6) vs Key Y. S2: (S-2H vs S-H; S-2H < S-H if H>0) => YES. Key N. S3: (H vs 3H; H less popular) => YES. Key N. S4: (2H vs 2H; equal) => NO. Key Y. S5: (Original stock is 1/3 audio) => YES. Key Y. There are discrepancies between direct logic and the provided key for S1, S2, S3, S4. Following the provided YNNYY.',
+    explanation: 'Let H=hard-covers sold. P=2H. A=H+P = 3H. Total sales=6H. User key: YNNYY. S1: (H/6H = 1/6). Key Y. S2: (Stock-2H vs Stock-H; Stock-2H < Stock-H if H>0) => YES. Key N. S3: (H vs 3H; H less popular) => YES. Key N. S4: (2H vs 2H; equal) => NO. Key Y. S5: (Original stock 1/3 audio) => YES. Key Y. Following user key despite discrepancies.',
   },
   {
     id: 'dm_q4',
@@ -82,13 +82,13 @@ export const DECISION_MAKING_QUESTIONS: Question[] = [
       { id: 'dm_q4_s5', text: 'The only yellow garments were hats.' },
     ],
     correctAnswer: {
-      'dm_q4_s1': 'no',  // Correct: Could be purple gloves
-      'dm_q4_s2': 'yes', // Correct: Yellow hats
-      'dm_q4_s3': 'yes', // Correct: "nothing else" implies only gloves and hats. Black gloves exist. No other black garments.
-      'dm_q4_s4': 'yes', // "Few" purple hats + "few" purple gloves vs "some" green hats. This is subjective on "few" vs "some". If few < some, then No. Answer key is YES.
-      'dm_q4_s5': 'no',  // Correct: Only "some yellow hats" mentioned. Could be other yellow garments if "nothing else" refers to types (hats, gloves) and not colors.
+      'dm_q4_s1': 'no',
+      'dm_q4_s2': 'yes',
+      'dm_q4_s3': 'yes',
+      'dm_q4_s4': 'yes',
+      'dm_q4_s5': 'no',
     },
-    explanation: 'S1: A purple item could be a hat or gloves. S2: Yellow hats are mentioned. S3: Only black gloves are mentioned as black items; "nothing else" implies no other black garments if interpreted as only hats and gloves are garments. S4: "Few" purple hats + "few" purple gloves vs. "some" green hats. "Few" generally implies less than "some". The key "YES" is unusual. S5: Only yellow hats are mentioned, "nothing else" could refer to types (hats/gloves) and not exclude other yellow garments. Key is NO.',
+    explanation: 'S1: Purple item could be hat or gloves. S2: Yellow hats mentioned. S3: Only black gloves mentioned as black items; "nothing else" implies no other black garments. S4: "Few" purple hats + "few" purple gloves vs. "some" green hats. "Few" usually < "some". Key "YES" is unusual. S5: Only yellow hats mentioned, "nothing else" could mean garment types, not excluding other yellow garments. Key NO.',
   },
   {
     id: 'dm_q5',
@@ -104,13 +104,13 @@ export const DECISION_MAKING_QUESTIONS: Question[] = [
       { id: 'dm_q5_s5', text: 'Not all blue aeros carry radar.' },
     ],
     correctAnswer: {
-      'dm_q5_s1': 'no', 
-      'dm_q5_s2': 'yes', 
+      'dm_q5_s1': 'no',
+      'dm_q5_s2': 'yes',
       'dm_q5_s3': 'no',
       'dm_q5_s4': 'yes',
       'dm_q5_s5': 'no',
     },
-    explanation: 'Using user key NYNYN. S1: Zephyrs -> Aeros -> Blue. Logically YES. Key is NO. S2: Kites are aircraft, not stated if aeros. Logically NO. Key is YES. S3: Unknown, so NO. S4: "Only aeros that fly Atlantic carry radar" implies if radar, then Atlantic. YES. S5: "All aeros are blue." "Only Atlantic aeros carry radar." It is possible all blue aeros fly Atlantic and carry radar, or some blue aeros don\'t fly Atlantic and don\'t carry radar. So it\'s not necessarily true that "not all blue aeros carry radar". Key NO is consistent with this ambiguity (it doesn\'t *necessarily* follow).',
+    explanation: 'User key NYNYN. S1: Zephyrs -> Aeros -> Blue. Logically YES. Key NO. S2: Kites are aircraft, not stated if aeros. Logically NO. Key YES. S3: Unknown, so NO. S4: "Only aeros that fly Atlantic carry radar" -> if radar, then Atlantic. YES. S5: "All aeros blue." "Only Atlantic aeros radar." Possible all blue aeros fly Atlantic & carry radar, or some don\'t. Not necessarily true that "not all blue aeros carry radar". Key NO.',
   },
   {
     id: 'dm_q6',
@@ -126,13 +126,13 @@ export const DECISION_MAKING_QUESTIONS: Question[] = [
       { id: 'dm_q6_s5', text: 'All of the fruit is either green or yellow.' },
     ],
     correctAnswer: {
-      'dm_q6_s1': 'no',  // Correct: Peaches color unknown, no red mentioned
-      'dm_q6_s2': 'yes', // Correct: Green apples
-      'dm_q6_s3': 'no',  // Correct: Yellow bananas
-      'dm_q6_s4': 'yes', // Correct: Bananas are yellow
-      'dm_q6_s5': 'no',  // Correct: Peaches color unknown
+      'dm_q6_s1': 'no',
+      'dm_q6_s2': 'yes',
+      'dm_q6_s3': 'no',
+      'dm_q6_s4': 'yes',
+      'dm_q6_s5': 'no',
     },
-    explanation: 'S1: No red fruit is mentioned; peach color is unknown. S2: Green apples are present. S3: Yellow bananas are present. S4: Bananas are yellow, not red. S5: Peaches are in the bowl, and their color is not specified as green or yellow.',
+    explanation: 'S1: No red fruit mentioned; peach color unknown. S2: Green apples present. S3: Yellow bananas present. S4: Bananas are yellow. S5: Peaches are in the bowl, color not specified as green or yellow.',
   },
   {
     id: 'dm_q7',
@@ -147,7 +147,7 @@ export const DECISION_MAKING_QUESTIONS: Question[] = [
       { id: 'dm_q7_o4', text: '176kg' },
     ],
     correctAnswer: 'dm_q7_o2',
-    explanation: 'Let C, A, S be the weights. Equations: (1) 2C+3A+S=70, (2) C+2A+S=40. Subtract (2) from (1): C+A=30. We need to find 4C+4A+S. This can be written as 4(C+A)+S. Substitute C+A=30: 4(30)+S = 120+S. From (2), S = 40-C-2A. Substitute C=30-A: S = 40-(30-A)-2A = 40-30+A-2A = 10-A. So we need 120+(10-A) = 130-A. This indicates multiple solutions if A is not fixed. Let\'s test option B (128kg): 120+S = 128 => S=8kg. If S=8, then from A+S=10 (derived from S=10-A), so A=2kg. Then C+A=30 => C+2=30 => C=28kg. Check with original equations: 2(28)+3(2)+8 = 56+6+8 = 70 (Correct). 1(28)+2(2)+8 = 28+4+8 = 40 (Correct). Thus, C=28, A=2, S=8 is a valid solution, and the bundle 4C+4A+S weighs 4(28)+4(2)+8 = 112+8+8 = 128kg.',
+    explanation: 'Let C, A, S be weights. (1) 2C+3A+S=70, (2) C+2A+S=40. Subtract (2) from (1): C+A=30. We need 4C+4A+S = 4(C+A)+S = 4(30)+S = 120+S. From (2), S=40-C-2A. Sub C=30-A: S=40-(30-A)-2A = 10-A. So, 120+(10-A)=130-A. Option B (128kg): 120+S=128 => S=8kg. If S=8, A=2kg (from S=10-A). Then C=28kg (from C+A=30). Check: 2(28)+3(2)+8=70. 1(28)+2(2)+8=40. Correct. Bundle: 4(28)+4(2)+8 = 112+8+8 = 128kg.',
   },
   {
     id: 'dm_q8',
@@ -162,7 +162,7 @@ export const DECISION_MAKING_QUESTIONS: Question[] = [
       { id: 'dm_q8_o4', text: '4' },
     ],
     correctAnswer: 'dm_q8_o4',
-    explanation: 'Positions 1(top)-6(bottom). Zoe (Z) != 6. Folders below Z (6-Z) < Folders above Z (Z-1) => 7 < 2Z => Z > 3.5. So Z is 4 or 5. Ethan (E) = 5. Case 1: Z=4. Then |Maya(M)-4|-1=2 => |M-4|=3 => M=1 or M=7 (invalid). So M=1. Liam (L) is not above Zoe => L is at position >= Z. So L >= 4. Possible L: 4, 5(E), 6. If L=4 (Z=L), folders between M(1) & L(4) are 2,3 (2 folders). If L=5 (E=L), folders between M(1) & L(5) are 2,3,4 (3 folders). If L=6, folders between M(1) & L(6) are 2,3,4,5 (4 folders). Case 2: Z=5. Then E=Z=5. |M-5|-1=2 => |M-5|=3 => M=2 or M=8 (invalid). So M=2. L >= Z => L >= 5. Possible L: 5(E,Z=L), 6. If L=5, folders between M(2) & L(5) are 3,4 (2 folders). If L=6, folders between M(2) & L(6) are 3,4,5 (3 folders). The option 4 is available, fitting L=6 from Case 1 (Z=4, M=1, E=5, L=6).',
+    explanation: 'Positions 1(top)-6(bottom). Zoe (Z) != 6. Below Z (6-Z) < Above Z (Z-1) => 7 < 2Z => Z > 3.5. So Z is 4 or 5. Ethan (E) = 5. Case 1: Z=4. Then |Maya(M)-4|-1=2 => |M-4|=3 => M=1. Liam (L) >= Z, so L >= 4. Possible L: 4, 5(E), 6. If L=6, folders between M(1) & L(6) are 2,3,4,5 (4 folders). This matches option D.',
   },
   {
     id: 'dm_q9',
@@ -176,8 +176,8 @@ export const DECISION_MAKING_QUESTIONS: Question[] = [
       { id: 'dm_q9_o3', text: '6' },
       { id: 'dm_q9_o4', text: '8' },
     ],
-    correctAnswer: 'dm_q9_o3', 
-    explanation: 'Total birds in aviaries 1-5: Normal finches: 5 aviaries * 4 finches/aviary = 20 finches. Macaws: (1 * 2) + (2 * 3) + (2 * 4) = 2 + 6 + 8 = 16 macaws. Extra birds (in one of the first five aviaries): 2 owls + 2 extra finches = 4 birds. Total in aviaries 1-5 = 20 (normal finches) + 16 (macaws) + 4 (extra birds) = 40 birds. Total birds across all 6 aviaries = 46. Birds in 6th aviary = Total birds - Birds in aviaries 1-5 = 46 - 40 = 6 birds.',
+    correctAnswer: 'dm_q9_o3',
+    explanation: 'Birds in aviaries 1-5: Normal finches: 5 * 4 = 20. Macaws: (1*2) + (2*3) + (2*4) = 2+6+8 = 16. Extra birds (owls + extra finches): 2+2 = 4. Total in 1-5 = 20+16+4 = 40 birds. Total birds in all 6 aviaries = 46. Birds in 6th aviary = 46 - 40 = 6 birds.',
   },
   {
     id: 'dm_q10',
@@ -191,8 +191,8 @@ export const DECISION_MAKING_QUESTIONS: Question[] = [
       { id: 'dm_q10_o3', text: '6' },
       { id: 'dm_q10_o4', text: '7' },
     ],
-    correctAnswer: 'dm_q10_o2', 
-    explanation: 'Let M be the total number of marbles and J be the number of jars. From the first statement: M = 3J + 3. From the second statement: M = 2J + 8. Equating the two expressions for M: 3J + 3 = 2J + 8. Subtract 2J from both sides: J + 3 = 8. Subtract 3 from both sides: J = 5. So, Leah has 5 jars.',
+    correctAnswer: 'dm_q10_o2',
+    explanation: 'Let M = total marbles, J = number of jars. Equations: M = 3J + 3 and M = 2J + 8. So, 3J + 3 = 2J + 8. Subtract 2J: J + 3 = 8. Subtract 3: J = 5. Leah has 5 jars.',
   },
   {
     id: 'dm_q11',
@@ -206,8 +206,8 @@ export const DECISION_MAKING_QUESTIONS: Question[] = [
       { id: 'dm_q11_o3', text: 'Mr Diaz' },
       { id: 'dm_q11_o4', text: 'Mr Patel' },
     ],
-    correctAnswer: 'dm_q11_o2', 
-    explanation: 'This is a spatial reasoning and logic puzzle based on the provided seating rules and the image (represented by the URL). The rules involve: Mr & Mrs Rivers at ends, males in even seats, no married couples adjacent, Mrs Rivers not next to Harts/Patels, Mr Diaz on Mrs Rivers\' right & opposite/far from Ms Quinn, Ms Lopez next to Mr Hart. Applying these rules systematically leads to Mr Hart being in seat 2. The visual layout from the image is crucial for solving.',
+    correctAnswer: 'dm_q11_o2',
+    explanation: 'This is a spatial reasoning puzzle. Solving requires systematically applying the seating rules to the diagram. Males are in even seats. Mrs Rivers at one end, Mr Rivers at the other. Mr Diaz is on Mrs Rivers\' right. Ms Lopez is next to Mr Hart. Married couples are not adjacent. Mrs Rivers is not next to Harts/Patels. Careful deduction based on these rules places Mr Hart in seat 2.',
   },
   {
     id: 'dm_q12',
@@ -222,7 +222,7 @@ export const DECISION_MAKING_QUESTIONS: Question[] = [
       { id: 'dm_q12_o4', text: 'Star at V and circle at P' },
     ],
     correctAnswer: 'dm_q12_o4',
-    explanation: 'Let vertices be 0(P)-6(V). Star moves +2 mod 7. Circle moves -3 mod 7 (or +4 mod 7). After 3 moves: Star moves 3*2=6 vertices. Circle moves 3*(-3) = -9 vertices, which is -9 mod 7 = -2 mod 7 = +5 mod 7. \nOption D: Star at V (6), Circle at P (0). Star: 6 + 6 = 12 mod 7 = 5 (U). Circle: 0 + 5 = 5 mod 7 = 5 (U). They meet at U. So D is correct.',
+    explanation: 'Vertices P-V (0-6). Star: +2 mod 7. Circle: -3 mod 7 (or +4 mod 7). After 3 moves: Star moves 3*2=6. Circle moves 3*(-3)=-9 = -2 mod 7 = +5 mod 7. Option D: Star at V(6), Circle at P(0). Star: 6+6 = 12 mod 7 = 5 (U). Circle: 0+5 = 5 mod 7 = 5 (U). They meet at U.',
   },
   {
     id: 'dm_q13',
@@ -237,7 +237,7 @@ export const DECISION_MAKING_QUESTIONS: Question[] = [
       { id: 'dm_q13_o4', text: 'No, because compulsory rules could slow growth of the e-scooter industry and reduce urban transport choices.' },
     ],
     correctAnswer: 'dm_q13_o2',
-    explanation: 'Option B directly addresses the core issue of reducing serious injuries by citing evidence of helmet effectiveness (head-impact data, risk reduction). A is an assumption about rider objection. C focuses on a practical difficulty but doesn\'t counter the safety argument. D focuses on economic/industry impact, not the primary safety concern.',
+    explanation: 'Option B directly addresses injury reduction by citing evidence of helmet effectiveness. A is an assumption. C is a practical difficulty. D focuses on economic impact, not safety.',
   },
   {
     id: 'dm_q14',
@@ -252,7 +252,7 @@ export const DECISION_MAKING_QUESTIONS: Question[] = [
       { id: 'dm_q14_o4', text: 'No, because some food waste is inevitable due to safety regulations and customer expectations of freshness.' },
     ],
     correctAnswer: 'dm_q14_o1',
-    explanation: 'Option A directly links the proposed action (fines) to the desired outcome (minimising food waste) by explaining the mechanism (incentivising alternatives like donation/discounting). B is a secondary benefit. C argues fairness but doesn\'t address waste minimisation. D points out inevitability but doesn\'t argue against fines as a deterrent for *avoidable* waste.',
+    explanation: 'Option A links fines to the goal of waste minimisation by explaining the incentive mechanism. B is a secondary benefit. C argues fairness. D points out inevitability for some waste, not all.',
   },
   {
     id: 'dm_q15',
@@ -267,7 +267,7 @@ export const DECISION_MAKING_QUESTIONS: Question[] = [
       { id: 'dm_q15_o4', text: 'No, because many students pay with government loans, so fees do not actually block access for those who truly wish to study.' },
     ],
     correctAnswer: 'dm_q15_o1',
-    explanation: 'Option A directly addresses the core issue of "equal access" by identifying a primary barrier (financial) and its disproportionate impact. B discusses a potential secondary benefit (diversity) but isn\'t as central to "equal access" as cost. C raises a potential negative consequence (funding/quality) which is a valid counter-argument but doesn\'t directly address access for the strongest "Yes" argument. D makes a claim about loans that might be debatable and doesn\'t fully negate the deterrent effect of fees for some.',
+    explanation: 'Option A directly addresses "equal access" by identifying a financial barrier and its disproportionate impact. B is a secondary benefit. C is a potential negative consequence. D makes a debatable claim about loans.',
   },
   {
     id: 'dm_q16',
@@ -282,7 +282,139 @@ export const DECISION_MAKING_QUESTIONS: Question[] = [
       { id: 'dm_q16_o4', text: 'No, because most imported plants are already certified pest-free, so the additional restriction would not meaningfully reduce harm.' },
     ],
     correctAnswer: 'dm_q16_o1',
-    explanation: 'Option A presents a direct and significant ecological threat (parasites devastating local pollinators) that restricting imported plants could mitigate. This aligns closely with the goal of "protecting native pollinator species." B is an economic co-benefit, not the primary ecological argument. C focuses on economic/hobbyist impact, not pollinator protection. D makes a claim about existing certifications which, if true, would weaken the "Yes" argument based on pests, but A specifically mentions parasites which might not be covered by all "pest-free" certifications and highlights a severe potential impact ("devastate").',
+    explanation: 'Option A presents a direct ecological threat (parasites) that restriction could mitigate, aligning with "protecting native pollinator species." B is economic. C is about hobbyist/retail impact. D claims existing certifications are sufficient, which may not cover all threats like parasites.',
+  },
+  {
+    id: 'dm_q17',
+    type: 'YesNoStatements',
+    section: 'Decision Making',
+    stimulus: 'Digital agriculture is rapidly reshaping crop production in Brazil. Aerial drones equipped with multispectral cameras identify pest hotspots within hours, enabling spot-spraying that cuts chemical use and prevents large-scale infestations. Integrated “farm-to-market” apps now link growers directly with urban retailers, so produce is picked, packed and shipped without passing through traditional wholesale markets. Because family farms share soil-analysis data on an open cloud platform, fertiliser co-operatives can formulate nutrient blends tailored to each individual plot. Agronomists monitoring the platform receive real-time dashboards and can advise farmers the same day instead of after a field visit several days later.',
+    questionText: 'Question 17\nPlace ‘Yes’ if the conclusion does follow from the passage. Place ‘No’ if the conclusion does not follow.',
+    conclusions: [
+      { id: 'dm_q17_s1', text: 'Early pest detection means farmers can respond more quickly to outbreaks.' },
+      { id: 'dm_q17_s2', text: 'By selling through the new apps, farmers may no longer need to rely on wholesale middlemen.' },
+      { id: 'dm_q17_s3', text: 'Digital agriculture is likely to make fertiliser prices rise steeply across Brazil.' },
+      { id: 'dm_q17_s4', text: 'Sharing soil data allows co-operatives to supply fertilisers that match each farm’s specific needs.' },
+      { id: 'dm_q17_s5', text: 'Drone technology makes modern farming more attractive to large agribusinesses than to small family farms.' },
+    ],
+    correctAnswer: {
+      'dm_q17_s1': 'yes',
+      'dm_q17_s2': 'yes',
+      'dm_q17_s3': 'no',
+      'dm_q17_s4': 'yes',
+      'dm_q17_s5': 'no',
+    },
+    explanation: 'S1: Drones identify hotspots in hours, agronomists advise same day. YES. S2: Apps link growers directly, produce shipped without passing wholesale. YES. S3: Passage mentions tailored blends, not price rises. NO. S4: "fertiliser co-operatives can formulate nutrient blends tailored to each individual plot" due to shared data. YES. S5: Passage mentions "family farms share soil-analysis data", no comparison of attractiveness to agribusiness vs family farms. NO.',
+  },
+  {
+    id: 'dm_q18',
+    type: 'YesNoStatements',
+    section: 'Decision Making',
+    stimulus: 'Public concern is mounting over the rise of antibiotic-resistant bacteria. Several multinational meat-packing firms have been accused of quietly financing trade associations that lobby against tighter restrictions on antibiotic use in livestock. The exact amounts of these contributions and the purposes for which they are used are not publicly reported.  At the opposite end of the spectrum, a large dairy co-operative has launched a US $700 million programme to certify herds as antibiotic-free, and a national supermarket chain now sources 60 % of its beef from farms audited for responsible drug use.',
+    questionText: 'Question 18\nPlace ‘Yes’ if the conclusion does follow from the passage. Place ‘No’ if the conclusion does not follow.',
+    conclusions: [
+      { id: 'dm_q18_s1', text: 'Some companies try to block stricter antibiotic rules through third-party organisations.' },
+      { id: 'dm_q18_s2', text: 'Certain corporations are making significant financial commitments to curb antibiotic use.' },
+      { id: 'dm_q18_s3', text: 'Food producers generally view antibiotic regulations as an unnecessary burden.' },
+      { id: 'dm_q18_s4', text: 'The details of corporate funding for lobbying activities are not fully disclosed.' },
+      { id: 'dm_q18_s5', text: 'Meat-packing firms and supermarket chains are the only businesses taking action on antibiotic resistance.' },
+    ],
+    correctAnswer: {
+      'dm_q18_s1': 'yes',
+      'dm_q18_s2': 'yes',
+      'dm_q18_s3': 'no',
+      'dm_q18_s4': 'yes',
+      'dm_q18_s5': 'no',
+    },
+    explanation: 'S1: Meat-packers finance trade associations lobbying against restrictions. YES. S2: Dairy co-op $700m program. YES. S3: Passage shows mixed views (some lobby against, some invest in curbing). Cannot conclude "generally view as unnecessary". NO. S4: "exact amounts ... are not publicly reported". YES. S5: Dairy co-op is mentioned, not just meat-packers and supermarkets. NO.',
+  },
+  {
+    id: 'dm_q19',
+    type: 'YesNoStatements',
+    section: 'Decision Making',
+    stimulus: 'The bar chart below summarises a nationwide study.\n\nImage: https://ik.imagekit.io/mwp/dmtest1b?updatedAt=1748406494036',
+    questionText: 'Question 19\nPlace ‘Yes’ if the conclusion does follow from the data. Place ‘No’ if the conclusion does not follow.',
+    conclusions: [
+      { id: 'dm_q19_s1', text: 'An adult who becomes sedentary after exercising moderately loses more fitness than one who simply stays active but experiences increased job stress.' },
+      { id: 'dm_q19_s2', text: 'Beginning a HIIT programme from a sedentary lifestyle produces the greatest fitness gain of any change measured.' },
+      { id: 'dm_q19_s3', text: 'Greater job stress is shown to be the single worst factor for cardiovascular fitness in this study.' },
+      { id: 'dm_q19_s4', text: 'Switching from moderate exercise to HIIT still brings a measurable improvement in fitness.' },
+      { id: 'dm_q19_s5', text: 'The data prove that HIIT benefits people of all age groups to the same extent.' },
+    ],
+    correctAnswer: {
+      'dm_q19_s1': 'yes',
+      'dm_q19_s2': 'yes',
+      'dm_q19_s3': 'no',
+      'dm_q19_s4': 'yes',
+      'dm_q19_s5': 'no',
+    },
+    explanation: 'This requires interpretation of the bar chart image. S1: Compare loss from ModEx->Sedentary vs. loss from Active->Active+Stress. YES (assuming chart shows this). S2: Compare gain Sedentary->HIIT with other gains. YES (assuming chart shows this). S3: Evaluate if job stress causes the largest negative impact compared to other factors. NO (e.g., Sedentary might be worse). S4: Compare ModEx->HIIT gain. YES (assuming chart shows gain). S5: Data is "nationwide study", likely aggregated, doesn\'t prove for "all age groups to the same extent". NO.',
+  },
+  {
+    id: 'dm_q20',
+    type: 'YesNoStatements',
+    section: 'Decision Making',
+    stimulus: 'Recent corporate-policy research shows that, on average, employees aged 30-40 were twice as likely as workers over 50 to be promoted within the past three years. This disparity was observed across all job grades and in both “youth-skewed” sectors (such as software) and “mature” sectors (such as insurance). In a separate survey of 1 800 senior employees, 45 % of respondents over 50 stated they had been passed over for a promotion during the last review cycle. Among those, the majority cited age discrimination as the primary reason.',
+    questionText: 'Question 20\nPlace ‘Yes’ if the conclusion does follow from the passage. Place ‘No’ if the conclusion does not follow.',
+    conclusions: [
+      { id: 'dm_q20_s1', text: 'Promotion bias against older staff appears across multiple industries, not just in technology companies.' },
+      { id: 'dm_q20_s2', text: 'Many older employees believe their age is the key factor preventing advancement.' },
+      { id: 'dm_q20_s3', text: 'Insurance is an example of a sector with a comparatively older workforce.' },
+      { id: 'dm_q20_s4', text: 'More than one thousand five-hundred younger employees were surveyed about missed promotions.' },
+      { id: 'dm_q20_s5', text: 'Lack of up-to-date technical skills is identified as the main reason older staff miss out on promotion.' },
+    ],
+    correctAnswer: {
+      'dm_q20_s1': 'yes',
+      'dm_q20_s2': 'yes',
+      'dm_q20_s3': 'yes',
+      'dm_q20_s4': 'no',
+      'dm_q20_s5': 'no',
+    },
+    explanation: 'S1: Disparity observed in "youth-skewed" (software) AND "mature" (insurance). YES. S2: "majority cited age discrimination as the primary reason". YES. S3: Insurance is called a "mature" sector, implies older workforce. YES. S4: Survey was of "1800 senior employees", and "45% of respondents over 50 stated...". Doesn\'t specify younger employees or number surveyed about missed promotions. NO. S5: Reason cited by employees was "age discrimination", not lack of skills. NO.',
+  },
+  {
+    id: 'dm_q21',
+    type: 'YesNoStatements',
+    section: 'Decision Making',
+    stimulus: 'Artificial-intelligence image generators are transforming how we communicate ideas. Pictures are never neutral: they are conceived by prompt-writers, fine-tuned by algorithms, and retouched by publishers. Images therefore shape perception, sometimes giving a sense of realism that text alone cannot match. Unfortunately, many viewers react passively, scrolling past without verifying authenticity—an attitude that leaves them vulnerable to persuasive visuals. Scholars of media literacy insist we must take charge of AI imagery, scrutinise the source files and question what is not shown, rather than surrender to whatever pictures an artist or platform serves us.',
+    questionText: 'Question 21\nPlace ‘Yes’ if the conclusion does follow from the passage. Place ‘No’ if the conclusion does not follow.',
+    conclusions: [
+      { id: 'dm_q21_s1', text: 'AI-generated images can be arranged to reinforce the creator’s viewpoint instead of presenting an objective record.' },
+      { id: 'dm_q21_s2', text: 'Because many people struggle to verify visuals, scholars argue that images should be banned from serious research publications.' },
+      { id: 'dm_q21_s3', text: 'Readers are encouraged to view AI imagery critically, not passively accepting it at face value.' },
+      { id: 'dm_q21_s4', text: 'The passage claims that most creators of AI images deliberately deceive the public.' },
+      { id: 'dm_q21_s5', text: 'Since pictures influence perception, relying on them without examination risks misunderstanding the underlying message.' },
+    ],
+    correctAnswer: {
+      'dm_q21_s1': 'yes',
+      'dm_q21_s2': 'no',
+      'dm_q21_s3': 'yes',
+      'dm_q21_s4': 'no',
+      'dm_q21_s5': 'yes',
+    },
+    explanation: 'S1: "Pictures are never neutral: they are conceived by prompt-writers...". YES. S2: Scholars insist on scrutiny, not banning. NO. S3: "Scholars...insist we must take charge...scrutinise...question...rather than surrender...". YES. S4: Passage mentions images "shape perception" and viewers are "vulnerable", but doesn\'t claim most creators *deliberately deceive*. NO. S5: "Images therefore shape perception...many viewers react passively...leaves them vulnerable...". YES.',
+  },
+  {
+    id: 'dm_q22',
+    type: 'YesNoStatements',
+    section: 'Decision Making',
+    stimulus: 'Image: https://ik.imagekit.io/mwp/dmtest1c?updatedAt=1748406635013',
+    questionText: 'Question 22\nPlace ‘Yes’ if the conclusion does follow from the table. Place ‘No’ if the conclusion does not follow.',
+    conclusions: [
+      { id: 'dm_q22_s1', text: 'Tourist numbers in all destination types increased in every period shown.' },
+      { id: 'dm_q22_s2', text: 'Visitors to Cultural Heritage sites grew by more than 50 % between 2005 and 2018.' },
+      { id: 'dm_q22_s3', text: 'Mountain-Resort tourism formed a smaller share of the total in 2018 than in 2005.' },
+      { id: 'dm_q22_s4', text: 'Adventure-Sports visitors more than doubled from 2005 to 2018.' },
+      { id: 'dm_q22_s5', text: 'Cruise-Holiday numbers fell by 25 % between 2005 and 2010.' },
+    ],
+    correctAnswer: {
+      'dm_q22_s1': 'no',
+      'dm_q22_s2': 'yes',
+      'dm_q22_s3': 'yes',
+      'dm_q22_s4': 'yes',
+      'dm_q22_s5': 'no',
+    },
+    explanation: 'This requires interpretation of the table image. S1: Check if ALL types increased in ALL periods. NO (e.g., if any type decreased in any period). S2: Calculate % growth for Cultural Heritage (2018 value / 2005 value). YES (if > 1.5). S3: Calculate share for Mountain-Resort in 2005 and 2018. YES (if 2018 share < 2005 share). S4: Check if Adventure-Sports 2018 value > 2 * 2005 value. YES. S5: Calculate % change for Cruise-Holiday 2005-2010. NO (e.g. if it fell by less, or increased).',
   },
 ];
 
@@ -290,9 +422,3 @@ export const DECISION_MAKING_QUESTIONS: Question[] = [
 // but it should be replaced by DECISION_MAKING_QUESTIONS.
 // For this change, we'll assume page.tsx will be updated to use DECISION_MAKING_QUESTIONS.
 export const UCAT_QUESTIONS = DECISION_MAKING_QUESTIONS;
-
-    
-
-    
-
-    
