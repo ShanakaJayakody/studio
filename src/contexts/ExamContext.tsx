@@ -24,6 +24,7 @@ interface ExamContextType {
   submitExam: () => void;
   setExamPhase: (phase: ExamPhase) => void;
   isQuestionFlagged: (questionIndex: number) => boolean;
+  reviewQuestion: (questionIndex: number) => void; // New function
 }
 
 const ExamContext = createContext<ExamContextType | undefined>(undefined);
@@ -99,6 +100,13 @@ export const ExamProvider: React.FC<ExamProviderProps> = ({
     setLocalExamPhase('results');
   }, []);
 
+  const reviewQuestion = useCallback((questionIndex: number) => {
+    if (questionIndex >= 0 && questionIndex < questions.length) {
+      setCurrentQuestionIndex(questionIndex);
+      setLocalExamPhase('in-progress');
+    }
+  }, [questions.length]);
+
   return (
     <ExamContext.Provider
       value={{
@@ -120,6 +128,7 @@ export const ExamProvider: React.FC<ExamProviderProps> = ({
         submitExam,
         setExamPhase: setLocalExamPhase,
         isQuestionFlagged,
+        reviewQuestion, // Expose new function
       }}
     >
       {children}

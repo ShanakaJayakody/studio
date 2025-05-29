@@ -10,48 +10,58 @@ import type { UserAnswer, YesNoAnswer, Statement, Question, YesNoStatementsQuest
 import { cn } from '@/lib/utils';
 
 export default function ResultsScreen() {
-  const { questions, userAnswers, examStartTime, setExamPhase } = useExam();
+  const { questions, userAnswers, examStartTime, setExamPhase, reviewQuestion } = useExam();
 
-  const calculateScore = () => {
-    let correctQuestions = 0;
+  const calculateScoreAndPossibleMarks = () => {
+    let currentScore = 0;
+    let currentTotalPossibleMarks = 0;
+
     questions.forEach(q => {
       const userAnswerForQuestion = userAnswers[q.id];
 
       if (q.type === 'YesNoStatements') {
-        if (!userAnswerForQuestion || typeof userAnswerForQuestion === 'string') return; // Not answered or wrong type
+        currentTotalPossibleMarks += 2; // Max 2 marks for YesNoStatements questions
+        const userAnswer = userAnswerForQuestion as Record<string, YesNoAnswer | undefined> | undefined;
+        let correctStatements = 0;
+        let answeredStatements = 0;
 
-        let allStatementsCorrect = true;
-        // Check if all statements defined in correctAnswer are answered correctly
-        for (const conclusion of q.conclusions) {
-          const statementId = conclusion.id;
-          if (userAnswerForQuestion[statementId] !== q.correctAnswer[statementId]) {
-            allStatementsCorrect = false;
-            break;
+        if (userAnswer) {
+          q.conclusions.forEach(conclusion => {
+            if (userAnswer[conclusion.id] !== undefined) {
+              answeredStatements++;
+              if (userAnswer[conclusion.id] === q.correctAnswer[conclusion.id]) {
+                correctStatements++;
+              }
+            }
+          });
+        }
+        
+        // Scoring logic for 5-part questions (assuming all YesNoStatements are 5-part as per current data)
+        if (q.conclusions.length === 5 && answeredStatements > 0) { // Check if at least one part was answered
+          if (correctStatements === 5) {
+            currentScore += 2;
+          } else if (correctStatements === 4) {
+            currentScore += 1;
           }
+          // 0 marks for 3 or less correct statements
         }
-        // Also check if the user answered the exact number of statements required
-        if (Object.keys(userAnswerForQuestion).filter(k => userAnswerForQuestion[k] !== undefined).length !== q.conclusions.length) {
-            allStatementsCorrect = false;
-        }
-
-        if (allStatementsCorrect) {
-          correctQuestions++;
-        }
+         // If not a 5-part question, or not answered, score remains 0 for this question unless logic is added for other types.
       } else if (q.type === 'MCQ') {
+        currentTotalPossibleMarks += 1; // 1 mark for MCQ
         if (typeof userAnswerForQuestion === 'string' && userAnswerForQuestion === q.correctAnswer) {
-          correctQuestions++;
+          currentScore += 1;
         }
       }
     });
-    return correctQuestions;
+    return { score: currentScore, totalPossibleMarks: currentTotalPossibleMarks };
   };
 
-  const score = calculateScore();
-  const percentage = questions.length > 0 ? ((score / questions.length) * 100).toFixed(2) : "0.00";
+  const { score, totalPossibleMarks } = calculateScoreAndPossibleMarks();
+  const percentage = totalPossibleMarks > 0 ? ((score / totalPossibleMarks) * 100).toFixed(2) : "0.00";
   const timeTaken = examStartTime ? ((Date.now() - examStartTime) / 1000 / 60).toFixed(2) : 'N/A';
 
   const getAnswerDisplayForYesNo = (answer: Record<string, YesNoAnswer | undefined> | undefined, conclusions: Statement[]) => {
-    if (!answer || Object.keys(answer).length === 0) return <span className="text-muted-foreground italic">Not Answered</span>;
+    if (!answer || Object.keys(answer).filter(k => answer[k] !== undefined).length === 0) return <span className="text-muted-foreground italic">Not Answered</span>;
     
     return (
       <ul className="list-disc pl-5 text-xs space-y-1">
@@ -73,6 +83,9 @@ export default function ResultsScreen() {
     return <span className="font-semibold">{selectedOption ? selectedOption.text : 'Unknown Option'}</span>;
   };
 
+  const handleReviewQuestion = (index: number) => {
+    reviewQuestion(index);
+  };
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen p-4 bg-[hsl(var(--background))]">
@@ -86,12 +99,12 @@ export default function ResultsScreen() {
         <CardContent>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6 text-center">
             <Card className="p-4 bg-primary/10">
-              <CardTitle className="text-2xl text-primary">{score} / {questions.length}</CardTitle>
-              <CardDescription>Correct Questions</CardDescription>
+              <CardTitle className="text-2xl text-primary">{score} / {totalPossibleMarks}</CardTitle>
+              <CardDescription>Total Score</CardDescription>
             </Card>
             <Card className="p-4 bg-accent/10">
               <CardTitle className="text-2xl text-accent-foreground">{percentage}%</CardTitle>
-              <CardDescription>Percentage</CardDescription>
+              <CardDescription>Overall Performance</CardDescription>
             </Card>
             <Card className="p-4 bg-secondary/20">
               <CardTitle className="text-2xl text-secondary-foreground">{timeTaken} min</CardTitle>
@@ -104,87 +117,117 @@ export default function ResultsScreen() {
             <div className="space-y-3 p-3">
             {questions.map((q, index) => {
               const userAnswerForQuestion = userAnswers[q.id];
-              let isQuestionCorrect = false;
-              let isPartiallyOrUnanswered = true;
+              let marksObtainedForQuestion = 0;
+              let possibleMarksForQuestion = 0;
+              let isUnanswered = true;
               let answerDisplay: React.ReactNode;
               let correctAnswerDisplay: React.ReactNode | null = null;
 
               if (q.type === 'YesNoStatements') {
+                possibleMarksForQuestion = 2;
                 const ynq = q as YesNoStatementsQuestion;
-                const ynAnswer = userAnswerForQuestion as Record<string, YesNoAnswer | undefined> | undefined;
-                answerDisplay = getAnswerDisplayForYesNo(ynAnswer, ynq.conclusions);
+                const userAnswer = userAnswerForQuestion as Record<string, YesNoAnswer | undefined> | undefined;
+                answerDisplay = getAnswerDisplayForYesNo(userAnswer, ynq.conclusions);
+                let correctStatements = 0;
+                let answeredStatements = 0;
 
-                if (ynAnswer && Object.keys(ynAnswer).filter(k => ynAnswer[k] !== undefined).length === ynq.conclusions.length) {
-                  isPartiallyOrUnanswered = false;
-                  isQuestionCorrect = true;
-                  for (const conclusion of ynq.conclusions) {
-                    if (ynAnswer[conclusion.id] !== ynq.correctAnswer[conclusion.id]) {
-                      isQuestionCorrect = false;
-                      break;
+                if (userAnswer) {
+                  ynq.conclusions.forEach(conclusion => {
+                    if (userAnswer[conclusion.id] !== undefined) {
+                      answeredStatements++;
+                      if (userAnswer[conclusion.id] === ynq.correctAnswer[conclusion.id]) {
+                        correctStatements++;
+                      }
                     }
-                  }
-                } else if (ynAnswer && Object.keys(ynAnswer).filter(k => ynAnswer[k] !== undefined).length > 0) {
-                  isPartiallyOrUnanswered = true; // Partially answered
-                } else {
-                  isPartiallyOrUnanswered = true; // Unanswered
+                  });
                 }
                 
-                if(!isQuestionCorrect && !isPartiallyOrUnanswered){
+                isUnanswered = answeredStatements === 0;
+
+                if (!isUnanswered && ynq.conclusions.length === 5) {
+                  if (correctStatements === 5) marksObtainedForQuestion = 2;
+                  else if (correctStatements === 4) marksObtainedForQuestion = 1;
+                  else marksObtainedForQuestion = 0;
+                } else if (!isUnanswered) { // Fallback for non-5-part YesNo or if rules change
+                   // For now, if not 5-part but answered, it gets 0 from the 2-mark system.
+                   // This part might need more specific rules if non-5-part YesNo questions are introduced with different marking.
+                   marksObtainedForQuestion = 0;
+                }
+
+
+                if (!isUnanswered && marksObtainedForQuestion < possibleMarksForQuestion) {
                    correctAnswerDisplay = (
-                     <ul className="list-disc pl-5 text-xs space-y-1">
-                       {ynq.conclusions.map((conc, idx) => (
-                         <li key={conc.id}>Statement {idx + 1}: <span className="font-semibold">{ynq.correctAnswer[conc.id]?.toUpperCase()}</span></li>
-                       ))}
-                     </ul>
+                     <div>
+                       <p className="mt-1 text-xs"><strong>Correct Answer(s):</strong></p>
+                       <ul className="list-disc pl-5 text-xs space-y-1">
+                         {ynq.conclusions.map((conc, idx) => (
+                           <li key={conc.id}>Statement {idx + 1}: <span className="font-semibold">{ynq.correctAnswer[conc.id]?.toUpperCase()}</span></li>
+                         ))}
+                       </ul>
+                     </div>
                    );
                 }
-                 if (!isQuestionCorrect && (ynAnswer && Object.keys(ynAnswer).filter(k => ynAnswer[k] !== undefined).length > 0)) {
-                     correctAnswerDisplay = (
-                         <div>
-                             <p className="mt-1"><strong>Correct Answer(s):</strong></p>
-                             <ul className="list-disc pl-5 text-xs space-y-1">
-                                 {ynq.conclusions.map((conc, idx) => (
-                                     <li key={conc.id}>Statement {idx + 1}: <span className="font-semibold">{ynq.correctAnswer[conc.id]?.toUpperCase()}</span></li>
-                                 ))}
-                             </ul>
-                         </div>
-                     );
-                 }
-
-
               } else if (q.type === 'MCQ') {
+                possibleMarksForQuestion = 1;
                 const mcq = q as MCQQuestion;
                 const mcqAnswer = userAnswerForQuestion as string | undefined;
                 answerDisplay = getAnswerDisplayForMCQ(mcqAnswer, mcq.options);
-                isPartiallyOrUnanswered = !mcqAnswer;
-                if (mcqAnswer) {
-                  isQuestionCorrect = mcqAnswer === mcq.correctAnswer;
+                isUnanswered = !mcqAnswer;
+                if (!isUnanswered) {
+                  if (mcqAnswer === mcq.correctAnswer) {
+                    marksObtainedForQuestion = 1;
+                  }
                 }
-                if (!isQuestionCorrect && mcqAnswer) {
+                if (!isUnanswered && marksObtainedForQuestion < possibleMarksForQuestion) {
                   const correctOpt = mcq.options.find(opt => opt.id === mcq.correctAnswer);
-                  correctAnswerDisplay = <p className="mt-1"><strong>Correct Answer:</strong> <span className="font-semibold">{correctOpt?.text || 'N/A'}</span></p>;
+                  correctAnswerDisplay = <p className="mt-1 text-xs"><strong>Correct Answer:</strong> <span className="font-semibold">{correctOpt?.text || 'N/A'}</span></p>;
                 }
               } else {
                 answerDisplay = <span className="text-muted-foreground italic">Unknown question type</span>;
+                possibleMarksForQuestion = 0; // Or handle as error
               }
               
-              const Icon = isPartiallyOrUnanswered ? HelpCircle : (isQuestionCorrect ? CheckCircle : XCircle);
-              const iconColor = isPartiallyOrUnanswered ? "text-gray-500" : (isQuestionCorrect ? "text-green-500" : "text-red-500");
-              const cardBg = isPartiallyOrUnanswered ? "bg-gray-500/10" : (isQuestionCorrect ? "bg-green-500/10" : "bg-red-500/10");
+              let Icon = HelpCircle;
+              let iconColor = "text-gray-500";
+              let cardBg = "bg-gray-500/10";
 
-
+              if (isUnanswered) {
+                Icon = HelpCircle;
+                iconColor = "text-gray-500";
+                cardBg = "bg-gray-100 dark:bg-gray-700/20";
+              } else {
+                if (marksObtainedForQuestion === possibleMarksForQuestion && possibleMarksForQuestion > 0) {
+                  Icon = CheckCircle;
+                  iconColor = "text-green-500";
+                  cardBg = "bg-green-500/10";
+                } else if (q.type === 'YesNoStatements' && marksObtainedForQuestion === 1) {
+                  Icon = AlertTriangle;
+                  iconColor = "text-orange-500";
+                  cardBg = "bg-orange-500/10";
+                } else { // 0 marks but answered
+                  Icon = XCircle;
+                  iconColor = "text-red-500";
+                  cardBg = "bg-red-500/10";
+                }
+              }
+              
               return (
-                <Card key={q.id} className={cn("p-3", cardBg)}>
-                  <div className="flex justify-between items-start">
-                    <p className="font-semibold text-sm">Q{index + 1}: {q.questionText.split('\\n')[0]}...</p>
-                    <Icon className={cn("h-5 w-5 shrink-0", iconColor)} />
-                  </div>
-                  <div className="text-xs mt-1 space-y-1">
-                    <p><strong>Your Answer(s):</strong> {answerDisplay}</p>
-                    {correctAnswerDisplay}
-                    {q.explanation && <p className="mt-1 text-muted-foreground italic"><strong>Explanation:</strong> {q.explanation}</p>}
-                  </div>
-                </Card>
+                <div key={q.id} onClick={() => handleReviewQuestion(index)} className="cursor-pointer hover:shadow-md transition-shadow rounded-lg">
+                  <Card className={cn("p-3", cardBg)}>
+                    <div className="flex justify-between items-start">
+                      <p className="font-semibold text-sm">Q{index + 1}: {q.questionText.split('\\n')[0]}...</p>
+                      <Icon className={cn("h-5 w-5 shrink-0", iconColor)} />
+                    </div>
+                    <div className="text-xs mt-1 space-y-1">
+                      <p><strong>Your Answer(s):</strong> {answerDisplay}</p>
+                      <p><strong>Marks: {marksObtainedForQuestion} / {possibleMarksForQuestion}</strong></p>
+                      {correctAnswerDisplay}
+                      {q.explanation && !isUnanswered && marksObtainedForQuestion < possibleMarksForQuestion && (
+                        <p className="mt-1 text-muted-foreground italic"><strong>Explanation:</strong> {q.explanation}</p>
+                      )}
+                    </div>
+                  </Card>
+                </div>
               );
             })}
             </div>
