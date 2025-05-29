@@ -108,7 +108,7 @@ export default function LoginForm() {
               <FormControl>
                 <div className="relative">
                   <Mail className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
-                  <Input placeholder="Email Address" {...field} className="pl-10" type="email" />
+                  <Input placeholder="Email Address" {...field} className="pl-10 bg-white text-black" type="email" />
                 </div>
               </FormControl>
               <FormMessage />
@@ -124,7 +124,7 @@ export default function LoginForm() {
               <FormControl>
                 <div className="relative">
                   <Lock className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
-                  <Input placeholder="Password" {...field} className="pl-10" type="password" />
+                  <Input placeholder="Password" {...field} className="pl-10 bg-white text-black" type="password" />
                 </div>
               </FormControl>
               <FormMessage />
@@ -149,7 +149,13 @@ export default function LoginForm() {
           </div>
         </div>
 
-        <Button variant="outline" type="button" className="w-full" onClick={handleGoogleSignIn} disabled={isLoading}>
+        <Button 
+          variant="outline" 
+          type="button" 
+          className="w-full bg-white text-black hover:bg-gray-100 border border-border" 
+          onClick={handleGoogleSignIn} 
+          disabled={isLoading}
+        >
           {isLoading ? 'Processing...' : <><GoogleIcon className="mr-2 h-5 w-5" /> Sign in with Google</>}
         </Button>
 
