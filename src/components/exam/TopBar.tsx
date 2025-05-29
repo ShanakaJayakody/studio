@@ -26,7 +26,7 @@ export default function TopBar() {
       // ensure it is reset before starting interval.
       // The initial useState should handle this for a fresh start,
       // and the 'else' block handles resets after 'results' or 'instructions'.
-      if (timeLeft === 0) { // Ensure timer starts from full duration if it hit 0 and phase re-enters 'in-progress'
+      if (timeLeft <= 0 && EXAM_DURATION_SECONDS > 0) { 
         setTimeLeft(EXAM_DURATION_SECONDS);
       }
       
@@ -98,7 +98,7 @@ export default function TopBar() {
               <CalculatorIcon className="mr-2 h-4 w-4" /> Calculator
             </Button>
           </div>
-          <span className="text-sm font-medium">Section: Decision Making</span>
+          {/* "Section: Decision Making" text removed from here */}
           <div>
             <Button
               onClick={handleFlagToggle}

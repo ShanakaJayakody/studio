@@ -37,7 +37,7 @@
     --ucat-dark-blue-bg: 203 100% 33%; /* #006DAA */
     --ucat-dark-blue-fg: 0 0% 98%; /* White text */
     --ucat-light-blue-bar-bg: 210 60% 61%; /* #5E98D9 */
-    --ucat-light-blue-bar-fg: 231 64% 29%; /* Dark text on light blue bar */
+    --ucat-light-blue-bar-fg: 0 0% 98%; /* White text on light blue bar */
     --ucat-content-area-bg: 0 0% 100%; /* White */
     --ucat-content-area-fg: 231 35% 25%; /* Dark text in content area */
   }
