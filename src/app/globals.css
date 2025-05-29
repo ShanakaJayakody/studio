@@ -23,7 +23,7 @@
     --muted-foreground: 231 25% 45%;
 
     --accent: 216 100% 75%; /* #82B1FF Sky Blue for navigation buttons / key highlights */
-    --accent-foreground: 231 64% 29%; /* Deep blue text on sky blue accent */
+    --accent-foreground: 0 0% 98%; /* White text on sky blue accent */
 
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 0 0% 98%;
@@ -57,7 +57,7 @@
     --muted: 217 33% 17%;
     --muted-foreground: 215 20% 65%;
     --accent: 217 33% 17%;
-    --accent-foreground: 210 40% 98%;
+    --accent-foreground: 210 40% 98%; /* Ensure dark mode accent foreground is also light if accent is dark */
     --destructive: 0 63% 31%;
     --destructive-foreground: 210 40% 98%;
     --border: 217 33% 17%;

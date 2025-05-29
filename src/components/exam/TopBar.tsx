@@ -22,10 +22,6 @@ export default function TopBar() {
     let intervalId: NodeJS.Timeout | undefined;
 
     if (examPhase === 'in-progress') {
-      // If timeLeft is 0 from a previous session and exam restarts,
-      // ensure it is reset before starting interval.
-      // The initial useState should handle this for a fresh start,
-      // and the 'else' block handles resets after 'results' or 'instructions'.
       if (timeLeft <= 0 && EXAM_DURATION_SECONDS > 0) { 
         setTimeLeft(EXAM_DURATION_SECONDS);
       }
@@ -34,25 +30,21 @@ export default function TopBar() {
         setTimeLeft((prevTime) => {
           if (prevTime <= 1) {
             clearInterval(intervalId!);
-            // Potentially call submitExam() here if auto-submission is desired when time runs out.
-            // For now, just stops at 00:00.
             return 0;
           }
           return prevTime - 1;
         });
       }, 1000);
     } else {
-      // If not in progress (e.g., instructions, results), reset timer to full duration.
       setTimeLeft(EXAM_DURATION_SECONDS);
     }
 
-    // Cleanup function for the useEffect
     return () => {
       if (intervalId) {
         clearInterval(intervalId);
       }
     };
-  }, [examPhase]); // Dependency array ensures this effect re-runs when examPhase changes.
+  }, [examPhase, timeLeft]); // Added timeLeft to dependencies to handle reset correctly
 
   const formatTime = (seconds: number) => {
     const minutes = Math.floor(seconds / 60);
@@ -93,12 +85,15 @@ export default function TopBar() {
               onClick={() => setIsCalculatorOpen(true)}
               variant="outline"
               aria-label="Open Calculator"
-              className="border-accent text-accent hover:bg-accent/10 transition-colors duration-200 px-3 py-1 h-8 text-sm"
+              className={cn(
+                "border-[hsl(var(--ucat-light-blue-bar-fg))] text-[hsl(var(--ucat-light-blue-bar-fg))]",
+                "hover:bg-accent hover:text-[hsl(var(--accent-foreground))]", // Accent bg is sky blue, accent-foreground is now white
+                "transition-colors duration-200 px-3 py-1 h-8 text-sm"
+              )}
             >
               <CalculatorIcon className="mr-2 h-4 w-4" /> Calculator
             </Button>
           </div>
-          {/* "Section: Decision Making" text removed from here */}
           <div>
             <Button
               onClick={handleFlagToggle}
@@ -108,7 +103,10 @@ export default function TopBar() {
                 "transition-colors duration-200 px-3 py-1 h-8 text-sm",
                 flagged
                   ? "bg-destructive text-destructive-foreground hover:bg-destructive/90"
-                  : "border-accent text-accent hover:bg-accent/10"
+                  : cn(
+                      "border-[hsl(var(--ucat-light-blue-bar-fg))] text-[hsl(var(--ucat-light-blue-bar-fg))]",
+                      "hover:bg-accent hover:text-[hsl(var(--accent-foreground))]" // Accent bg is sky blue, accent-foreground is now white
+                    )
               )}
             >
               <Flag className="mr-2 h-4 w-4" /> {flagged ? "Flagged" : "Flag"}
