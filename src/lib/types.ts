@@ -62,3 +62,4 @@ export type ExamMetadata = {
   durationMinutes?: number;
   questionCount?: number;
 };
+

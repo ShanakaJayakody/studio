@@ -22,6 +22,7 @@ export async function getQuestions(collectionName: string = 'questions', examId?
       );
     } else {
       // Fallback if no examId is provided, though typically you'd always want an examId context
+      // For a general question bank view, you might remove the examId filter or sort differently
       q = query(questionsCol, orderBy('orderIndex'));
     }
     
@@ -29,28 +30,30 @@ export async function getQuestions(collectionName: string = 'questions', examId?
     
     const questions = querySnapshot.docs.map(doc => {
       const data = doc.data();
+      // Ensure all fields from the Question type are mapped
       return {
         id: doc.id,
         type: data.type,
         section: data.section,
         stimulus: data.stimulus,
         questionText: data.questionText,
-        conclusions: data.conclusions,
-        options: data.options,
+        conclusions: data.conclusions, // Will be undefined if not a YesNoStatementsQuestion, which is fine
+        options: data.options,         // Will be undefined if not an MCQQuestion, which is fine
         correctAnswer: data.correctAnswer,
         explanation: data.explanation,
         orderIndex: data.orderIndex,
         examIds: data.examIds,
-      } as Question;
+      } as Question; // Type assertion
     });
     
     return questions;
   } catch (error) {
     console.error("Error fetching questions from Firestore:", error);
-    if (error instanceof Error && error.message.includes("indexes?")) {
-        console.error("Firestore composite index might be required. Check the Firebase console for a link to create it.");
+    // Check if the error message suggests a missing index
+    if (error instanceof Error && error.message.includes("indexes?") || (error instanceof Error && error.message.includes("requires an index"))) {
+        console.error("Firestore composite index might be required. Check the Firebase console for a link to create it. The query involves filtering by 'examIds' (array-contains) and ordering by 'orderIndex'.");
     }
-    return []; 
+    return []; // Return an empty array or throw the error, depending on desired error handling
   }
 }
 
@@ -82,3 +85,4 @@ export async function getAvailableExams(): Promise<ExamMetadata[]> {
     return [];
   }
 }
+
