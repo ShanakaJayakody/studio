@@ -16,42 +16,49 @@ export default function RootPage() {
   }, []);
 
   useEffect(() => {
-    if (isClient && !authLoading) {
-      if (!currentUser) {
-        // If not logged in and not already on login/signup, redirect to login
-        if (pathname !== '/login' && pathname !== '/signup') {
-          router.push('/login');
-        }
-      } else {
-        // If logged in
-        if (pathname === '/login' || pathname === '/signup') {
-          // If on login/signup, redirect to dashboard
-          router.push('/dashboard/home');
-        } else if (pathname === '/') {
-          // If on root, redirect to dashboard
-          router.push('/dashboard/home');
-        }
-        // If already on a dashboard path or exam path, do nothing, let that page handle itself.
+    if (!isClient || authLoading) {
+      return; // Wait for client hydration and auth state to be definitively known
+    }
+
+    if (!currentUser) {
+      // User is not logged in
+      if (pathname !== '/login' && pathname !== '/signup') {
+        // If not already on an auth page, redirect to login
+        router.push('/login');
       }
+      // If on /login or /signup, do nothing, let those pages render
+    } else {
+      // User is logged in
+      if (pathname === '/login' || pathname === '/signup') {
+        // If logged in user tries to access login/signup, redirect to dashboard
+        router.push('/dashboard/home');
+      } else if (pathname === '/') {
+        // If logged in user is at the root, redirect to dashboard
+        router.push('/dashboard/home');
+      }
+      // If logged in and on any other authenticated page (e.g., /dashboard/*, /exams/*), do nothing.
+      // Those pages should handle their own content rendering.
     }
   }, [isClient, authLoading, currentUser, router, pathname]);
 
-  // Show a loading indicator while determining auth state or if it's not a redirect scenario for this page
-  // This page itself doesn't render content other than redirecting or showing loading.
-  if (authLoading || !isClient || (currentUser && pathname === '/')) {
+  // Initial rendering logic
+  if (authLoading || !isClient) {
+    // Show a loading screen while waiting for auth state or client hydration
     return (
       <div className="flex items-center justify-center min-h-screen bg-[hsl(var(--background))]">
         <p className="text-lg text-[hsl(var(--foreground))]">Loading...</p>
       </div>
     );
   }
-  
-  // If not logged in and on login/signup, let those pages render.
+
+  // If client is ready, auth is loaded:
+  // If user is not authenticated AND is trying to access login/signup, let those pages render themselves.
   if (!currentUser && (pathname === '/login' || pathname === '/signup')) {
     return null; 
   }
-
-  // Fallback for any other scenario, though ideally covered by redirects.
+  
+  // In all other scenarios (e.g. redirect is about to happen, or user is authenticated and on a non-auth page not yet handled by redirect),
+  // show a generic message. The useEffect handles the actual navigation.
   return (
     <div className="flex items-center justify-center min-h-screen bg-[hsl(var(--background))]">
       <p className="text-lg text-[hsl(var(--foreground))]">Determining route...</p>

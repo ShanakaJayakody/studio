@@ -7,11 +7,11 @@ import InstructionsScreen from '@/components/exam/InstructionsScreen';
 import ExamInterface from '@/components/exam/ExamInterface';
 import ResultsScreen from '@/components/exam/ResultsScreen';
 import ReviewScreen from '@/components/exam/ReviewScreen';
-// import { DECISION_MAKING_QUESTIONS } from '@/lib/questions'; // No longer importing static questions
-import { getQuestions } from '@/services/questionService'; // Import the new service
+import { getQuestions } from '@/services/questionService';
 import type { ExamPhase, Question } from '@/lib/types';
 import { useAuth } from '@/contexts/AuthContext';
 import { useRouter } from 'next/navigation';
+import { Button } from '@/components/ui/button'; // Added Button import
 
 export default function DecisionMakingTestPage() {
   const [examPhase, setExamPhase] = useState<ExamPhase>('instructions');
@@ -35,11 +35,9 @@ export default function DecisionMakingTestPage() {
 
   useEffect(() => {
     async function loadQuestions() {
-      if (isClient) { // Only fetch once client-side
+      if (isClient) { 
         try {
           setQuestionsLoading(true);
-          // You might want to specify a collection name if it's not 'questions'
-          // e.g., getQuestions('decisionMakingQuestions');
           const fetchedQuestions = await getQuestions('questions'); 
           if (fetchedQuestions.length === 0) {
             setQuestionsError("No questions found. Please ensure questions are loaded in Firestore collection 'questions' and security rules allow access.");
@@ -55,25 +53,36 @@ export default function DecisionMakingTestPage() {
         }
       }
     }
-    loadQuestions();
-  }, [isClient]);
+    if (currentUser) { // Only load questions if user is potentially authenticated
+        loadQuestions();
+    } else if (isClient && !authLoading && !currentUser) {
+        // If definitely not authenticated, don't bother loading questions
+        setQuestionsLoading(false);
+    }
+  }, [isClient, currentUser, authLoading]); // Depend on currentUser and authLoading
 
-  if (authLoading || !isClient) {
+  if (authLoading || !isClient || (questionsLoading && currentUser) ) { // Show loading if auth is pending, client not ready, or questions loading for an authenticated user
     return (
       <div className="flex items-center justify-center min-h-screen bg-[hsl(var(--background))]">
-        <p className="text-lg text-[hsl(var(--foreground))]">Loading User Data...</p>
+        <p className="text-lg text-[hsl(var(--foreground))]">
+          {authLoading || !isClient ? "Loading User Data..." : "Loading Exam Questions..."}
+        </p>
       </div>
     );
   }
   
-  if (questionsLoading) {
+  // After initial loading, check currentUser explicitly
+  if (!currentUser) {
+    // This state will be brief as the useEffect above should redirect.
+    // This ensures we don't render exam content while redirecting.
     return (
       <div className="flex items-center justify-center min-h-screen bg-[hsl(var(--background))]">
-        <p className="text-lg text-[hsl(var(--foreground))]">Loading Exam Questions...</p>
+        <p className="text-lg text-[hsl(var(--foreground))]">Redirecting to login...</p>
       </div>
     );
   }
 
+  // If user is authenticated, but there was an error loading questions
   if (questionsError) {
     return (
       <div className="flex flex-col items-center justify-center min-h-screen bg-[hsl(var(--background))] p-4">
@@ -86,13 +95,13 @@ export default function DecisionMakingTestPage() {
     );
   }
   
-  if (!currentUser) {
-     // Should be handled by the earlier redirect, but as a fallback
-    return (
-      <div className="flex items-center justify-center min-h-screen bg-[hsl(var(--background))]">
-        <p className="text-lg text-[hsl(var(--foreground))]">Redirecting to login...</p>
-      </div>
-    );
+  // If questions are still somehow loading here, or no questions (should be caught by questionsError but as a fallback)
+  if (questions.length === 0 && !questionsError) {
+      return (
+          <div className="flex items-center justify-center min-h-screen bg-[hsl(var(--background))]">
+              <p className="text-lg text-[hsl(var(--foreground))]">Preparing exam...</p>
+          </div>
+      );
   }
 
   return (
