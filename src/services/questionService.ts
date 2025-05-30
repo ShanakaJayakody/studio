@@ -11,12 +11,9 @@ import type { Question } from '@/lib/types';
 export async function getQuestions(collectionName: string = 'questions'): Promise<Question[]> {
   try {
     const questionsCol = collection(db, collectionName);
-    // Ensure your Firestore documents have an 'id' field that matches the document ID
-    // or an 'orderIndex' field for sorting.
-    // UCAT questions typically have a fixed order.
-    // Sorting by 'id' here assumes question IDs are sortable (e.g., 'dm_q1', 'dm_q2').
-    // If you use a numerical 'orderIndex', change orderBy('id') to orderBy('orderIndex').
-    const q = query(questionsCol, orderBy('id')); 
+    // Sort by 'orderIndex' to ensure questions are displayed in a specific sequence.
+    // Ensure your Firestore documents have a numeric 'orderIndex' field.
+    const q = query(questionsCol, orderBy('orderIndex')); 
     const querySnapshot = await getDocs(q);
     
     const questions = querySnapshot.docs.map(doc => {
@@ -32,6 +29,7 @@ export async function getQuestions(collectionName: string = 'questions'): Promis
         options: data.options, // For MCQ
         correctAnswer: data.correctAnswer,
         explanation: data.explanation,
+        orderIndex: data.orderIndex, // Include orderIndex if present in your data
       } as Question; // Type assertion, ensure data matches
     });
     
@@ -43,3 +41,4 @@ export async function getQuestions(collectionName: string = 'questions'): Promis
     return []; 
   }
 }
+
