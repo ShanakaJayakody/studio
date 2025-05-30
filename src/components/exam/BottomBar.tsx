@@ -4,7 +4,7 @@
 import { useState } from 'react';
 import { useExam } from '@/contexts/ExamContext';
 import { Button } from '@/components/ui/button';
-import { ArrowLeft, ArrowRight, LayoutGrid } from 'lucide-react';
+import { ArrowLeft, ArrowRight, LayoutGrid, CheckCircle } from 'lucide-react'; // Added CheckCircle
 import NavigatorDialog from './NavigatorDialog';
 import { cn } from '@/lib/utils';
 
@@ -19,12 +19,12 @@ export default function BottomBar() {
 
   const [isNavigatorOpen, setIsNavigatorOpen] = useState(false);
 
-  const navButtonBaseClass = "bg-accent text-accent-foreground hover:bg-accent/90 transition-transform duration-200 hover:scale-105 text-base"; // Added text-base
+  const navButtonBaseClass = "bg-accent text-accent-foreground hover:bg-accent/90 transition-all duration-200 ease-in-out hover:scale-105 text-base";
   const navButtonDisabledClass = "bg-muted text-muted-foreground hover:bg-muted cursor-not-allowed";
 
   const handleNextOrReview = () => {
     if (isLastQuestion) {
-      setExamPhase('review');
+      setExamPhase('review'); // Go to review screen
     } else {
       nextQuestion();
     }
@@ -55,7 +55,8 @@ export default function BottomBar() {
             aria-label={isLastQuestion ? "Review Answers" : "Next Question"}
             className={cn(navButtonBaseClass)}
           >
-            {isLastQuestion ? "Review Answers" : "Next"} <ArrowRight className="ml-2 h-5 w-5" />
+            {isLastQuestion ? "Review Answers" : "Next"} 
+            {isLastQuestion ? <CheckCircle className="ml-2 h-5 w-5" /> : <ArrowRight className="ml-2 h-5 w-5" />}
           </Button>
         </div>
       </div>

@@ -11,7 +11,7 @@ import type { UserAnswer, YesNoAnswer, Statement, Question, YesNoStatementsQuest
 import { cn } from '@/lib/utils';
 
 export default function ResultsScreen() {
-  const { questions, userAnswers, examStartTime, setExamPhase, flaggedQuestions } = useExam();
+  const { questions, userAnswers, examStartTime, setExamPhase, flaggedQuestions, reviewQuestion } = useExam();
   const questionDetailsRef = useRef<(HTMLDivElement | null)[]>([]);
 
   const calculateScoreAndPossibleMarks = () => {
@@ -21,7 +21,7 @@ export default function ResultsScreen() {
     questions.forEach(q => {
       const userAnswerForQuestion = userAnswers[q.id];
       if (q.type === 'YesNoStatements') {
-        currentTotalPossibleMarks += 2;
+        currentTotalPossibleMarks += 2; // Max 2 marks for YesNoStatements
         const userAnswer = userAnswerForQuestion as Record<string, YesNoAnswer | undefined> | undefined;
         let correctStatements = 0;
         let answeredStatements = 0;
@@ -35,12 +35,13 @@ export default function ResultsScreen() {
             }
           });
         }
-        if (q.conclusions.length === 5 && answeredStatements > 0) {
-          if (correctStatements === 5) currentScore += 2;
-          else if (correctStatements === 4) currentScore += 1;
+        if (q.conclusions.length > 0 && answeredStatements > 0) { // Ensure there are conclusions and at least one was answered
+          if (correctStatements === q.conclusions.length) currentScore += 2; // All correct
+          else if (q.conclusions.length - correctStatements === 1 && q.conclusions.length > 1) currentScore += 1; // One wrong (e.g. 4/5 correct)
+          // 0 marks if more than one is wrong or if conditions not met
         }
       } else if (q.type === 'MCQ') {
-        currentTotalPossibleMarks += 1;
+        currentTotalPossibleMarks += 1; // Max 1 mark for MCQ
         if (typeof userAnswerForQuestion === 'string' && userAnswerForQuestion === q.correctAnswer) {
           currentScore += 1;
         }
@@ -83,7 +84,6 @@ export default function ResultsScreen() {
   };
   
   const handleReviewAllQuestions = () => {
-    // Scrolls to the top of the detailed breakdown list
     const firstDetailElement = document.getElementById('question-detail-0');
     firstDetailElement?.scrollIntoView({ behavior: 'smooth', block: 'start'});
   };
@@ -104,7 +104,6 @@ export default function ResultsScreen() {
         </div>
       </header>
 
-      {/* Summary Cards - Kept for overall stats */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6 text-center">
         <Card className="p-4 bg-primary/10 shadow-md">
           <CardTitle className="text-2xl text-primary">{score} / {totalPossibleMarks}</CardTitle>
@@ -116,7 +115,6 @@ export default function ResultsScreen() {
         </Card>
       </div>
 
-      {/* Question Grid */}
       <div className="mb-8">
         <h2 className="text-xl font-semibold text-[hsl(var(--primary))] mb-3">Question Overview</h2>
         <div className="grid grid-cols-5 sm:grid-cols-8 md:grid-cols-10 lg:grid-cols-12 gap-2">
@@ -138,9 +136,9 @@ export default function ResultsScreen() {
                 });
               }
               isUnanswered = answeredStatements === 0;
-              if (!isUnanswered && q.conclusions.length === 5) {
-                if (correctStatements === 5) marksObtainedForQuestion = 2;
-                else if (correctStatements === 4) marksObtainedForQuestion = 1;
+              if (!isUnanswered && q.conclusions.length > 0) {
+                if (correctStatements === q.conclusions.length) marksObtainedForQuestion = 2;
+                else if (q.conclusions.length - correctStatements === 1) marksObtainedForQuestion = 1;
               }
             } else if (q.type === 'MCQ') {
               possibleMarksForQuestion = 1;
@@ -155,13 +153,13 @@ export default function ResultsScreen() {
             if (isUnanswered) {
               // Default gray for unanswered
             } else if (marksObtainedForQuestion === possibleMarksForQuestion && possibleMarksForQuestion > 0) {
-              boxBgColor = 'bg-green-100 hover:bg-green-200'; // Light green for correct
+              boxBgColor = 'bg-green-100 hover:bg-green-200'; 
               boxTextColor = 'text-green-700';
             } else if (q.type === 'YesNoStatements' && marksObtainedForQuestion === 1) {
-              boxBgColor = 'bg-orange-100 hover:bg-orange-200'; // Light orange for partial
+              boxBgColor = 'bg-orange-100 hover:bg-orange-200'; 
               boxTextColor = 'text-orange-700';
             } else {
-              boxBgColor = 'bg-red-100 hover:bg-red-200'; // Light red for incorrect
+              boxBgColor = 'bg-red-100 hover:bg-red-200'; 
               boxTextColor = 'text-red-700';
             }
             const isFlagged = flaggedQuestions.has(index);
@@ -175,7 +173,7 @@ export default function ResultsScreen() {
                   "h-12 w-full flex flex-col items-center justify-center text-xs p-1 relative rounded-md border shadow-sm transition-colors duration-150",
                   boxBgColor,
                   boxTextColor,
-                  "border-current" // Use text color for border
+                  "border-current" 
                 )}
                 aria-label={`Review question ${index + 1}`}
               >
@@ -187,7 +185,6 @@ export default function ResultsScreen() {
         </div>
       </div>
       
-      {/* Detailed Breakdown (Scrollable List) */}
       <div>
         <h2 className="text-xl font-semibold text-[hsl(var(--primary))] mb-3">Detailed Review</h2>
         <ScrollArea className="h-[60vh] border rounded-md p-1 bg-card shadow">
@@ -214,9 +211,9 @@ export default function ResultsScreen() {
                 });
               }
               isUnanswered = answeredStatements === 0;
-              if (!isUnanswered && ynq.conclusions.length === 5) {
-                if (correctStatements === 5) marksObtainedForQuestion = 2;
-                else if (correctStatements === 4) marksObtainedForQuestion = 1;
+              if (!isUnanswered && ynq.conclusions.length > 0) {
+                if (correctStatements === ynq.conclusions.length) marksObtainedForQuestion = 2;
+                else if (ynq.conclusions.length - correctStatements === 1) marksObtainedForQuestion = 1;
               }
               if (!isUnanswered && marksObtainedForQuestion < possibleMarksForQuestion) {
                  correctAnswerDisplay = (
@@ -268,7 +265,8 @@ export default function ResultsScreen() {
                 key={q.id} 
                 id={`question-detail-${index}`} 
                 ref={el => questionDetailsRef.current[index] = el} 
-                className="scroll-mt-4" // For better scroll positioning
+                className="scroll-mt-4 cursor-pointer hover:ring-2 hover:ring-primary rounded-md" // Added cursor and hover effect
+                onClick={() => reviewQuestion(index)} // Make the detail card clickable
               >
                 <Card className={cn("p-3", cardBg)}>
                   <div className="flex justify-between items-start">
@@ -295,7 +293,10 @@ export default function ResultsScreen() {
         <Button 
           onClick={() => setExamPhase('instructions')} 
           size="lg" 
-          className="bg-[hsl(var(--primary))] text-[hsl(var(--primary-foreground))] hover:bg-[hsl(var(--primary))]/90 transition-all duration-300 transform hover:scale-105"
+          className={cn(
+            "bg-[hsl(var(--primary))] text-[hsl(var(--primary-foreground))] hover:bg-[hsl(var(--primary))]/90",
+            "transition-all duration-200 ease-in-out transform hover:scale-105"
+            )}
         >
           Restart Test
         </Button>

@@ -15,6 +15,7 @@ import GoogleIcon from '@/components/icons/GoogleIcon';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useToast } from '@/hooks/use-toast';
+import { cn } from '@/lib/utils';
 
 const signupSchema = z.object({
   email: z.string().email({ message: "Invalid email address." }),
@@ -127,7 +128,14 @@ export default function SignupForm() {
             </FormItem>
           )}
         /> */}
-        <Button type="submit" className="w-full bg-blue-600 hover:bg-blue-700" disabled={isLoading}>
+        <Button 
+          type="submit" 
+          className={cn(
+            "w-full transition-all duration-200 ease-in-out hover:scale-105",
+            "bg-primary text-primary-foreground hover:bg-primary/90" // Consistent primary button styling
+            )} 
+          disabled={isLoading}
+        >
           {isLoading ? 'Creating account...' : <><UserPlus className="mr-2 h-4 w-4" /> Create Account</>}
         </Button>
 
@@ -143,7 +151,7 @@ export default function SignupForm() {
         <Button 
           variant="outline" 
           type="button" 
-          className="w-full bg-white text-black hover:bg-gray-100 border border-border" 
+          className="w-full bg-white text-black hover:bg-gray-100 border border-border transition-all duration-200 ease-in-out hover:scale-105" 
           onClick={handleGoogleSignIn} 
           disabled={isLoading}
         >
@@ -152,7 +160,7 @@ export default function SignupForm() {
         
         <p className="mt-6 text-center text-sm">
           Already have an account?{' '}
-          <Link href="/login" className="font-medium text-blue-600 hover:underline">
+          <Link href="/login" className="font-medium text-primary hover:underline">
             Log In
           </Link>
         </p>

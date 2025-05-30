@@ -5,6 +5,7 @@ import { useExam } from '@/contexts/ExamContext';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { ScrollArea } from '@/components/ui/scroll-area';
+import { cn } from '@/lib/utils';
 
 export default function InstructionsScreen() {
   const { startExam } = useExam();
@@ -48,7 +49,10 @@ export default function InstructionsScreen() {
           <Button 
             onClick={startExam} 
             size="lg" 
-            className="bg-[hsl(var(--primary))] text-[hsl(var(--primary-foreground))] hover:bg-[hsl(var(--primary))]/90 transition-all duration-300 transform hover:scale-105"
+            className={cn(
+                "bg-[hsl(var(--primary))] text-[hsl(var(--primary-foreground))] hover:bg-[hsl(var(--primary))]/90",
+                "transition-all duration-200 ease-in-out transform hover:scale-105"
+            )}
           >
             Start Test
           </Button>

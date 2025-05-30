@@ -8,6 +8,7 @@ import Link from "next/link";
 import { FileText, PlayCircle, AlertTriangle } from "lucide-react";
 import { getAvailableExams } from '@/services/questionService';
 import type { ExamMetadata } from '@/lib/types';
+import { cn } from '@/lib/utils';
 
 export default function ExamsPage() {
   const [availableExams, setAvailableExams] = useState<ExamMetadata[]>([]);
@@ -73,7 +74,13 @@ export default function ExamsPage() {
                     <CardDescription className="mt-1">{exam.description}</CardDescription>
                   </div>
                   <Link href={`/exams/${exam.id}`} passHref legacyBehavior>
-                    <Button asChild className="bg-primary hover:bg-primary/90 w-full sm:w-auto">
+                    <Button 
+                      asChild 
+                      className={cn(
+                        "bg-primary hover:bg-primary/90 w-full sm:w-auto",
+                        "transition-all duration-200 ease-in-out hover:scale-105"
+                        )}
+                    >
                       <a><PlayCircle className="mr-2 h-5 w-5" /> Start Exam</a>
                     </Button>
                   </Link>
