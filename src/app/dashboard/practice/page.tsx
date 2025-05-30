@@ -2,7 +2,7 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import Link from "next/link";
 import Image from "next/image";
-import { Brain, Scale, TestTube2, GraduationCap } from "lucide-react";
+import { BookOpenText, GitFork, Calculator, GraduationCap } from "lucide-react"; // Updated imports
 
 const practiceCategories = [
   {
@@ -11,7 +11,7 @@ const practiceCategories = [
     link: "/dashboard/practice/verbal-reasoning", // Placeholder, actual page not created yet
     imageUrl: "https://placehold.co/600x400.png",
     aiHint: "abstract reasoning",
-    icon: <Brain className="h-8 w-8 text-primary mb-2" />
+    icon: <BookOpenText className="h-8 w-8 text-primary mb-2" /> // Changed icon
   },
   {
     title: "Decision Making",
@@ -19,7 +19,7 @@ const practiceCategories = [
     link: "/dashboard/practice/exams", // Links to the exam listing page
     imageUrl: "https://placehold.co/600x400.png",
     aiHint: "decision analysis",
-    icon: <Scale className="h-8 w-8 text-primary mb-2" />
+    icon: <GitFork className="h-8 w-8 text-primary mb-2" /> // Changed icon
   },
   {
     title: "Quantitative Reasoning",
@@ -27,7 +27,7 @@ const practiceCategories = [
     link: "/dashboard/practice/quantitative-reasoning", // Placeholder
     imageUrl: "https://placehold.co/600x400.png",
     aiHint: "data charts",
-    icon: <TestTube2 className="h-8 w-8 text-primary mb-2" />
+    icon: <Calculator className="h-8 w-8 text-primary mb-2" /> // Changed icon
   },
   {
     title: "Full Exams",
@@ -35,7 +35,7 @@ const practiceCategories = [
     link: "/dashboard/practice/exams",
     imageUrl: "https://placehold.co/600x400.png",
     aiHint: "exam hall",
-    icon: <GraduationCap className="h-8 w-8 text-primary mb-2" />
+    icon: <GraduationCap className="h-8 w-8 text-primary mb-2" /> // Kept icon
   },
 ];
 
