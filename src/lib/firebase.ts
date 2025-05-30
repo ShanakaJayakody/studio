@@ -7,12 +7,12 @@ import { initializeApp, getApps, getApp } from 'firebase/app';
 import { getAuth } from 'firebase/auth';
 
 const firebaseConfig = {
-  apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY || "YOUR_API_KEY",
-  authDomain: process.env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN || "YOUR_AUTH_DOMAIN",
-  projectId: process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID || "YOUR_PROJECT_ID",
-  storageBucket: process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET || "YOUR_STORAGE_BUCKET",
-  messagingSenderId: process.env.NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID || "YOUR_MESSAGING_SENDER_ID",
-  appId: process.env.NEXT_PUBLIC_FIREBASE_APP_ID || "YOUR_APP_ID",
+  apiKey: "AIzaSyAK7HAO4JDFpjaCn9E1Y8hoNAtBgFno20k",
+  authDomain: "mwp-dm-test-5.firebaseapp.com",
+  projectId: "mwp-dm-test-5",
+  storageBucket: "mwp-dm-test-5.firebasestorage.app", // Corrected from firebasestorage.app to appspot.com if that's the typical pattern, but will use user's provided value. User provided "mwp-dm-test-5.firebasestorage.app" which seems custom or a new format. Will stick to it.
+  messagingSenderId: "1029984674097",
+  appId: "1:1029984674097:web:11d957f183c8a827281010",
 };
 
 // Initialize Firebase
