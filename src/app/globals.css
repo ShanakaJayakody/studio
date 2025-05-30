@@ -4,74 +4,80 @@
 
 @layer base {
   :root {
-    --background: 218 65% 90%; /* #D8E2F3 Soft, desaturated light-blue for overall page background */
-    --foreground: 231 35% 25%; /* Darker blue for text on general background */
+    --background: 210 17% 98%; /* #F8F9FA - Neutral Background Light */
+    --foreground: 225 5% 20%; /* Dark Charcoal/Gray for text on light background */
 
-    --card: 0 0% 100%; /* White for content area like questions */
-    --card-foreground: 231 35% 25%; /* Text on white content area */
+    --card: 0 0% 100%; /* White */
+    --card-foreground: 225 5% 20%; /* Dark text on white card */
 
-    --popover: 0 0% 100%;
-    --popover-foreground: 231 35% 25%;
+    --popover: 0 0% 100%; /* White */
+    --popover-foreground: 225 5% 20%; /* Dark text on white popover */
 
-    --primary: 231 64% 29%; /* #1A237E Deep blue for primary interactive elements */
+    --primary: 212 78% 46%; /* #1967D2 - Deep Blue */
     --primary-foreground: 0 0% 98%; /* White text on deep blue */
 
-    --secondary: 216 80% 85%; /* A lighter variant of sky blue for less emphasis */
-    --secondary-foreground: 231 64% 29%; /* Deep blue text on this lighter sky blue */
+    --secondary: 212 88% 75%; /* #89B5F7 - Lighter Sky Blue */
+    --secondary-foreground: 212 78% 30%; /* Darker blue for text on light blue secondary */
 
-    --muted: 220 50% 80%;
-    --muted-foreground: 231 25% 45%;
+    --muted: 210 17% 90%; /* Light gray derived from neutrals */
+    --muted-foreground: 225 5% 40%; /* Mid-gray for text on muted */
 
-    --accent: 216 100% 75%; /* #82B1FF Sky Blue for navigation buttons / key highlights */
-    --accent-foreground: 0 0% 98%; /* White text on sky blue accent */
+    --accent: 212 88% 75%; /* #89B5F7 - Lighter Sky Blue (for interactive highlights) */
+    --accent-foreground: 212 78% 30%; /* Darker blue text on this accent */
 
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 0 0% 98%;
+    --destructive: 3 69% 50%; /* #D93025 - Red */
+    --destructive-foreground: 0 0% 98%; /* White text on red */
 
-    --border: 220 40% 80%; /* Border consistent with light blue theme */
-    --input: 220 40% 80%;
-    --ring: 216 100% 75%; /* Sky Blue for focus rings */
+    --border: 210 17% 88%; /* Light gray border */
+    --input: 210 17% 88%; /* Light gray input background */
+    --ring: 212 78% 46%; /* Primary color for focus rings */
     --radius: 0.5rem;
 
     /* UCAT specific layout colors */
-    --ucat-dark-blue-bg: 203 100% 33%; /* #006DAA */
+    --ucat-dark-blue-bg: 212 78% 46%; /* Aligned with new primary */
     --ucat-dark-blue-fg: 0 0% 98%; /* White text */
-    --ucat-light-blue-bar-bg: 210 60% 61%; /* #5E98D9 */
-    --ucat-light-blue-bar-fg: 0 0% 98%; /* White text on light blue bar */
-    --ucat-content-area-bg: 0 0% 100%; /* White */
-    --ucat-content-area-fg: 231 35% 25%; /* Dark text in content area */
+    --ucat-light-blue-bar-bg: 212 88% 75%; /* Aligned with new secondary/accent */
+    --ucat-light-blue-bar-fg: 212 78% 30%; /* Darker blue text */
+    --ucat-content-area-bg: 0 0% 100%; /* White for exam content area */
+    --ucat-content-area-fg: 225 5% 20%; /* Main foreground for text in content area */
   }
 
   .dark {
-    /* Keeping shadcn dark theme defaults, not strictly UCAT style for dark mode */
-    --background: 222 47% 11%;
-    --foreground: 210 40% 98%;
-    --card: 222 47% 11%;
-    --card-foreground: 210 40% 98%;
-    --popover: 222 47% 11%;
-    --popover-foreground: 210 40% 98%;
-    --primary: 210 40% 98%;
-    --primary-foreground: 222 47% 11%;
-    --secondary: 217 33% 17%;
-    --secondary-foreground: 210 40% 98%;
-    --muted: 217 33% 17%;
-    --muted-foreground: 215 20% 65%;
-    --accent: 217 33% 17%;
-    --accent-foreground: 210 40% 98%; /* Ensure dark mode accent foreground is also light if accent is dark */
-    --destructive: 0 63% 31%;
-    --destructive-foreground: 210 40% 98%;
-    --border: 217 33% 17%;
-    --input: 217 33% 17%;
-    --ring: 215 28% 47%;
+    --background: 225 5% 14%; /* #202124 - Dark Charcoal Background */
+    --foreground: 210 17% 95%; /* Very light gray for text on dark background */
 
-    /* UCAT specific layout colors for dark mode (conceptual) */
-    /* For dark mode, let's invert the lightness or use alternative dark theme colors */
-    --ucat-dark-blue-bg: 210 60% 61%; /* Lighter blue becomes the "dark" bar in dark mode */
-    --ucat-dark-blue-fg: 231 64% 29%; /* Dark text on lighter blue */
-    --ucat-light-blue-bar-bg: 203 100% 33%; /* Darker blue becomes "light" bar */
+    --card: 225 5% 18%; /* Slightly lighter than dark background */
+    --card-foreground: 210 17% 95%;
+
+    --popover: 225 5% 18%;
+    --popover-foreground: 210 17% 95%;
+
+    --primary: 212 88% 75%; /* Light blue for dark mode primary (better contrast) */
+    --primary-foreground: 212 78% 30%; /* Darker blue for text on light blue primary in dark mode */
+
+    --secondary: 212 78% 46%; /* Original deep blue for secondary actions in dark mode */
+    --secondary-foreground: 0 0% 98%; /* White text */
+
+    --muted: 225 5% 25%;
+    --muted-foreground: 210 17% 70%;
+
+    --accent: 212 78% 46%; /* Original deep blue for accents in dark mode */
+    --accent-foreground: 0 0% 98%; /* White text */
+
+    --destructive: 3 60% 55%; /* A slightly lighter red for dark mode */
+    --destructive-foreground: 0 0% 98%;
+
+    --border: 225 5% 30%;
+    --input: 225 5% 30%;
+    --ring: 212 88% 75%; /* Light blue ring */
+
+    /* UCAT specific layout colors for dark mode */
+    --ucat-dark-blue-bg: 212 88% 75%; /* Lighter blue becomes the "dark" bar in dark mode */
+    --ucat-dark-blue-fg: 212 78% 30%; /* Darker text on lighter blue */
+    --ucat-light-blue-bar-bg: 212 78% 46%; /* Deeper blue becomes "light" bar */
     --ucat-light-blue-bar-fg: 0 0% 98%; /* White text on darker blue */
-    --ucat-content-area-bg: 222 47% 15%; /* Darker content area */
-    --ucat-content-area-fg: 210 40% 98%;
+    --ucat-content-area-bg: 225 5% 10%; /* Even darker content area */
+    --ucat-content-area-fg: 210 17% 95%; /* Light text in content area */
   }
 }
 
