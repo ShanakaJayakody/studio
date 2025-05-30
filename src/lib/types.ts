@@ -15,24 +15,28 @@ export type Option = {
 export type YesNoStatementsQuestion = {
   id: string;
   type: 'YesNoStatements';
-  section: 'Decision Making';
+  section: 'Decision Making'; // Could be expanded later
   stimulus: string; // This will hold the "Premises"
   questionText: string; // Main question title
   conclusions: Statement[]; // The list of statements to be evaluated
   correctAnswer: Record<string, YesNoAnswer>; // Maps statementId to its correct 'yes' or 'no' answer
   explanation?: string; // Optional explanation for the entire question or specific parts
+  orderIndex?: number; // For ordering questions within a test
+  examIds?: string[]; // Array of exam IDs this question belongs to
 };
 
 // Defines the structure for an MCQ question
 export type MCQQuestion = {
   id: string;
   type: 'MCQ';
-  section: 'Decision Making';
+  section: 'Decision Making'; // Could be expanded later
   stimulus?: string; // Stimulus is optional for MCQs
   questionText: string;
   options: Option[];
   correctAnswer: string; // The ID of the correct option
   explanation?: string;
+  orderIndex?: number; // For ordering questions within a test
+  examIds?: string[]; // Array of exam IDs this question belongs to
 };
 
 // Union type for all possible question structures
@@ -48,3 +52,13 @@ export type AllUserAnswers = Record<string, UserAnswer>;
 
 // Defines the possible phases of the exam
 export type ExamPhase = 'instructions' | 'in-progress' | 'review' | 'results';
+
+// Defines the metadata for an exam
+export type ExamMetadata = {
+  id: string;
+  title: string;
+  description: string;
+  section: string;
+  durationMinutes?: number;
+  questionCount?: number;
+};

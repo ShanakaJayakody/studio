@@ -1,21 +1,36 @@
 
+'use client';
+
+import { useState, useEffect } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
-import { FileText, PlayCircle } from "lucide-react";
-
-const availableExams = [
-  {
-    title: "UCAT Decision Making Test",
-    description: "A full simulation of the Decision Making section of the UCAT exam.",
-    link: "/exams/decision-making", // Link to the actual DM test
-    duration: "37 Minutes",
-    questions: "35 Questions" 
-  },
-  // Add more exams here as they are developed
-];
+import { FileText, PlayCircle, AlertTriangle } from "lucide-react";
+import { getAvailableExams } from '@/services/questionService';
+import type { ExamMetadata } from '@/lib/types';
 
 export default function ExamsPage() {
+  const [availableExams, setAvailableExams] = useState<ExamMetadata[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    async function fetchExams() {
+      try {
+        setLoading(true);
+        const exams = await getAvailableExams();
+        setAvailableExams(exams);
+        setError(null);
+      } catch (err) {
+        console.error("Failed to fetch exams:", err);
+        setError("Could not load available exams. Please try again later.");
+      } finally {
+        setLoading(false);
+      }
+    }
+    fetchExams();
+  }, []);
+
   return (
     <div className="space-y-8">
       <Card className="shadow-lg">
@@ -27,21 +42,38 @@ export default function ExamsPage() {
         </CardHeader>
       </Card>
 
-      {availableExams.length > 0 ? (
+      {loading && (
+        <Card>
+          <CardContent className="pt-6">
+            <p className="text-center text-muted-foreground">Loading available exams...</p>
+          </CardContent>
+        </Card>
+      )}
+
+      {error && (
+         <Card className="border-destructive bg-destructive/10">
+          <CardContent className="pt-6 flex items-center justify-center text-destructive">
+            <AlertTriangle className="h-5 w-5 mr-2" />
+            <p>{error}</p>
+          </CardContent>
+        </Card>
+      )}
+
+      {!loading && !error && availableExams.length > 0 ? (
         <div className="space-y-6">
           {availableExams.map((exam) => (
-            <Card key={exam.title} className="hover:shadow-xl transition-shadow">
+            <Card key={exam.id} className="hover:shadow-xl transition-shadow">
               <CardHeader>
-                <div className="flex justify-between items-start">
-                  <div>
+                <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center">
+                  <div className="mb-4 sm:mb-0">
                     <CardTitle className="text-xl flex items-center">
                       <FileText className="h-6 w-6 mr-3 text-primary"/>
                       {exam.title}
                     </CardTitle>
                     <CardDescription className="mt-1">{exam.description}</CardDescription>
                   </div>
-                  <Link href={exam.link} passHref legacyBehavior>
-                    <Button asChild className="bg-primary hover:bg-primary/90">
+                  <Link href={`/exams/${exam.id}`} passHref legacyBehavior>
+                    <Button asChild className="bg-primary hover:bg-primary/90 w-full sm:w-auto">
                       <a><PlayCircle className="mr-2 h-5 w-5" /> Start Exam</a>
                     </Button>
                   </Link>
@@ -49,17 +81,20 @@ export default function ExamsPage() {
               </CardHeader>
               <CardContent>
                 <div className="flex space-x-4 text-sm text-muted-foreground">
-                  <span>Duration: {exam.duration}</span>
-                  <span>Questions: {exam.questions}</span>
+                  {exam.durationMinutes && <span>Duration: {exam.durationMinutes} Minutes</span>}
+                  {exam.questionCount && <span>Questions: {exam.questionCount}</span>}
+                  <span>Section: {exam.section}</span>
                 </div>
               </CardContent>
             </Card>
           ))}
         </div>
-      ) : (
+      ) : null}
+
+      {!loading && !error && availableExams.length === 0 && (
         <Card>
           <CardContent className="pt-6">
-            <p className="text-center text-muted-foreground">No exams available at the moment. Please check back later.</p>
+            <p className="text-center text-muted-foreground">No exams available at the moment. Please check back later, or ensure exams are set up in Firestore.</p>
           </CardContent>
         </Card>
       )}
