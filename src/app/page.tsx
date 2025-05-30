@@ -15,7 +15,7 @@ import { useRouter, usePathname } from 'next/navigation';
 export default function DecisionMakingTestPage() {
   const [examPhase, setExamPhase] = useState<ExamPhase>('instructions');
   const [isClient, setIsClient] = useState(false);
-  const { currentUser, loading } = useAuth();
+  const { currentUser, loading: authLoading } = useAuth(); // Renamed loading to authLoading for clarity
   const router = useRouter();
   const pathname = usePathname();
 
@@ -23,37 +23,39 @@ export default function DecisionMakingTestPage() {
     setIsClient(true);
   }, []);
 
+  // Client-side effect for routing
   useEffect(() => {
-    if (!loading && !currentUser && pathname !== '/login' && pathname !== '/signup') {
-      router.push('/login');
-    } else if (!loading && currentUser && (pathname === '/login' || pathname === '/signup')) {
-      router.push('/');
+    // Ensure this effect runs only on the client and after auth state is known
+    if (isClient && !authLoading) {
+      if (!currentUser && pathname !== '/login' && pathname !== '/signup') {
+        router.push('/login');
+      } else if (currentUser && (pathname === '/login' || pathname === '/signup')) {
+        router.push('/');
+      }
     }
-  }, [currentUser, loading, router, pathname]);
+  }, [isClient, authLoading, currentUser, router, pathname]);
 
-  if (loading || (!currentUser && pathname !== '/login' && pathname !== '/signup')) {
+  // Universal loading state: Show while auth is resolving or client isn't fully ready.
+  // This ensures server and initial client render match.
+  if (authLoading || !isClient) {
     return (
       <div className="flex items-center justify-center min-h-screen bg-[hsl(var(--background))]">
         <p className="text-lg text-[hsl(var(--foreground))]">Loading...</p>
       </div>
     );
   }
-  
-  // If on login/signup page, let those pages render themselves
+
+  // At this point, isClient is true and authLoading is false.
+  // The routing useEffect above will handle redirects if necessary.
+
+  // If we are on a login or signup page, let those pages render themselves.
+  // The main app page component should return null for these routes.
   if (pathname === '/login' || pathname === '/signup') {
-      return null; 
+    return null;
   }
 
-
-  if (!isClient) { // This is for client-side only rendering of the exam parts
-    return (
-      <div className="flex items-center justify-center min-h-screen bg-[hsl(var(--background))]">
-        <p className="text-lg text-[hsl(var(--foreground))]">Loading Decision Making Test...</p>
-      </div>
-    ); 
-  }
-  
-  // Only render exam content if authenticated and on the root path
+  // If authenticated and on the root path, show the exam.
+  // If !currentUser, the useEffect would have redirected to /login by now if not on login/signup.
   if (currentUser && pathname === '/') {
     return (
       <ExamProvider questions={DECISION_MAKING_QUESTIONS} setExamPhase={setExamPhase}>
@@ -65,7 +67,9 @@ export default function DecisionMakingTestPage() {
     );
   }
 
-  // Fallback or if routing hasn't caught up, show loading
+  // Fallback: This might show briefly during client-side navigation or if
+  // the user is on a path not covered above (e.g. not logged in, not /login, not /signup, but also not /)
+  // though the redirect logic should handle most cases.
   return (
     <div className="flex items-center justify-center min-h-screen bg-[hsl(var(--background))]">
       <p className="text-lg text-[hsl(var(--foreground))]">Loading...</p>
