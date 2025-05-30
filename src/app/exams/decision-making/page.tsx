@@ -11,7 +11,7 @@ import { getQuestions } from '@/services/questionService';
 import type { ExamPhase, Question } from '@/lib/types';
 import { useAuth } from '@/contexts/AuthContext';
 import { useRouter } from 'next/navigation';
-import { Button } from '@/components/ui/button'; // Added Button import
+import { Button } from '@/components/ui/button'; // Ensure Button is imported
 
 export default function DecisionMakingTestPage() {
   const [examPhase, setExamPhase] = useState<ExamPhase>('instructions');
@@ -46,8 +46,12 @@ export default function DecisionMakingTestPage() {
             setQuestionsError(null);
           }
         } catch (error) {
-          console.error("Failed to load questions:", error);
-          setQuestionsError("Failed to load questions. Please check the console for details.");
+          console.error("Error fetching questions from Firestore:", error);
+          if (error instanceof Error && error.message.includes("Missing or insufficient permissions")) {
+            setQuestionsError("Error: Could not load exam questions due to missing or insufficient permissions. Please check Firestore security rules.");
+          } else {
+            setQuestionsError("Failed to load questions. Please check the console for details.");
+          }
         } finally {
           setQuestionsLoading(false);
         }
@@ -87,7 +91,7 @@ export default function DecisionMakingTestPage() {
     return (
       <div className="flex flex-col items-center justify-center min-h-screen bg-[hsl(var(--background))] p-4">
         <p className="text-lg text-destructive mb-2">Error Loading Exam</p>
-        <p className="text-sm text-muted-foreground text-center">{questionsError}</p>
+        <p className="text-sm text-muted-foreground text-center mb-4">{questionsError}</p>
         <Button onClick={() => router.push('/dashboard/home')} className="mt-4">
           Back to Dashboard
         </Button>
