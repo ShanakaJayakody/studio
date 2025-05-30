@@ -10,6 +10,7 @@ import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover
 import { Calendar } from "@/components/ui/calendar";
 import { useState, useEffect } from "react";
 import { format, addDays, differenceInDays } from "date-fns";
+import { cn } from "@/lib/utils"; // Added missing import
 
 // Helper function to generate calendar days
 const generateMonthDays = (year: number, month: number, practiceData: Record<string, 'some' | 'lots' | undefined>) => {
@@ -213,3 +214,4 @@ function StatCard({ icon, title, value, valueColor = "text-primary" }: StatCardP
     </Card>
   );
 }
+
