@@ -6,8 +6,9 @@ import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
-import { Home, BookOpenText, BarChart3, LogOut, UserCircle, Settings, Brain } from 'lucide-react'; // Added Settings, Brain
+import { Home, BookOpenText, BarChart3, LogOut, UserCircle, Settings, Brain, Sun, Moon } from 'lucide-react';
 import { useAuth } from '@/contexts/AuthContext';
+import { useTheme } from '@/contexts/ThemeContext'; // Import useTheme
 import { useEffect } from 'react';
 import Image from 'next/image';
 
@@ -44,6 +45,7 @@ function NavItem({ href, icon, label, isActive, isComingSoon }: NavItemProps) {
 export default function DashboardLayout({ children }: { children: ReactNode }) {
   const pathname = usePathname();
   const { currentUser, logout, loading } = useAuth();
+  const { theme, toggleTheme } = useTheme(); // Use the theme context
   const router = useRouter();
 
   useEffect(() => {
@@ -79,8 +81,8 @@ export default function DashboardLayout({ children }: { children: ReactNode }) {
                 <Image
                   src="https://ik.imagekit.io/mwp/MWP%20Color%20no%20background.png?updatedAt=1745982959141"
                   alt="MED WITH PURPOSE Logo"
-                  width={120} // Adjust as needed
-                  height={32} // Adjust as needed
+                  width={120} 
+                  height={32} 
                   className="object-contain"
                   data-ai-hint="app logo"
                 />
@@ -104,6 +106,15 @@ export default function DashboardLayout({ children }: { children: ReactNode }) {
               <span className="text-sm text-muted-foreground hidden sm:inline">
                 Welcome, {userDisplayName}
               </span>
+              <Button
+                variant="ghost"
+                size="icon"
+                onClick={toggleTheme}
+                aria-label="Toggle theme"
+                className="text-muted-foreground hover:text-primary"
+              >
+                {theme === 'light' ? <Moon className="h-5 w-5" /> : <Sun className="h-5 w-5" />}
+              </Button>
               <Button variant="ghost" size="icon" className="text-muted-foreground hover:text-primary">
                 <Settings className="h-5 w-5" />
                 <span className="sr-only">Settings</span>
@@ -120,7 +131,6 @@ export default function DashboardLayout({ children }: { children: ReactNode }) {
             </div>
           </div>
         </div>
-        {/* Mobile Nav (can be added later if needed) */}
       </header>
       <main className="flex-1 container mx-auto py-8 px-4 sm:px-6 lg:px-8">
         {children}
