@@ -6,30 +6,36 @@ import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
-import { Home, BookOpenText, BarChart3, LogOut, UserCircle } from 'lucide-react';
+import { Home, BookOpenText, BarChart3, LogOut, UserCircle, Settings, Brain } from 'lucide-react'; // Added Settings, Brain
 import { useAuth } from '@/contexts/AuthContext';
 import { useEffect } from 'react';
+import Image from 'next/image';
 
 interface NavItemProps {
   href: string;
   icon: ReactNode;
   label: string;
   isActive: boolean;
+  isComingSoon?: boolean;
 }
 
-function NavItem({ href, icon, label, isActive }: NavItemProps) {
+function NavItem({ href, icon, label, isActive, isComingSoon }: NavItemProps) {
   return (
-    <Link href={href} legacyBehavior passHref>
+    <Link href={isComingSoon ? '#' : href} legacyBehavior passHref>
       <a
         className={cn(
-          'flex items-center space-x-3 px-4 py-3 rounded-lg transition-colors duration-200',
+          'flex items-center space-x-2 px-3 py-2 rounded-md text-sm font-medium transition-colors',
           isActive
-            ? 'bg-primary text-primary-foreground shadow-md'
-            : 'text-muted-foreground hover:bg-muted/50 hover:text-foreground'
+            ? 'text-primary border-b-2 border-primary'
+            : 'text-muted-foreground hover:text-primary',
+          isComingSoon && 'cursor-not-allowed opacity-50'
         )}
+        aria-disabled={isComingSoon}
+        onClick={(e) => isComingSoon && e.preventDefault()}
       >
         {icon}
         <span>{label}</span>
+        {isComingSoon && <span className="text-xs bg-muted text-muted-foreground px-1.5 py-0.5 rounded-sm ml-1">Soon</span>}
       </a>
     </Link>
   );
@@ -58,58 +64,65 @@ export default function DashboardLayout({ children }: { children: ReactNode }) {
     { href: '/dashboard/home', icon: <Home className="h-5 w-5" />, label: 'Home' },
     { href: '/dashboard/practice', icon: <BookOpenText className="h-5 w-5" />, label: 'Practice' },
     { href: '/dashboard/results', icon: <BarChart3 className="h-5 w-5" />, label: 'Results' },
+    { href: '#', icon: <Brain className="h-5 w-5" />, label: 'Skills', isComingSoon: true },
   ];
 
+  const userDisplayName = currentUser?.displayName || currentUser?.email?.split('@')[0] || 'User';
+
   return (
-    <div className="flex min-h-screen bg-muted/40">
-      <aside className="w-64 bg-card p-6 shadow-lg flex flex-col justify-between">
-        <div>
-          <div className="mb-8 text-center">
-            <Link href="/dashboard/home" className="inline-block">
-              <img 
-                src="https://ik.imagekit.io/mwp/MWP%20Color%20no%20background.png?updatedAt=1745982959141" 
-                alt="UCAT Challenger Logo" 
-                className="h-10 mx-auto"
-                data-ai-hint="app logo"
-              />
-            </Link>
-            <p className="mt-2 text-sm text-muted-foreground">UCAT Challenger</p>
-          </div>
-          <nav className="space-y-2">
-            {navItems.map((item) => (
-              <NavItem
-                key={item.href}
-                href={item.href}
-                icon={item.icon}
-                label={item.label}
-                isActive={pathname.startsWith(item.href)}
-              />
-            ))}
-          </nav>
-        </div>
-        <div className="mt-auto">
-           <div className="flex items-center space-x-3 p-3 border-t border-border">
-            <UserCircle className="h-8 w-8 text-muted-foreground" />
-            <div>
-              <p className="text-sm font-medium text-foreground">
-                {currentUser?.displayName || currentUser?.email?.split('@')[0] || 'User'}
-              </p>
-              <p className="text-xs text-muted-foreground">
-                {currentUser?.email}
-              </p>
+    <div className="min-h-screen flex flex-col bg-muted/30">
+      <header className="bg-card shadow-sm sticky top-0 z-50">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex items-center justify-between h-16">
+            <div className="flex items-center">
+              <Link href="/dashboard/home" className="flex-shrink-0">
+                <Image
+                  src="https://ik.imagekit.io/mwp/MWP%20Color%20no%20background.png?updatedAt=1745982959141"
+                  alt="MED WITH PURPOSE Logo"
+                  width={120} // Adjust as needed
+                  height={32} // Adjust as needed
+                  className="object-contain"
+                  data-ai-hint="app logo"
+                />
+              </Link>
+            </div>
+
+            <nav className="hidden md:flex items-center space-x-4 lg:space-x-6">
+              {navItems.map((item) => (
+                <NavItem
+                  key={item.label}
+                  href={item.href}
+                  icon={item.icon}
+                  label={item.label}
+                  isActive={pathname === item.href || (item.href !== '/dashboard/home' && pathname.startsWith(item.href))}
+                  isComingSoon={item.isComingSoon}
+                />
+              ))}
+            </nav>
+
+            <div className="flex items-center space-x-3">
+              <span className="text-sm text-muted-foreground hidden sm:inline">
+                Welcome, {userDisplayName}
+              </span>
+              <Button variant="ghost" size="icon" className="text-muted-foreground hover:text-primary">
+                <Settings className="h-5 w-5" />
+                <span className="sr-only">Settings</span>
+              </Button>
+              <Button
+                variant="outline"
+                className="border-destructive text-destructive hover:bg-destructive hover:text-destructive-foreground"
+                onClick={logout}
+                size="sm"
+              >
+                <LogOut className="mr-2 h-4 w-4" />
+                Logout
+              </Button>
             </div>
           </div>
-          <Button
-            variant="ghost"
-            className="w-full justify-start text-muted-foreground hover:bg-destructive/10 hover:text-destructive mt-2"
-            onClick={logout}
-          >
-            <LogOut className="mr-3 h-5 w-5" />
-            Logout
-          </Button>
         </div>
-      </aside>
-      <main className="flex-1 p-6 lg:p-10 overflow-auto">
+        {/* Mobile Nav (can be added later if needed) */}
+      </header>
+      <main className="flex-1 container mx-auto py-8 px-4 sm:px-6 lg:px-8">
         {children}
       </main>
     </div>
