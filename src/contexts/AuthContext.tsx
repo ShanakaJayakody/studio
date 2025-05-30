@@ -18,11 +18,11 @@ import { useRouter } from 'next/navigation';
 interface AuthContextType {
   currentUser: User | null;
   loading: boolean;
-  signup: typeof createUserWithEmailAndPassword;
-  login: typeof signInWithEmailAndPassword;
+  signup: (email: string, pass: string) => Promise<any>; // Return type of createUserWithEmailAndPassword
+  login: (email: string, pass: string) => Promise<any>; // Return type of signInWithEmailAndPassword
   loginWithGoogle: () => Promise<void>;
   logout: () => Promise<void>;
-  sendPasswordReset: typeof sendPasswordResetEmail;
+  sendPasswordReset: (email: string) => Promise<void>; // Return type of sendPasswordResetEmail
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -52,15 +52,28 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
     return unsubscribe; // Unsubscribe on cleanup
   }, []);
 
+  const handleSignup = async (email: string, pass: string) => {
+    const userCredential = await createUserWithEmailAndPassword(auth, email, pass);
+    router.push('/dashboard/home');
+    return userCredential;
+  };
+
+  const handleLogin = async (email: string, pass: string) => {
+    const userCredential = await signInWithEmailAndPassword(auth, email, pass);
+    router.push('/dashboard/home');
+    return userCredential;
+  };
+
   const loginWithGoogle = async () => {
     const provider = new GoogleAuthProvider();
     try {
       await signInWithPopup(auth, provider);
-      // User will be set by onAuthStateChanged
-      router.push('/'); 
+      // User will be set by onAuthStateChanged, redirect from there or RootPage
+      router.push('/dashboard/home'); 
     } catch (error) {
       console.error("Error during Google sign-in:", error);
       // Handle error (e.g., show a toast message)
+      throw error; // Re-throw to be caught by calling form
     }
   };
 
@@ -73,19 +86,24 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
     }
   };
   
+  const handleSendPasswordReset = async (email: string) => {
+    await sendPasswordResetEmail(auth, email);
+  }
+
   const value = {
     currentUser,
     loading,
-    signup: createUserWithEmailAndPassword.bind(null, auth),
-    login: signInWithEmailAndPassword.bind(null, auth),
+    signup: handleSignup,
+    login: handleLogin,
     loginWithGoogle,
     logout,
-    sendPasswordReset: sendPasswordResetEmail.bind(null, auth),
+    sendPasswordReset: handleSendPasswordReset,
   };
 
   return (
     <AuthContext.Provider value={value}>
-      {!loading && children}
+      {children} 
+      {/* No !loading check here, loading state should be handled by consumer pages */}
     </AuthContext.Provider>
   );
 };
