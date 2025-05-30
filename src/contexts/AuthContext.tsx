@@ -12,7 +12,7 @@ import {
   signInWithPopup,
   signOut as firebaseSignOut,
   sendPasswordResetEmail,
-  updateProfile // To set display name if needed
+  updateProfile // To set display name
 } from 'firebase/auth';
 import { doc, setDoc, serverTimestamp, getDoc } from 'firebase/firestore'; // Firestore imports
 import { useRouter } from 'next/navigation';
@@ -49,15 +49,17 @@ const createUserDocument = async (user: User, additionalData: Record<string, any
   const snapshot = await getDoc(userRef);
 
   if (!snapshot.exists()) { // Only create if document doesn't exist
-    const { email, displayName, uid } = user;
+    const { email } = user;
+    // Use displayName from auth profile if available, otherwise from additionalData, then fallback
+    const displayName = user.displayName || additionalData.displayName || email?.split('@')[0] || 'User';
     const createdAt = serverTimestamp();
     try {
       await setDoc(userRef, {
-        uid,
+        uid: user.uid,
         email,
-        displayName: displayName || additionalData.displayName || email?.split('@')[0] || 'User',
+        displayName,
         createdAt,
-        ...additionalData, // Spread any additional data, like a custom displayName from signup
+        ...additionalData, 
       });
     } catch (error) {
       console.error("Error creating user document in Firestore:", error);
@@ -75,31 +77,33 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
     const unsubscribe = onAuthStateChanged(auth, async (user) => {
       setCurrentUser(user);
       if (user) {
-        // Optionally create user document here too, if it might be missed by signup/loginWithGoogle logic
-        // (e.g., if user was created but app crashed before Firestore doc was made)
-        // However, typically signup/loginWithGoogle is sufficient.
-        // await createUserDocument(user); 
+        // Optionally create/update user document here too, if it might be missed by signup/loginWithGoogle logic
+        // createUserDocument ensures it only creates if new.
+        await createUserDocument(user); 
       }
       setLoading(false);
     });
     return unsubscribe; // Unsubscribe on cleanup
   }, []);
 
-  const handleSignup = async (email: string, pass: string, displayName?: string) => {
+  const handleSignup = async (email: string, pass: string, displayNameInput?: string) => {
     const userCredential = await createUserWithEmailAndPassword(auth, email, pass);
     const user = userCredential.user;
     
-    if (user && displayName) {
+    if (user && displayNameInput) {
       try {
-        await updateProfile(user, { displayName });
+        await updateProfile(user, { displayName: displayNameInput });
+        // Refresh user to get updated profile, or pass displayNameInput to createUserDocument
       } catch (error) {
         console.error("Error updating profile display name:", error);
+        // Continue even if profile update fails, Firestore doc creation is important
       }
     }
     
     // Create user document in Firestore
     if (user) {
-      await createUserDocument(user, displayName ? { displayName } : {});
+      // Pass displayNameInput so it's available if user.displayName hasn't updated yet
+      await createUserDocument(user, displayNameInput ? { displayName: displayNameInput } : {});
     }
 
     router.push('/dashboard/home');
@@ -109,6 +113,9 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
   const handleLogin = async (email: string, pass: string) => {
     const userCredential = await signInWithEmailAndPassword(auth, email, pass);
     // Optionally update last login timestamp in Firestore here if needed
+    if (userCredential.user) {
+        await createUserDocument(userCredential.user); // Ensure user doc exists on login too
+    }
     router.push('/dashboard/home');
     return userCredential;
   };
@@ -119,9 +126,6 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
       const userCredential = await signInWithPopup(auth, provider);
       const user = userCredential.user;
       
-      // Create user document in Firestore if it's a new user
-      // signInWithPopup doesn't directly tell us if it's a new user,
-      // so createUserDocument checks if the doc exists before creating.
       if (user) {
         await createUserDocument(user);
       }

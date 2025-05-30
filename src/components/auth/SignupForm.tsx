@@ -8,9 +8,10 @@ import * as z from 'zod';
 import { useAuth } from '@/contexts/AuthContext';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
+import { Checkbox } from '@/components/ui/checkbox';
 import { Label } from '@/components/ui/label';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
-import { Mail, Lock, UserPlus } from 'lucide-react';
+import { Mail, Lock, User, UserPlus, Info } from 'lucide-react';
 import GoogleIcon from '@/components/icons/GoogleIcon';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
@@ -18,14 +19,13 @@ import { useToast } from '@/hooks/use-toast';
 import { cn } from '@/lib/utils';
 
 const signupSchema = z.object({
+  fullName: z.string().min(2, { message: "Full name must be at least 2 characters." }),
   email: z.string().email({ message: "Invalid email address." }),
   password: z.string().min(6, { message: "Password must be at least 6 characters." }),
-  // confirmPassword: z.string().min(6, { message: "Password must be at least 6 characters." }),
-})
-// .refine((data) => data.password === data.confirmPassword, {
-//   message: "Passwords don't match",
-//   path: ["confirmPassword"], // path of error
-// }); // For now, confirm password is removed for simplicity
+  agreeToTerms: z.boolean().refine((val) => val === true, {
+    message: "You must agree to the Terms of Service and Privacy Policy.",
+  }),
+});
 
 type SignupFormValues = z.infer<typeof signupSchema>;
 
@@ -38,16 +38,17 @@ export default function SignupForm() {
   const form = useForm<SignupFormValues>({
     resolver: zodResolver(signupSchema),
     defaultValues: {
+      fullName: '',
       email: '',
       password: '',
-      // confirmPassword: '',
+      agreeToTerms: false,
     },
   });
 
   const onSubmit = async (data: SignupFormValues) => {
     setIsLoading(true);
     try {
-      await signup(data.email, data.password);
+      await signup(data.email, data.password, data.fullName);
       router.push('/'); 
     } catch (error: any) {
       console.error("Signup error:", error);
@@ -82,6 +83,22 @@ export default function SignupForm() {
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
         <FormField
           control={form.control}
+          name="fullName"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel className="sr-only">Full Name</FormLabel>
+              <FormControl>
+                <div className="relative">
+                  <User className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
+                  <Input placeholder="Full Name" {...field} className="pl-10 bg-white text-black" type="text"/>
+                </div>
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
           name="email"
           render={({ field }) => (
             <FormItem>
@@ -112,29 +129,33 @@ export default function SignupForm() {
             </FormItem>
           )}
         />
-        {/* <FormField
+        <FormField
           control={form.control}
-          name="confirmPassword"
+          name="agreeToTerms"
           render={({ field }) => (
-            <FormItem>
-              <FormLabel className="sr-only">Confirm Password</FormLabel>
+            <FormItem className="flex flex-row items-start space-x-3 space-y-0 rounded-md border p-4 shadow-sm bg-card">
               <FormControl>
-                <div className="relative">
-                  <Lock className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
-                  <Input placeholder="Confirm Password" {...field} className="pl-10" type="password"/>
-                </div>
+                <Checkbox
+                  checked={field.value}
+                  onCheckedChange={field.onChange}
+                />
               </FormControl>
-              <FormMessage />
+              <div className="space-y-1 leading-none">
+                <FormLabel className="text-sm">
+                  I agree to the <Link href="/terms" className="underline hover:text-primary">Terms of Service</Link> and <Link href="/privacy" className="underline hover:text-primary">Privacy Policy</Link>.
+                </FormLabel>
+                <FormMessage />
+              </div>
             </FormItem>
           )}
-        /> */}
+        />
         <Button 
           type="submit" 
           className={cn(
             "w-full transition-all duration-200 ease-in-out hover:scale-105",
-            "bg-primary text-primary-foreground hover:bg-primary/90" // Consistent primary button styling
+            "bg-primary text-primary-foreground hover:bg-primary/90"
             )} 
-          disabled={isLoading}
+          disabled={isLoading || !form.watch("agreeToTerms")}
         >
           {isLoading ? 'Creating account...' : <><UserPlus className="mr-2 h-4 w-4" /> Create Account</>}
         </Button>
