@@ -17,8 +17,8 @@ const practiceCategories = [
     title: "Decision Making",
     description: "Test your skills in making sound decisions and judgements using complex information.",
     link: "/dashboard/practice/exams", // Links to the exam listing page
-    imageUrl: "https://placehold.co/600x400.png",
-    aiHint: "decision analysis",
+    imageUrl: "https://firebasestudio.ai/_next/image?url=https%3A%2F%2Fcdn.projectdream.io%2F031e8030-32a8-4361-9938-62391964442f.png&w=1200&q=75",
+    aiHint: "decision illustration",
     icon: <GitFork className="h-8 w-8 text-primary mb-2" /> // Changed icon
   },
   {
