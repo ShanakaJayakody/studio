@@ -11,7 +11,7 @@ const practiceCategories = [
     link: "/dashboard/practice/verbal-reasoning", // Placeholder, actual page not created yet
     imageUrl: "https://ik.imagekit.io/mwp/MWP%20Platform%20Design%20Images/VR_banner?updatedAt=1748734181639",
     aiHint: "verbal reasoning",
-    icon: <BookOpenText className="h-8 w-8 text-primary mb-2" /> // Changed icon
+    icon: <BookOpenText className="h-8 w-8 text-primary mb-2" />
   },
   {
     title: "Decision Making",
@@ -19,7 +19,7 @@ const practiceCategories = [
     link: "/dashboard/practice/exams", // Links to the exam listing page
     imageUrl: "https://ik.imagekit.io/mwp/MWP%20Platform%20Design%20Images/DM_banner?updatedAt=1748656231598",
     aiHint: "decision making",
-    icon: <GitFork className="h-8 w-8 text-primary mb-2" /> // Changed icon
+    icon: <GitFork className="h-8 w-8 text-primary mb-2" />
   },
   {
     title: "Quantitative Reasoning",
@@ -27,15 +27,15 @@ const practiceCategories = [
     link: "/dashboard/practice/quantitative-reasoning", // Placeholder
     imageUrl: "https://ik.imagekit.io/mwp/MWP%20Platform%20Design%20Images/QR_Banner?updatedAt=1748748450929",
     aiHint: "quantitative reasoning",
-    icon: <Calculator className="h-8 w-8 text-primary mb-2" /> // Changed icon
+    icon: <Calculator className="h-8 w-8 text-primary mb-2" />
   },
   {
     title: "Full Exams",
     description: "Simulate the complete UCAT experience with full-length mock exams.",
     link: "/dashboard/practice/exams",
-    imageUrl: "https://placehold.co/600x400.png",
-    aiHint: "exam hall",
-    icon: <GraduationCap className="h-8 w-8 text-primary mb-2" /> // Kept icon
+    imageUrl: "https://ik.imagekit.io/mwp/MWP%20Platform%20Design%20Images/Exams_Banner",
+    aiHint: "exam preparation",
+    icon: <GraduationCap className="h-8 w-8 text-primary mb-2" />
   },
 ];
 
