@@ -9,24 +9,24 @@ const practiceCategories = [
     title: "Verbal Reasoning",
     description: "Assess your ability to critically evaluate written information.",
     link: "/dashboard/practice/verbal-reasoning", // Placeholder, actual page not created yet
-    imageUrl: "https://placehold.co/600x400.png",
-    aiHint: "abstract reasoning",
+    imageUrl: "https://ik.imagekit.io/mwp/MWP%20Platform%20Design%20Images/VR_banner?updatedAt=1748734181639",
+    aiHint: "verbal reasoning",
     icon: <BookOpenText className="h-8 w-8 text-primary mb-2" /> // Changed icon
   },
   {
     title: "Decision Making",
     description: "Test your skills in making sound decisions and judgements using complex information.",
     link: "/dashboard/practice/exams", // Links to the exam listing page
-    imageUrl: "https://firebasestudio.ai/_next/image?url=https%3A%2F%2Fcdn.projectdream.io%2F031e8030-32a8-4361-9938-62391964442f.png&w=1200&q=75",
-    aiHint: "decision illustration",
+    imageUrl: "https://ik.imagekit.io/mwp/MWP%20Platform%20Design%20Images/DM_banner?updatedAt=1748656231598",
+    aiHint: "decision making",
     icon: <GitFork className="h-8 w-8 text-primary mb-2" /> // Changed icon
   },
   {
     title: "Quantitative Reasoning",
     description: "Evaluate your capacity to solve numerical problems.",
     link: "/dashboard/practice/quantitative-reasoning", // Placeholder
-    imageUrl: "https://placehold.co/600x400.png",
-    aiHint: "data charts",
+    imageUrl: "https://ik.imagekit.io/mwp/MWP%20Platform%20Design%20Images/QR_Banner?updatedAt=1748748450929",
+    aiHint: "quantitative reasoning",
     icon: <Calculator className="h-8 w-8 text-primary mb-2" /> // Changed icon
   },
   {
